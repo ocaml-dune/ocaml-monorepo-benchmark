@@ -1,0 +1,9 @@
+[submodule "data/repos/opam-repository"]
+	path = data/repos/opam-repository
+	url = https://github.com/ocaml/opam-repository.git
+[submodule "data/repos/opam-overlays"]
+	path = data/repos/opam-overlays
+	url = https://github.com/dune-universe/opam-overlays.git
+[submodule "vendored/switch-builder"]
+	path = vendored/switch-builder
+	url = https://github.com/emillon/switch-builder.git
