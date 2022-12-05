@@ -1,3 +1,9 @@
 (executable
- (name how_many_packages_build_with_dune)
+ (name package_stats)
+ (modules Package_stats)
+ (libraries helpers switch-builder))
+
+(executable
+ (name dependency_closure)
+ (modules Dependency_closure)
  (libraries helpers switch-builder))

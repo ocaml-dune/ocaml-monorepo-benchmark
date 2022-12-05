@@ -1,7 +1,12 @@
-how_many_packages_build_with_dune:
-	dune exec bin/how_many_packages_build_with_dune.exe
+package_stats:
+	dune exec --display=quiet bin/package_stats.exe
+
+dependency_closure:
+	mkdir -p dist
+	dune exec --display=quiet bin/dependency_closure.exe dist/out.opam
 
 clean:
 	dune clean
+	rm -rf dist
 
-.PHONY: how_many_packages_build_with_dune clean
+.PHONY: package_stats dependency_closure clean
