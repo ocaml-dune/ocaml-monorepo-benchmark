@@ -73,7 +73,9 @@ let () =
                    OpamPackage.Name.of_string "base-domains";
                    OpamPackage.Name.of_string "base-nnp";
                    OpamPackage.Name.of_string "winsvc";
+                   OpamPackage.Name.of_string "ocamlog";
                    OpamPackage.Name.of_string "nlfork";
+                   OpamPackage.Name.of_string "ocp-indent";
                  ];
                exclude_package_prefix "ocaml-option-";
                exclude_package_prefix "ocaml-options-";
