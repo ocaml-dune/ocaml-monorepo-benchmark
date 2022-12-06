@@ -43,6 +43,11 @@ let shrink_fixpoint ~assumed_deps repo =
     ~f:(shrink_step ~assumed_deps repo)
 
 let () =
+  let output_path, arch =
+    if Array.length Sys.argv < 3 then failwith "missing output file"
+    else (Array.get Sys.argv 1, Array.get Sys.argv 2)
+  in
+
   let repo = Helpers.cached_repo_with_overlay () in
   let packages = Repository.packages repo in
   let latest =
@@ -83,7 +88,11 @@ let () =
         latest)
     |> OpamPackage.Set.filter (fun package ->
            let opam = Repository.read_opam repo package in
-           Helpers.depends_on_dune opam || Helpers.has_no_build_commands opam)
+           let builds_with_dune =
+             Helpers.depends_on_dune opam || Helpers.has_no_build_commands opam
+           in
+           let available = Helpers.is_available opam ~arch in
+           builds_with_dune && available)
   in
   print_endline
     (Printf.sprintf "Starting with set of %d packages..."
@@ -105,10 +114,6 @@ let () =
   let shrunk = shrink_fixpoint ~assumed_deps repo latest_filtered in
   print_endline
     (Printf.sprintf "final package count: %d" (OpamPackage.Set.cardinal shrunk));
-  let output_path =
-    if Array.length Sys.argv < 2 then failwith "missing output file"
-    else Array.get Sys.argv 1
-  in
   let opam_file = Helpers.pkg_set_to_opam_file shrunk in
   Helpers.write_opam_file opam_file output_path;
   print_endline (Printf.sprintf "Written opam file to: %s" output_path)

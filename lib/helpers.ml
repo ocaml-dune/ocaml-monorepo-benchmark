@@ -24,6 +24,9 @@ let has_no_build_commands opam =
 
 let mkenv package =
   Env.common
+  |> Env.extend "os" (OpamVariable.S "linux")
+  |> Env.extend "os-version" (OpamVariable.S "22.04")
+  |> Env.extend "os-distribution" (OpamVariable.S "ubuntu")
   |> Env.extend "ocaml-system:version" (OpamVariable.S "4.14.0")
   |> Env.extend "ocaml-base-compiler:version" (OpamVariable.S "4.14.0")
   |> Env.extend "ocaml-variants:version" (OpamVariable.S "4.14.0")
@@ -153,3 +156,9 @@ let write_opam_file opam path =
     Unix.write_substring f opam_file_string 0 (String.length opam_file_string)
   in
   Unix.close f
+
+let is_available opam ~arch =
+  let package = OpamFile.OPAM.package opam in
+  let available = OpamFile.OPAM.available opam in
+  let env = mkenv package |> Env.extend "arch" (OpamVariable.S arch) in
+  OpamFilter.eval_to_bool env available

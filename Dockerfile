@@ -19,4 +19,4 @@ WORKDIR pkg
 COPY --chown=user:users dist/out.opam ./pkg.opam
 
 RUN opam monorepo lock
-RUN opam monorepo pull
+RUN opam monorepo pull || opam monorepo pull || opam monorepo pull
