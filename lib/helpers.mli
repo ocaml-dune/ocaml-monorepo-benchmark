@@ -4,7 +4,6 @@ val cached_repo_with_overlay : unit -> Repository.t
 val depends_on_dune : OpamFile.OPAM.t -> bool
 val has_no_build_commands : OpamFile.OPAM.t -> bool
 val mkenv : OpamPackage.t -> OpamFilter.env
-val shuffle : 'a list -> 'a list
 
 val find_conflict :
   OpamPackage.t list -> repo:Repository.t -> OpamPackage.t option

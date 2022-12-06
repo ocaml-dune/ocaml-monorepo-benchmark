@@ -31,12 +31,6 @@ let mkenv package =
        (OpamVariable.S
           (OpamPackage.version package |> OpamPackage.Version.to_string))
 
-let shuffle l =
-  l
-  |> List.map (fun x -> (Random.bits (), x))
-  |> List.sort (fun (a, _) (b, _) -> Int.compare a b)
-  |> List.map snd
-
 let check_conflict opam ~packages_by_name =
   let package = OpamFile.OPAM.package opam in
   let env = mkenv package in
@@ -64,33 +58,38 @@ let find_conflict packages ~repo =
     |> List.map (fun pkg -> (OpamPackage.name pkg, pkg))
     |> OpamPackage.Name.Map.of_list
   in
-  List.find_map
+  List.find_opt
     (fun package ->
       let opam = Repository.read_opam repo package in
-      check_conflict opam ~packages_by_name)
+      check_conflict opam ~packages_by_name |> Option.is_some)
     packages
 
 let package_incompatible opam ~packages_by_name ~assumed_deps =
   let package = OpamFile.OPAM.package opam in
-  let env = mkenv package in
-  let deps = OpamFile.OPAM.depends opam |> OpamFilter.filter_formula env in
-  let res =
-    Eval.m
-      (fun (name, version_formula) ->
-        if OpamPackage.Name.Set.mem name assumed_deps then Ok ()
-        else
-          match OpamPackage.Name.Map.find_opt name packages_by_name with
-          | None -> Error (`Missing (name, version_formula))
-          | Some dep ->
-              let dep_version = OpamPackage.version dep in
-              let has_compatible_dep =
-                OpamFormula.check_version_formula version_formula dep_version
-              in
-              if has_compatible_dep then Ok ()
-              else Error (`Incompatible_version (name, version_formula)))
-      deps
-  in
-  match res with Ok () -> None | Error e -> Some e
+  if
+    OpamPackage.name package |> OpamPackage.Name.to_string
+    |> String.equal "ocaml"
+  then None
+  else
+    let env = mkenv package in
+    let deps = OpamFile.OPAM.depends opam |> OpamFilter.filter_formula env in
+    let res =
+      Eval.m
+        (fun (name, version_formula) ->
+          if OpamPackage.Name.Set.mem name assumed_deps then Ok ()
+          else
+            match OpamPackage.Name.Map.find_opt name packages_by_name with
+            | None -> Error (`Missing (name, version_formula))
+            | Some dep ->
+                let dep_version = OpamPackage.version dep in
+                let has_compatible_dep =
+                  OpamFormula.check_version_formula version_formula dep_version
+                in
+                if has_compatible_dep then Ok ()
+                else Error (`Incompatible_version (name, version_formula)))
+        deps
+    in
+    match res with Ok () -> None | Error e -> Some e
 
 type unmep_dependencies = {
   had_missing_deps : (OpamPackage.t * OpamPackage.Name.t) list;
