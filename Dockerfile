@@ -19,7 +19,11 @@ WORKDIR pkg
 COPY --chown=user:users dist/out.opam ./pkg.opam
 
 RUN opam monorepo lock
+
+# Running `opam monorepo pull` with a large package set is very likely to fail on at least
+# one package in a non-deterministic manner. Repeating it several times reduces the chance
+# that all attempts fail.
 RUN opam monorepo pull || opam monorepo pull || opam monorepo pull
 
-#COPY --chown=user:users dist/dune .
-#COPY --chown=user:users bench-proj/* .
+COPY --chown=user:users bench-proj/* .
+COPY --chown=user:users dist/dune .
