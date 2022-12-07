@@ -14,4 +14,6 @@
   (depends
     (dune (>= 3.5.0))
     ocamlgraph
-    opam-repository))
+    opam-repository
+    sexplib
+    ppx_sexp_conv))

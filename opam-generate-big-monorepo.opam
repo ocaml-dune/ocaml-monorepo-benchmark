@@ -9,6 +9,8 @@ depends: [
   "dune" {>= "3.5" & >= "3.5.0"}
   "ocamlgraph"
   "opam-repository"
+  "sexplib"
+  "ppx_sexp_conv"
   "odoc" {with-doc}
 ]
 build: [

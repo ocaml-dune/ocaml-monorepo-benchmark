@@ -147,6 +147,10 @@ let pkg_set_to_opam_file pkg_set =
   OpamFile.OPAM.empty
   |> OpamFile.OPAM.with_depends (pkg_set_to_filtered_formula pkg_set)
 
+let packages_to_opam_file_string packages =
+  pkg_set_to_opam_file (OpamPackage.Set.of_list packages)
+  |> OpamFile.OPAM.write_to_string
+
 let write_string_file string ~path =
   let f =
     Unix.openfile path [ Unix.O_RDWR; Unix.O_TRUNC; Unix.O_CREAT ] 0o666
@@ -163,3 +167,25 @@ let is_available opam ~arch =
   let available = OpamFile.OPAM.available opam in
   let env = mkenv package |> Env.extend "arch" (OpamVariable.S arch) in
   OpamFilter.eval_to_bool env available
+
+module Packages = struct
+  open Sexplib.Std
+  module Sexp = Sexplib.Sexp
+
+  module Package = struct
+    type t = OpamPackage.t
+
+    let t_of_sexp = function
+      | Sexp.Atom atom -> OpamPackage.of_string atom
+      | other ->
+          failwith (Printf.sprintf "failed to parse: %s" (Sexp.to_string other))
+  end
+
+  type t = Package.t list [@@deriving of_sexp]
+
+  let to_string_pretty t =
+    Printf.sprintf "(\n %s\n)"
+      (List.map OpamPackage.to_string t |> String.concat "\n ")
+
+  let of_string s = Sexp.of_string s |> t_of_sexp
+end

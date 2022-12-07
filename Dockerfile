@@ -1,6 +1,6 @@
 FROM ubuntu
 
-RUN apt-get update -y && apt-get install -y build-essential pkg-config opam
+RUN apt-get update -y && apt-get install -y build-essential pkg-config opam neovim
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
 USER user
@@ -21,8 +21,5 @@ COPY --chown=user:users dist/out.opam ./pkg.opam
 RUN opam monorepo lock
 RUN opam monorepo pull || opam monorepo pull || opam monorepo pull
 
-USER root
-RUN apt-get install -y neovim
-USER user
-COPY --chown=user:users dist/dune .
-COPY --chown=user:users bench-proj/* .
+#COPY --chown=user:users dist/dune .
+#COPY --chown=user:users bench-proj/* .
