@@ -115,5 +115,12 @@ let () =
   print_endline
     (Printf.sprintf "final package count: %d" (OpamPackage.Set.cardinal shrunk));
   let opam_file = Helpers.pkg_set_to_opam_file shrunk in
-  Helpers.write_opam_file opam_file output_path;
+  Helpers.write_opam_file opam_file ~path:output_path;
+  let dune_string =
+    Printf.sprintf "(executable\n (name dummy)\n (libraries %s))"
+      (OpamPackage.Set.elements shrunk
+      |> List.map (fun p -> OpamPackage.name p |> OpamPackage.Name.to_string)
+      |> String.concat " ")
+  in
+  Helpers.write_string_file dune_string ~path:"dist/dune";
   print_endline (Printf.sprintf "Written opam file to: %s" output_path)

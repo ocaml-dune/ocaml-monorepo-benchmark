@@ -21,4 +21,5 @@ val remove_unmet_dependencies :
   OpamPackage.Set.t * unmep_dependencies
 
 val pkg_set_to_opam_file : OpamPackage.Set.t -> OpamFile.OPAM.t
-val write_opam_file : OpamFile.OPAM.t -> string -> unit
+val write_opam_file : OpamFile.OPAM.t -> path:string -> unit
+val write_string_file : string -> path:string -> unit

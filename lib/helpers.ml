@@ -147,15 +147,16 @@ let pkg_set_to_opam_file pkg_set =
   OpamFile.OPAM.empty
   |> OpamFile.OPAM.with_depends (pkg_set_to_filtered_formula pkg_set)
 
-let write_opam_file opam path =
-  let opam_file_string = OpamFile.OPAM.write_to_string opam in
+let write_string_file string ~path =
   let f =
     Unix.openfile path [ Unix.O_RDWR; Unix.O_TRUNC; Unix.O_CREAT ] 0o666
   in
-  let _ =
-    Unix.write_substring f opam_file_string 0 (String.length opam_file_string)
-  in
+  let _ = Unix.write_substring f string 0 (String.length string) in
   Unix.close f
+
+let write_opam_file opam ~path =
+  let opam_file_string = OpamFile.OPAM.write_to_string opam in
+  write_string_file opam_file_string ~path
 
 let is_available opam ~arch =
   let package = OpamFile.OPAM.package opam in
