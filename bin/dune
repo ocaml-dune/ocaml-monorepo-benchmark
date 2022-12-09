@@ -12,8 +12,3 @@
  (name opam_of_sexp)
  (modules Opam_of_sexp)
  (libraries helpers switch-builder))
-
-(executable
- (name dune_of_sexp)
- (modules Dune_of_sexp)
- (libraries helpers switch-builder))

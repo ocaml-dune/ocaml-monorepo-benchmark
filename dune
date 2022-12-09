@@ -1,1 +1,1 @@
-(dirs bin lib vendored)
+(dirs bin lib vendored bench-proj)

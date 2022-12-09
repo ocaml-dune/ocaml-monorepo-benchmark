@@ -1,3 +1,5 @@
+all: dist/out.opam
+
 package_stats:
 	dune exec --display=quiet bin/package_stats.exe
 

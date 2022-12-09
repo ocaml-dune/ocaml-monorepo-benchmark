@@ -42,7 +42,6 @@ let () =
     if Array.length Sys.argv < 2 then failwith "missing arch"
     else Array.get Sys.argv 1
   in
-
   let repo = Helpers.cached_repo_with_overlay () in
   let packages = Repository.packages repo in
   let latest =
@@ -106,6 +105,18 @@ let () =
            "ocaml-base-compiler";
            "ocaml-config";
            "ocaml-options-vanilla";
+           "conf-pkg-config";
+           "conf-gcc";
+           "conf-libvorbis";
+           "conf-gmp";
+           "conf-zstd";
+           "conf-zlib";
+           "conf-libcurl";
+           "conf-tidy";
+           "conf-libtheora";
+           "conf-sqlite3";
+           "conf-libssl";
+           "conf-alsa";
          ])
   in
   let shrunk = shrink_fixpoint ~assumed_deps repo latest_filtered in

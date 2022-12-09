@@ -1,0 +1,11 @@
+(executable
+ (name list_duniverse_libraries)
+ (modules List_duniverse_libraries)
+ (libraries sexplib re)
+ (preprocess (pps ppx_sexp_conv)))
+
+(executable
+ (name dune_of_sexp)
+ (modules Dune_of_sexp)
+ (libraries sexplib)
+ (preprocess (pps ppx_sexp_conv)))
