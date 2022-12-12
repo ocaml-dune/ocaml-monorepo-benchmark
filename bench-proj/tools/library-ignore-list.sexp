@@ -1,4 +1,24 @@
 (
  spotlib.curl
  processor.apple_ioreg
+ processor.amd64
+ mm.sdl
+ mm.pulseaudio
+ mm.ao
+ mm.theora
+ mm.mad
+ edn.cconv
+ logs-syslog.mirage.tls
+ logs-syslog.mirage
+ logs-syslog.lwt.tls
+ logs-syslog.lwt
+ js_of_ocaml-lwt.graphics
+ codept.ocamlbuild
+ camlimages.lablgtk2
+ camlimages.graphics
+ timedesc-tzlocal.none
+ timedesc-tzlocal.utc
+ timedesc-tzlocal-js
+ timedesc-tzdb.none
+ ocaml-lua
 )
