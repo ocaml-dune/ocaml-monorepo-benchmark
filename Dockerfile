@@ -24,6 +24,7 @@ RUN opam repository add dune-universe git+https://github.com/dune-universe/opam-
 
 WORKDIR /home/user
 RUN git clone https://github.com/tarides/opam-monorepo.git
+RUN cd opam-monorepo && git checkout d15938759ecc21f4a8fb506b2e86707c003bae05
 RUN opam install -y ./opam-monorepo/opam-monorepo.opam
 RUN opam install -y ppx_sexp_conv
 
