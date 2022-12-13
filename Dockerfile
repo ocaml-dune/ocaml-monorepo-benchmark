@@ -6,15 +6,14 @@ RUN apt-get update -y && apt-get install -y \
   pkg-config \
   opam \
   neovim \
-  libipc-system-simple-perl \
-  libstring-shellquote-perl \
   curl \
   sudo \
-  libasound2-dev \
-  nodejs \
   z3 \
-  libssl-dev \
   autoconf \
+  libipc-system-simple-perl \
+  libstring-shellquote-perl \
+  libasound2-dev \
+  libssl-dev \
   picosat \
   libmp3lame-dev \
   libkrb5-dev \
@@ -24,15 +23,14 @@ RUN apt-get update -y && apt-get install -y \
   libfdk-aac-dev \
   libsqlite3-dev \
   liblmdb-dev \
-  npm \
   libpapi-dev \
   zlib1g-dev \
-  gperf \
   libgoogle-perftools-dev \
   libjemalloc-dev \
   librdkafka-dev \
   libgmp-dev \
   liblo-dev \
+  libpng-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -110,3 +108,4 @@ RUN opam switch bench
 RUN mkdir -p patches
 COPY --chown=user:users patches/* ./patches/
 RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); patch -p1 -d duniverse/$p < $f; done'
+

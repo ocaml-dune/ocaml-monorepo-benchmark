@@ -3,4 +3,7 @@ all: dummy
 dummy:
 	dune exec ./dummy.exe
 
-.PHONY: dummy
+clean:
+	dune clean
+
+.PHONY: dummy clean
