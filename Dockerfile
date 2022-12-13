@@ -77,6 +77,13 @@ RUN opam install -y \
 # required for generating the remainder of the project
 ADD --chown=user:users bench-proj ./
 
+# Some packages assume they are being built inside a git repo
+RUN  git config --global user.email "you@example.com" && \
+ git config --global user.name "Your Name" && \
+ git init && \
+ git add . && \
+ git commit -m 'Initial commit'
+
 # Initialize the top-level dune file to ignore duniverse, so that the tools can
 # be built and run without needing to build all of duniverse
 RUN echo '(dirs tools vendored)' > dune
@@ -97,9 +104,6 @@ RUN . ~/.profile && \
   dune exec ./tools/dune_of_sexp.exe < libraries.sexp > dune.new
 RUN mv dune.new dune
 
-# Set up git so we can use git to create patches for packages
-RUN git config --global user.email "you@example.com" && \
- git config --global user.name "Your Name"
 
 # Change to the benchmarking switch to run the benchmark
 RUN opam switch bench
@@ -109,3 +113,4 @@ RUN mkdir -p patches
 COPY --chown=user:users patches/* ./patches/
 RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); patch -p1 -d duniverse/$p < $f; done'
 
+RUN . ~/.profile && make

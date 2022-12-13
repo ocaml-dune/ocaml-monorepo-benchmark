@@ -29,13 +29,13 @@ downloaded into the "duniverse" directory.
 
 To do manual experiments, run:
 ```
-make dependency_closure_sexp
+make dist/packages.sexp
 ```
 ...which will generate dist/packages.sexp containing a list of packages. Modify
 this file so it contains the packages you want present in the eventual .opam
 file, then run:
 ```
-make dist/{out.opam,dune}
-docker build . --tag opam-generate-big-monorepo && docker run --rm -it opam-generate-big-monorepo
+make dist/hello.opam
+docker build . --tag opam-generate-big-monorepo && docker run --rm -it opam-generate-big-monorepo bash --login
 ```
 ...to rebuild the docker image with the desired packages.

@@ -1,9 +1,9 @@
-all: dummy
+all: hello
 
-dummy:
-	dune exec ./dummy.exe
+hello:
+	dune exec ./hello.exe
 
 clean:
 	dune clean
 
-.PHONY: dummy clean
+.PHONY: all hello clean

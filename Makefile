@@ -1,4 +1,4 @@
-all: dist/out.opam
+all: dist/hello.opam
 
 package_stats:
 	dune exec --display=quiet bin/package_stats.exe
@@ -11,7 +11,7 @@ dist/packages.sexp:
 	mkdir -p dist
 	dune exec --display=quiet bin/dependency_closure_sexp.exe $(shell uname -m) > $@
 
-dist/out.opam: dist/packages.sexp
+dist/hello.opam: dist/packages.sexp
 	dune exec --display=quiet bin/opam_of_sexp.exe < $< > $@
 
 dist/dune: dist/packages.sexp

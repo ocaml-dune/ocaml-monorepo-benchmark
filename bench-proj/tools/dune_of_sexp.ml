@@ -12,7 +12,7 @@ let () =
     In_channel.input_all In_channel.stdin |> Libraries.of_string
   in
   let dune_string =
-    Printf.sprintf "(executable\n (name dummy)\n (libraries \n  %s\n))"
+    Printf.sprintf "(executable\n (name hello)\n (libraries \n  %s\n))"
       (String.concat "\n  " libraries)
   in
   print_endline dune_string
