@@ -1,5 +1,4 @@
 (
- spotlib.curl
  processor.apple_ioreg
  processor.amd64
  mm.sdl
@@ -46,9 +45,6 @@
  opentelemetry-lwt
  opentelemetry-client-ocurl
  opentelemetry-cohttp-lwt
- csvtool
- csv-lwt
- csv
  pyre-ast
  interval_crlibm
  lwd
@@ -156,5 +152,4 @@
  caqti-lwt
  caqti-dynload
  caqti-driver-sqlite3
- extlib
 )

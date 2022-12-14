@@ -31,6 +31,7 @@ RUN apt-get update -y && apt-get install -y \
   libgmp-dev \
   liblo-dev \
   libpng-dev \
+  libcurl4-gnutls-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -46,8 +47,7 @@ RUN opam repository add dune-universe git+https://github.com/dune-universe/opam-
 WORKDIR /home/user
 RUN git clone https://github.com/tarides/opam-monorepo.git
 RUN cd opam-monorepo && git checkout d15938759ecc21f4a8fb506b2e86707c003bae05
-RUN opam install -y ./opam-monorepo/opam-monorepo.opam
-RUN opam install -y ppx_sexp_conv
+RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv
 
 RUN mkdir src
 WORKDIR src
@@ -71,7 +71,8 @@ RUN opam install -y \
  camlp5 \
  tiny_json \
  why3 \
- coq
+ coq \
+ ocurl
 
 # Copy the benchmarking project into the docker image, including the tools
 # required for generating the remainder of the project
@@ -81,7 +82,7 @@ ADD --chown=user:users bench-proj ./
 RUN  git config --global user.email "you@example.com" && \
  git config --global user.name "Your Name" && \
  git init && \
- git add . && \
+ git add dune && \
  git commit -m 'Initial commit'
 
 # Initialize the top-level dune file to ignore duniverse, so that the tools can
@@ -113,4 +114,4 @@ RUN mkdir -p patches
 COPY --chown=user:users patches/* ./patches/
 RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); patch -p1 -d duniverse/$p < $f; done'
 
-RUN . ~/.profile && make
+#RUN . ~/.profile && make
