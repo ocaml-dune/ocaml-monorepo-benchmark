@@ -12,7 +12,6 @@
  logs-syslog.lwt.tls
  logs-syslog.lwt
  js_of_ocaml-lwt.graphics
- codept.ocamlbuild
  camlimages.lablgtk2
  camlimages.graphics
  timedesc-tzlocal.none
@@ -35,11 +34,8 @@
  crlibm
  qbf
  qbf.quantor
- papi
  papi.top
- zelus
  zelus-gtk
- zelus.zlcompilerlibs
  opentelemetry
  opentelemetry.atomic
  opentelemetry-lwt

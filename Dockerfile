@@ -74,6 +74,8 @@ RUN opam install -y \
  coq \
  ocurl
 
+RUN opam install -y ocamlbuild
+
 # Copy the benchmarking project into the docker image, including the tools
 # required for generating the remainder of the project
 ADD --chown=user:users bench-proj ./
@@ -105,7 +107,6 @@ RUN . ~/.profile && \
   dune exec ./tools/dune_of_sexp.exe < libraries.sexp > dune.new
 RUN mv dune.new dune
 
-
 # Change to the benchmarking switch to run the benchmark
 RUN opam switch bench
 
@@ -114,4 +115,8 @@ RUN mkdir -p patches
 COPY --chown=user:users patches/* ./patches/
 RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); patch -p1 -d duniverse/$p < $f; done'
 
-#RUN . ~/.profile && make
+RUN cd duniverse/zelus && ./configure
+
+RUN cd duniverse/ocaml-lua/src/lua_c && tar xf lua-5.1.5.tar.gz && cd lua-5.1.5 && patch -p1 -i ../lua.patch && cd .. && mv lua-5.1.5 lua515
+
+RUN . ~/.profile && make
