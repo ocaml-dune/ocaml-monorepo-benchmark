@@ -22,6 +22,9 @@ let depends_on_dune opam =
 let has_no_build_commands opam =
   match OpamFile.OPAM.build opam with [] -> true | _ -> false
 
+let has_depexts opam =
+  match OpamFile.OPAM.depexts opam with [] -> false | _ -> true
+
 let mkenv package =
   Env.common
   |> Env.extend "os" (OpamVariable.S "linux")

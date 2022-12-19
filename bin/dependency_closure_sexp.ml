@@ -78,6 +78,7 @@ let () =
                    OpamPackage.Name.of_string "scfg";
                    OpamPackage.Name.of_string "yojson-bench";
                    OpamPackage.Name.of_string "xml-light";
+                   OpamPackage.Name.of_string "sedlex";
                  ];
                exclude_package_prefix "ocaml-option-";
                exclude_package_prefix "ocaml-options-";
@@ -89,7 +90,17 @@ let () =
              Helpers.depends_on_dune opam || Helpers.has_no_build_commands opam
            in
            let available = Helpers.is_available opam ~arch in
-           builds_with_dune && available)
+           let no_depexts = not (Helpers.has_depexts opam) in
+           if not builds_with_dune then
+             Printf.eprintf "Removed %s (doesn't build with dune)\n"
+               (OpamPackage.to_string package);
+           if not available then
+             Printf.eprintf "Removed %s (not available on this system)\n"
+               (OpamPackage.to_string package);
+           if not no_depexts then
+             Printf.eprintf "Removed %s (has depexts)\n"
+               (OpamPackage.to_string package);
+           builds_with_dune && available && no_depexts)
   in
   Printf.eprintf "Starting with set of %d packages...\n"
     (OpamPackage.Set.cardinal latest_filtered);
@@ -105,18 +116,7 @@ let () =
            "ocaml-base-compiler";
            "ocaml-config";
            "ocaml-options-vanilla";
-           "conf-pkg-config";
-           "conf-gcc";
-           "conf-libvorbis";
-           "conf-gmp";
-           "conf-zstd";
-           "conf-zlib";
-           "conf-libcurl";
-           "conf-tidy";
-           "conf-libtheora";
-           "conf-sqlite3";
-           "conf-libssl";
-           "conf-alsa";
+           "core_unix";
          ])
   in
   let shrunk = shrink_fixpoint ~assumed_deps repo latest_filtered in

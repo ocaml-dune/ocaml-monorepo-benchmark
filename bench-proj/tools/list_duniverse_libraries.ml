@@ -11,7 +11,12 @@ module String = struct
       Some (String.sub s pos len)
     else None
 
-  module Set = Set.Make (String)
+  module Set = struct
+    include Set.Make (String)
+
+    let t_of_sexp sexp = list_of_sexp string_of_sexp sexp |> of_list
+    let sexp_of_t t = elements t |> sexp_of_list sexp_of_string
+  end
 end
 
 let dir_contents dir =
@@ -57,25 +62,53 @@ let resolve_dune_file ~dir_path ~rel_dune_file_path ~run_dune_ml =
       (String.concat " " [ run_dune_ml; dir_path; rel_dune_file_path ])
   else contents
 
-module Package = struct
-  type t = { name : string; path : string; libraries : string list }
+module Library = struct
+  type t = { public_name : string; simple_deps : String.Set.t }
   [@@deriving sexp]
+end
+
+module Package = struct
+  type t = { name : string; path : string; libraries : Library.t list }
+  [@@deriving sexp]
+
+  let library_public_names { libraries; _ } =
+    List.map (fun (library : Library.t) -> library.public_name) libraries
 
   let _to_string_hum t = Sexp.to_string_hum (sexp_of_t t)
 end
 
-let parse_dune_string_all_public_library_names s =
+let parse_dune_string_all_public_libraries s =
   let sexps = Sexp.of_string_many s in
   List.filter_map
     (fun sexp ->
       match sexp with
       | Sexp.List (Sexp.Atom "library" :: fields) ->
-          List.find_map
-            (function
-              | Sexp.List [ Sexp.Atom "public_name"; Sexp.Atom public_name ] ->
-                  Some public_name
-              | _ -> None)
-            fields
+          let public_name =
+            List.find_map
+              (function
+                | Sexp.List [ Sexp.Atom "public_name"; Sexp.Atom public_name ]
+                  ->
+                    Some public_name
+                | _ -> None)
+              fields
+          in
+          Option.map
+            (fun public_name ->
+              let simple_deps =
+                List.find_map
+                  (function
+                    | Sexp.List (Sexp.Atom " libraries" :: libraries) ->
+                        Some
+                          (List.filter_map
+                             (function
+                               | Sexp.Atom name -> Some name | _ -> None)
+                             libraries)
+                    | _ -> None)
+                  fields
+                |> Option.value ~default:[] |> String.Set.of_list
+              in
+              { Library.public_name; simple_deps })
+            public_name
       | _ -> None)
     sexps
 
@@ -94,7 +127,7 @@ let ignore_dune_file_by_path =
     List.length matches > 0
 
 let packages_in_dir dir ~run_dune_ml =
-  let all_public_library_names =
+  let all_public_libraries =
     list_dune_files dir
     |> List.filter (Fun.negate ignore_dune_file_by_path)
     |> List.concat_map (fun dune_file_path ->
@@ -106,7 +139,7 @@ let packages_in_dir dir ~run_dune_ml =
              |> Option.value ~default:rel_dune_file_path
            in
            resolve_dune_file ~dir_path:dir ~rel_dune_file_path ~run_dune_ml
-           |> parse_dune_string_all_public_library_names)
+           |> parse_dune_string_all_public_libraries)
   in
   Sys.readdir dir |> Array.to_list
   |> List.filter (fun filename ->
@@ -116,10 +149,10 @@ let packages_in_dir dir ~run_dune_ml =
          let path = dir in
          let libraries =
            List.filter
-             (fun library_name ->
-               is_library_valid_for_package_by_name ~library_name
-                 ~package_name:name)
-             all_public_library_names
+             (fun (library : Library.t) ->
+               is_library_valid_for_package_by_name
+                 ~library_name:library.public_name ~package_name:name)
+             all_public_libraries
          in
          { Package.name; path; libraries })
 
@@ -153,7 +186,7 @@ let () =
                      String.Set.mem package.name package_names)
             in
             List.concat_map
-              (fun (package : Package.t) -> package.libraries)
+              (fun package -> Package.library_public_names package)
               packages)
           duniverse_subdirs
         |> List.filter

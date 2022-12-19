@@ -3,6 +3,7 @@ open Switch_builder
 val cached_repo_with_overlay : unit -> Repository.t
 val depends_on_dune : OpamFile.OPAM.t -> bool
 val has_no_build_commands : OpamFile.OPAM.t -> bool
+val has_depexts : OpamFile.OPAM.t -> bool
 val is_available : OpamFile.OPAM.t -> arch:string -> bool
 val mkenv : OpamPackage.t -> OpamFilter.env
 

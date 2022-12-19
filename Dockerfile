@@ -6,32 +6,8 @@ RUN apt-get update -y && apt-get install -y \
   pkg-config \
   opam \
   neovim \
-  curl \
   sudo \
-  z3 \
   autoconf \
-  libipc-system-simple-perl \
-  libstring-shellquote-perl \
-  libasound2-dev \
-  libssl-dev \
-  picosat \
-  libmp3lame-dev \
-  libkrb5-dev \
-  libtidy-dev \
-  libqrencode-dev \
-  libsybdb5 \
-  libfdk-aac-dev \
-  libsqlite3-dev \
-  liblmdb-dev \
-  libpapi-dev \
-  zlib1g-dev \
-  libgoogle-perftools-dev \
-  libjemalloc-dev \
-  librdkafka-dev \
-  libgmp-dev \
-  liblo-dev \
-  libpng-dev \
-  libcurl4-gnutls-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -40,13 +16,18 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER user
 
 RUN opam init --disable-sandboxing --auto-setup
-RUN opam switch remove default -y
-RUN opam switch create default 4.14.0
+
+# Create a fresh opam environment without all the dependencies of opam-monorepo
+RUN opam switch create bench 4.14.0
+RUN opam install -y dune ocamlbuild
+
+# Create a fresh opam environment for running opam-monorepo
+RUN opam switch create opam-monorepo 4.14.0
 RUN opam repository add dune-universe git+https://github.com/dune-universe/opam-overlays.git
 
 WORKDIR /home/user
 RUN git clone https://github.com/tarides/opam-monorepo.git
-RUN cd opam-monorepo && git checkout d15938759ecc21f4a8fb506b2e86707c003bae05
+RUN cd opam-monorepo && git checkout 5b70c915f30fa3d8eb312fadf978b5f1aa9ab5b3
 RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv
 
 RUN mkdir src
@@ -63,36 +44,20 @@ RUN opam monorepo lock
 # that all attempts fail.
 RUN opam monorepo pull || opam monorepo pull || opam monorepo pull
 
-# Create a fresh opam environment without all the dependencies of opam-monorepo
-# TODO move this earlier
-RUN opam switch create bench 4.14.0
-RUN opam install -y \
- dune \
- camlp5 \
- tiny_json \
- why3 \
- coq \
- ocurl
-
-RUN opam install -y ocamlbuild
-
 # Copy the benchmarking project into the docker image, including the tools
 # required for generating the remainder of the project
 ADD --chown=user:users bench-proj ./
 
 # Some packages assume they are being built inside a git repo
 RUN  git config --global user.email "you@example.com" && \
- git config --global user.name "Your Name" && \
- git init && \
- git add dune && \
- git commit -m 'Initial commit'
+ git config --global user.name "Your Name"
 
 # Initialize the top-level dune file to ignore duniverse, so that the tools can
 # be built and run without needing to build all of duniverse
 RUN echo '(dirs tools vendored)' > dune
 
 # We must be in the default switch to run the tools
-RUN opam switch default
+RUN opam switch opam-monorepo
 
 # Generate a file "libraries.sexp" containing a list of all the libraries which
 # the project will depend on. This is a separate step from generating the dune
@@ -113,10 +78,9 @@ RUN opam switch bench
 # Apply some custom packages to some packages
 RUN mkdir -p patches
 COPY --chown=user:users patches/* ./patches/
-RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); patch -p1 -d duniverse/$p < $f; done'
+RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); echo Applying $p; patch -p1 -d duniverse/$p < $f; done'
 
 RUN cd duniverse/zelus && ./configure
+#RUN cd duniverse/ocaml-lua/src/lua_c && tar xf lua-5.1.5.tar.gz && cd lua-5.1.5 && patch -p1 -i ../lua.patch && cd .. && mv lua-5.1.5 lua515
 
-RUN cd duniverse/ocaml-lua/src/lua_c && tar xf lua-5.1.5.tar.gz && cd lua-5.1.5 && patch -p1 -i ../lua.patch && cd .. && mv lua-5.1.5 lua515
-
-RUN . ~/.profile && make
+RUN . ~/.profile && make || true

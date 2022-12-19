@@ -3,11 +3,7 @@ all: dist/hello.opam
 package_stats:
 	dune exec --display=quiet bin/package_stats.exe
 
-dependency_closure_sexp:
-	mkdir -p dist
-	dune exec --display=quiet bin/dependency_closure_sexp.exe $(shell uname -m) > dist/packages.sexp
-
-dist/packages.sexp:
+dist/packages.sexp: bin/dependency_closure_sexp.ml
 	mkdir -p dist
 	dune exec --display=quiet bin/dependency_closure_sexp.exe $(shell uname -m) > $@
 
@@ -21,4 +17,4 @@ clean:
 	dune clean
 	rm -rf dist
 
-.PHONY: package_stats dependency_closure clean
+.PHONY: package_stats clean

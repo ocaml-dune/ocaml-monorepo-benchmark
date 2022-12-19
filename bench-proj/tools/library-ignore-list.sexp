@@ -148,4 +148,7 @@
  caqti-lwt
  caqti-dynload
  caqti-driver-sqlite3
+ spotlib.curl
+ colibrics
+ zlib
 )
