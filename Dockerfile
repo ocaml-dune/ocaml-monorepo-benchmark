@@ -14,8 +14,10 @@ RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER user
+WORKDIR /home/user
 
-RUN opam init --disable-sandboxing --auto-setup
+ADD --chown=user:users data/repos/opam-repository ./opam-repository
+RUN opam init --disable-sandboxing --auto-setup ./opam-repository
 
 # Create a fresh opam environment without all the dependencies of opam-monorepo
 RUN opam switch create bench 4.14.0
@@ -23,13 +25,16 @@ RUN opam install -y dune ocamlbuild
 
 # Create a fresh opam environment for running opam-monorepo
 RUN opam switch create opam-monorepo 4.14.0
-RUN opam repository add dune-universe git+https://github.com/dune-universe/opam-overlays.git
 
-WORKDIR /home/user
 ADD --chown=user:users custom-overlays ./custom-overlays
+ADD --chown=user:users data/repos/opam-overlays ./dune-duniverse
+RUN rm -rf ./dune-duniverse/.git
 RUN opam repository add custom-overlays ./custom-overlays
+RUN opam repository add dune-universe ./dune-duniverse
 
-RUN opam install -y opam-monorepo ppx_sexp_conv
+RUN git clone https://github.com/tarides/opam-monorepo.git
+RUN cd opam-monorepo && git checkout 0.3.5
+RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv
 
 RUN mkdir src
 WORKDIR src
