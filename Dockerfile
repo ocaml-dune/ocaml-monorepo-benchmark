@@ -26,15 +26,15 @@ RUN opam install -y dune ocamlbuild
 # Create a fresh opam environment for running opam-monorepo
 RUN opam switch create opam-monorepo 4.14.0
 
+RUN git clone https://github.com/tarides/opam-monorepo.git
+RUN cd opam-monorepo && git checkout 0.3.5
+RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv
+
 ADD --chown=user:users custom-overlays ./custom-overlays
 ADD --chown=user:users data/repos/opam-overlays ./dune-duniverse
 RUN rm -rf ./dune-duniverse/.git
 RUN opam repository add custom-overlays ./custom-overlays
 RUN opam repository add dune-universe ./dune-duniverse
-
-RUN git clone https://github.com/tarides/opam-monorepo.git
-RUN cd opam-monorepo && git checkout 0.3.5
-RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv
 
 RUN mkdir src
 WORKDIR src
@@ -64,6 +64,8 @@ RUN echo '(dirs tools vendored)' > dune
 
 # We must be in the default switch to run the tools
 RUN opam switch opam-monorepo
+
+RUN opam install -y re sexplib
 
 # Generate a file "libraries.sexp" containing a list of all the libraries which
 # the project will depend on. This is a separate step from generating the dune
