@@ -49,7 +49,12 @@ let () =
       apply
         (always_latest
         |> override (OpamPackage.of_string "ocaml-config.2")
+        |> override (OpamPackage.of_string "data-encoding.0.6")
+        |> override (OpamPackage.of_string "ringo.0.9")
+        |> override (OpamPackage.of_string "hacl-star.0.4.2+dune")
+        |> override (OpamPackage.of_string "hacl-star-raw.0.4.2+dune")
         |> override (OpamPackage.of_string "ocamlfind.1.8.1+dune")
+        |> override (OpamPackage.of_string "bisect_ppx.2.8.1+fixed")
         |> override (OpamPackage.of_string "libtorch.1.13.0+linux-x86_64")
         |> override (OpamPackage.of_string "libwasmtime.0.22.0+linux-x86_64")
         |> override (OpamPackage.of_string "ocaml.4.14.0")
@@ -87,20 +92,22 @@ let () =
     |> OpamPackage.Set.filter (fun package ->
            let opam = Repository.read_opam repo package in
            let builds_with_dune =
-             Helpers.depends_on_dune opam || Helpers.has_no_build_commands opam
+             Helpers.depends_on_dune opam
+             || Helpers.has_no_build_commands opam
+             || Helpers.has_no_source opam
            in
            let available = Helpers.is_available opam ~arch in
-           let no_depexts = not (Helpers.has_depexts opam) in
+           let _no_depexts = not (Helpers.has_depexts opam) in
            if not builds_with_dune then
              Printf.eprintf "Removed %s (doesn't build with dune)\n"
                (OpamPackage.to_string package);
            if not available then
              Printf.eprintf "Removed %s (not available on this system)\n"
                (OpamPackage.to_string package);
-           if not no_depexts then
+           (*if not no_depexts then
              Printf.eprintf "Removed %s (has depexts)\n"
-               (OpamPackage.to_string package);
-           builds_with_dune && available && no_depexts)
+               (OpamPackage.to_string package); *)
+           builds_with_dune && available)
   in
   Printf.eprintf "Starting with set of %d packages...\n"
     (OpamPackage.Set.cardinal latest_filtered);
@@ -117,6 +124,7 @@ let () =
            "ocaml-config";
            "ocaml-options-vanilla";
            "core_unix";
+           "ocamlbuild";
          ])
   in
   let shrunk = shrink_fixpoint ~assumed_deps repo latest_filtered in

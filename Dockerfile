@@ -26,9 +26,10 @@ RUN opam switch create opam-monorepo 4.14.0
 RUN opam repository add dune-universe git+https://github.com/dune-universe/opam-overlays.git
 
 WORKDIR /home/user
-RUN git clone https://github.com/tarides/opam-monorepo.git
-RUN cd opam-monorepo && git checkout 5b70c915f30fa3d8eb312fadf978b5f1aa9ab5b3
-RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv
+ADD --chown=user:users custom-overlays ./custom-overlays
+RUN opam repository add custom-overlays ./custom-overlays
+
+RUN opam install -y opam-monorepo ppx_sexp_conv
 
 RUN mkdir src
 WORKDIR src
