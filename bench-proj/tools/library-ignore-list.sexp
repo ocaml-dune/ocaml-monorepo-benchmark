@@ -151,4 +151,13 @@
  spotlib.curl
  colibrics
  zlib
+ salsa20-core.xen
+ salsa20-core.freestanding
+ fsevents
+ fsevents-lwt
+ cf-lwt
+ cf
+
+
+
 )

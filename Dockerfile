@@ -50,6 +50,8 @@ RUN opam monorepo lock
 # that all attempts fail.
 RUN opam monorepo pull || opam monorepo pull || opam monorepo pull
 
+RUN opam install -y re sexplib
+
 # Copy the benchmarking project into the docker image, including the tools
 # required for generating the remainder of the project
 ADD --chown=user:users bench-proj ./
@@ -62,10 +64,6 @@ RUN  git config --global user.email "you@example.com" && \
 # be built and run without needing to build all of duniverse
 RUN echo '(dirs tools vendored)' > dune
 
-# We must be in the default switch to run the tools
-RUN opam switch opam-monorepo
-
-RUN opam install -y re sexplib
 
 # Generate a file "libraries.sexp" containing a list of all the libraries which
 # the project will depend on. This is a separate step from generating the dune
@@ -89,6 +87,11 @@ COPY --chown=user:users patches/* ./patches/
 RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); echo Applying $p; patch -p1 -d duniverse/$p < $f; done'
 
 RUN cd duniverse/zelus && ./configure
-#RUN cd duniverse/ocaml-lua/src/lua_c && tar xf lua-5.1.5.tar.gz && cd lua-5.1.5 && patch -p1 -i ../lua.patch && cd .. && mv lua-5.1.5 lua515
+
+RUN rm -rf duniverse/magic-trace/vendor
+
+RUN sudo apt-get install -y \
+  libcurl4-gnutls-dev \
+  ;
 
 RUN . ~/.profile && make || true
