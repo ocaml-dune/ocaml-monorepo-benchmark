@@ -156,23 +156,25 @@ let packages_in_dir dir ~run_dune_ml =
          in
          { Package.name; path; libraries })
 
+let read_list path = read_text_file path |> String.split_on_char '\n'
+
 let read_sexp_list path =
   read_text_file path |> Sexp.of_string |> list_of_sexp string_of_sexp
 
-let read_package_names_from_package_sexp path =
+let read_package_names_from_package_list path =
   read_sexp_list path
   |> List.map (fun s -> String.split_on_char '.' s |> List.hd)
   |> String.Set.of_list
 
 let () =
   match List.map (Array.get Sys.argv) [ 1; 2; 3; 4 ] with
-  | [ duniverse_dir; packages_sexp_path; library_ignore_list_sexp; run_dune_ml ]
+  | [ duniverse_dir; packages_list_path; library_ignore_list_sexp; run_dune_ml ]
     ->
       let duniverse_subdirs =
         dir_contents duniverse_dir |> List.filter Sys.is_directory
       in
       let package_names =
-        read_package_names_from_package_sexp packages_sexp_path
+        read_package_names_from_package_list packages_list_path
       in
       let libraries_to_ignore =
         read_sexp_list library_ignore_list_sexp |> String.Set.of_list

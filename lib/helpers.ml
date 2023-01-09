@@ -194,7 +194,7 @@ module Packages = struct
   type t = Package.t list [@@deriving of_sexp]
 
   let to_string_pretty t =
-    List.map OpamPackage.to_string t |> String.concat "\n "
+    List.map OpamPackage.to_string t |> String.concat "\n"
 
   let of_string s = Sexp.of_string s |> t_of_sexp
 end
