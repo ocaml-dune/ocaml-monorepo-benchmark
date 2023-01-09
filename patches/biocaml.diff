@@ -1,0 +1,14 @@
+diff --git a/lib/lwt/dune b/lib/lwt/dune
+index db51da0..5d8e8cd 100644
+--- a/lib/lwt/dune
++++ b/lib/lwt/dune
+@@ -1,7 +1,7 @@
+ (library
+  (name biocaml_lwt)
+   (public_name biocaml.lwt)
+-  (libraries biocaml.unix core.caml_unix lwt.unix)
++  (libraries biocaml.unix core_kernel.caml_unix lwt.unix)
+   (flags :standard -short-paths -open Core)
+   (preprocess (pps ppx_jane))
+   (optional)
+

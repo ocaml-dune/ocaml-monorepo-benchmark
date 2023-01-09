@@ -52,7 +52,7 @@ post-messages:
     {failure & (arch = "ppc64" | arch = "arm64")}
 dev-repo: "git+https://erratique.ch/repos/uunf.git"
 url {
-  src: "https://erratique.ch/software/uunf/releases/uunf-15.0.0.tbz"
+  src: "https://github.com/gridbugs/uunf/archive/refs/tags/15.0.0+dune-experimental.tar.gz"
   checksum:
-    "sha512=204d923d4e8d910318180c15087fe53d98d8ec0a8d3c3f6c54219e5e09ee5c5bdf57585e5570d895f8d90647c4eeaa45d9e6e75d58edeb9febee053e0dd47fbc"
+    "51c3edfaabedfb753f66732dbbfa75c83f83db0a9c9002ee032ee45be6aa3598e891d4c684af177db44694c04e7f86aacc89a56f3a672eb2c349e8deddc1bbfb"
 }

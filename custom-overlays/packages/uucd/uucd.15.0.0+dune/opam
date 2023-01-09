@@ -34,7 +34,7 @@ depends: [
 build: ["ocaml" "pkg/pkg.ml" "build" "--dev-pkg" "%{dev}%"]
 dev-repo: "git+https://erratique.ch/repos/uucd.git"
 url {
-  src: "https://erratique.ch/software/uucd/releases/uucd-15.0.0.tbz"
+  src: "https://github.com/gridbugs/uucd/archive/refs/tags/15.0.0+dune-experimental.tar.gz"
   checksum:
-    "sha512=022507d380dea2ce5a1a3b2b8f1d18be10454184fd11ddbd1ecbe09d303284b6e1cb59144748ccef4292bb82a469341d81086e1b3024fb9b08ad14b43e12abce"
+    "6d61dcef6a956f54490da81901522f69bda2a88b20b956090545924a216626f0fcde98e7fbf84151907f2c78b5ae2749b45b25cb80646c19d9a3541137662077"
 }

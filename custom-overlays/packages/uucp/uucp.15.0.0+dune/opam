@@ -52,7 +52,7 @@ post-messages:
     {failure & (arch = "ppc64" | arch = "arm64")}
 dev-repo: "git+https://erratique.ch/repos/uucp.git"
 url {
-  src: "https://erratique.ch/software/uucp/releases/uucp-15.0.0.tbz"
+  src: "https://github.com/gridbugs/uucp/archive/refs/tags/15.0.0+dune-experimental.tar.gz"
   checksum:
-    "sha512=ee4acff5666961766321e85e287fb9d5b8d50533319f22bf6f4eceb943242df2d0e0f4e775c4a140f68ca142837938eaa5926e22362215a3365ffe7f8768923b"
+    "9e2cfed27bd0237f42c8e59272b4d5db07c9de3b0f573c7a8fb5208c2d76282e884de76891f2bf695a1a5310ddbf149024deb9065325f538b4cd5db4ba49a3ea"
 }

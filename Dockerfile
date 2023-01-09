@@ -81,6 +81,12 @@ RUN mv dune.new dune
 # Change to the benchmarking switch to run the benchmark
 RUN opam switch bench
 
+RUN sudo apt-get install -y \
+  zlib1g-dev \
+  libcairo2-dev \
+  libcurl4-gnutls-dev \
+  ;
+
 # Apply some custom packages to some packages
 RUN mkdir -p patches
 COPY --chown=user:users patches/* ./patches/
@@ -90,8 +96,8 @@ RUN cd duniverse/zelus && ./configure
 
 RUN rm -rf duniverse/magic-trace/vendor
 
-RUN sudo apt-get install -y \
-  libcurl4-gnutls-dev \
-  ;
+RUN cd duniverse/ocurl && ./configure
+
+RUN cd duniverse/elpi && make config LEGACY_PARSER=1
 
 RUN . ~/.profile && make || true
