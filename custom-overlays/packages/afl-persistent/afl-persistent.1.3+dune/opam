@@ -37,6 +37,6 @@ To globally enable AFL instrumentation, use an OCaml switch such as
 ]
 dev-repo: "git+https://github.com/stedolan/ocaml-afl-persistent.git"
 url {
-  src: "https://github.com/stedolan/ocaml-afl-persistent/archive/v1.3.tar.gz"
-  checksum: "md5=613ae369149ae8e2942e3c8bddd6798b"
+  src: "https://github.com/gridbugs/ocaml-afl-persistent/archive/refs/tags/1.3+dune-experimental.tar.gz"
+  checksum: "md5=890cdd8df27e8ddf12c81b7ab9258c7c"
 }

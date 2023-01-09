@@ -8,6 +8,9 @@ RUN apt-get update -y && apt-get install -y \
   neovim \
   sudo \
   autoconf \
+  zlib1g-dev \
+  libcairo2-dev \
+  libcurl4-gnutls-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -64,7 +67,6 @@ RUN  git config --global user.email "you@example.com" && \
 # be built and run without needing to build all of duniverse
 RUN echo '(dirs tools vendored)' > dune
 
-
 # Generate a file "libraries.sexp" containing a list of all the libraries which
 # the project will depend on. This is a separate step from generating the dune
 # file so that libraries can be selectively removed from that list if necessary.
@@ -80,12 +82,6 @@ RUN mv dune.new dune
 
 # Change to the benchmarking switch to run the benchmark
 RUN opam switch bench
-
-RUN sudo apt-get install -y \
-  zlib1g-dev \
-  libcairo2-dev \
-  libcurl4-gnutls-dev \
-  ;
 
 # Apply some custom packages to some packages
 RUN mkdir -p patches

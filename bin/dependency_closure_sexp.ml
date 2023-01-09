@@ -96,10 +96,15 @@ let () =
              || Helpers.has_no_build_commands opam
              || Helpers.has_no_source opam
            in
+           let is_conf =
+             String.starts_with ~prefix:"conf-"
+               (OpamPackage.name_to_string package)
+           in
            let available = Helpers.is_available opam ~arch in
            let _no_depexts = not (Helpers.has_depexts opam) in
-           if not builds_with_dune then
-             Printf.eprintf "Removed %s (doesn't build with dune)\n"
+           if not (builds_with_dune || is_conf) then
+             Printf.eprintf
+               "Removed %s (doesn't build with dune and is not conf)\n"
                (OpamPackage.to_string package);
            if not available then
              Printf.eprintf "Removed %s (not available on this system)\n"
@@ -107,7 +112,7 @@ let () =
            (*if not no_depexts then
              Printf.eprintf "Removed %s (has depexts)\n"
                (OpamPackage.to_string package); *)
-           builds_with_dune && available)
+           (builds_with_dune || is_conf) && available)
   in
   Printf.eprintf "Starting with set of %d packages...\n"
     (OpamPackage.Set.cardinal latest_filtered);

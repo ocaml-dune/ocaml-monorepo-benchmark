@@ -56,7 +56,7 @@ post-messages:
     {os = "macos" | os = "freebsd" | os = "openbsd"}
 dev-repo: "git+https://github.com/camlp5/camlp5.git"
 url {
-  src: "https://github.com/camlp5/camlp5/archive/refs/tags/rel8.00.04.tar.gz"
+  src: "https://github.com/gridbugs/camlp5/archive/refs/tags/8.00.04+dune-experimental.tar.gz"
   checksum:
-    "sha512=0951a9528c8c9b4becf54b352a6f897cb1af26de437a137757d597a3a2ad8aef1160a3c326c9503f783bccd154d8c14a354d3a35baae2bb551611697ce4f5327"
+    "sha512=8db0fb7432b52aa8302f9f5ddbc62334986ed1777abdea043c8078fe773d40003b9b22f70350def33f9b04c548684ca7f8e984ccb9cb48a69947e68f30483bcf"
 }
