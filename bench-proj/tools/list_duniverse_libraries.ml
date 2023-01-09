@@ -162,7 +162,7 @@ let read_sexp_list path =
   read_text_file path |> Sexp.of_string |> list_of_sexp string_of_sexp
 
 let read_package_names_from_package_list path =
-  read_sexp_list path
+  read_list path
   |> List.map (fun s -> String.split_on_char '.' s |> List.hd)
   |> String.Set.of_list
 

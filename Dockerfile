@@ -73,7 +73,7 @@ RUN echo '(dirs tools vendored)' > dune
 # the project will depend on. This is a separate step from generating the dune
 # file so that libraries can be selectively removed from that list if necessary.
 RUN . ~/.profile && \
-  dune exec --display=quiet tools/list_duniverse_libraries.exe duniverse packages.sexp tools/library-ignore-list.sexp tools/run_dune_ml.sh > libraries.sexp
+  dune exec --display=quiet tools/list_duniverse_libraries.exe duniverse packages tools/library-ignore-list.sexp tools/run_dune_ml.sh > libraries.sexp
 
 # Generate the dune file. Temporarily create dune.new and then move it over dune
 # as we need to continue ignoring the duniverse dir by means of the current dune
