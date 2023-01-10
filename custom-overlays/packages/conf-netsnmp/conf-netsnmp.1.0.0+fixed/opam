@@ -13,7 +13,7 @@ homepage: "https://www.github.com/stevebleazard/ocaml-conf-netsnmp"
 bug-reports: "https://www.github.com/stevebleazard/ocaml-conf-netsnmp/issues"
 available: os != "macos"
 flags: conf
-build: ["sh" "-exc" "cc -c $CFLAGS -I/usr/local/include files/test.c"]
+build: ["sh" "-exc" "cc -c $CFLAGS -I/usr/local/include test.c"]
 depexts: [
   ["libsnmp-dev"] {os-family = "debian"}
   ["net-snmp-devel" "net-snmp-libs"] {os-distribution = "centos"}
@@ -24,3 +24,6 @@ depexts: [
   [] {os = "openbsd"}
 ]
 dev-repo: "git+https://www.github.com/stevebleazard/ocaml-conf-netsnmp.git"
+extra-files: [
+  ["test.c" "md5=c037769771318ddce20d9471b6b8750e"]
+]

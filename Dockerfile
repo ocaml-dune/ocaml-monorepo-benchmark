@@ -98,4 +98,6 @@ RUN cd duniverse/ocurl && ./configure
 
 RUN cd duniverse/elpi && make config LEGACY_PARSER=1
 
+RUN sudo apt-get install -y libsnmp-dev
+
 RUN . ~/.profile && make || true
