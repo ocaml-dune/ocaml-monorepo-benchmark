@@ -158,4 +158,43 @@
  cf-lwt
  cf
  art.landmarks
+ checkseum.c
+ digestif.c
+ digestif.c
+ ez_api.js
+ ez_api.debug_js
+ ez_api.lwt_js
+ ez_api.encoding_js
+ ez_api.js_json
+ ez_api.ezjsonm_js
+ ez_api.coxhr
+ ez_api.icoxhr
+ ez_api.coxhr_lwt
+ ez_api.icoxhr_lwt
+ ez_api.fetch
+ ez_api.ifetch
+ ez_api.fetch_lwt
+ ez_api.ifetch_lwt
+ ez_api.node_js
+ ez_api.inode_js
+ ez_api.node_js_lwt
+ ez_api.inode_js_lwt
+ ez_api.xhr
+ ez_api.ixhr
+ ez_api.xhr_lwt
+ ez_api.ixhr_lwt
+ ez_api.icohttp
+ ez_api.icohttp_lwt
+ ez_api.icurl
+ ez_api.icurl_lwt
+ ez_api.icurl_multi
+ ez_api.iserver_cohttp
+ ez_api.iserver_httpaf
+ ez_api.md5
+ ez_api.sha2
+ ez_api.sha3
+ ez_api.ws_js
+ nanoid.jsoo
+ vchan-xen
+ vchan-unix
 )

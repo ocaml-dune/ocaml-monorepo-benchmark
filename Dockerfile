@@ -11,6 +11,8 @@ RUN apt-get update -y && apt-get install -y \
   zlib1g-dev \
   libcairo2-dev \
   libcurl4-gnutls-dev \
+  libsnmp-dev \
+  libgmp-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -31,7 +33,7 @@ RUN opam switch create opam-monorepo 4.14.0
 
 RUN git clone https://github.com/tarides/opam-monorepo.git
 RUN cd opam-monorepo && git checkout 0.3.5
-RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv
+RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib
 
 ADD --chown=user:users custom-overlays ./custom-overlays
 ADD --chown=user:users data/repos/opam-overlays ./dune-duniverse
@@ -54,8 +56,6 @@ RUN opam monorepo lock
 # one package in a non-deterministic manner. Repeating it several times reduces the chance
 # that all attempts fail.
 RUN opam monorepo pull || opam monorepo pull || opam monorepo pull
-
-RUN opam install -y re sexplib
 
 # Copy the benchmarking project into the docker image, including the tools
 # required for generating the remainder of the project
@@ -82,6 +82,9 @@ RUN . ~/.profile && \
   dune exec ./tools/dune_of_sexp.exe < libraries.sexp > dune.new
 RUN mv dune.new dune
 
+# Prepare native sources for hacl-star
+RUN . ~/.profile && cd duniverse/hacl-star/raw && ./configure && make -j
+
 # Change to the benchmarking switch to run the benchmark
 RUN opam switch bench
 
@@ -97,13 +100,5 @@ RUN rm -rf duniverse/magic-trace/vendor
 RUN cd duniverse/ocurl && ./configure
 
 RUN cd duniverse/elpi && make config LEGACY_PARSER=1
-
-RUN opam switch opam-monorepo && \
-  opam install -y ocamlfind ctypes ctypes-foreign && \
-  . ~/.profile && \
-  cd duniverse/hacl-star/raw && \
-  ./configure && \
-  make -j && \
-  opam switch bench
 
 RUN . ~/.profile && make || true
