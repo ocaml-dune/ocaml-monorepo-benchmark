@@ -98,6 +98,12 @@ RUN cd duniverse/ocurl && ./configure
 
 RUN cd duniverse/elpi && make config LEGACY_PARSER=1
 
-RUN sudo apt-get install -y libsnmp-dev
+RUN opam switch opam-monorepo && \
+  opam install -y ocamlfind ctypes ctypes-foreign && \
+  . ~/.profile && \
+  cd duniverse/hacl-star/raw && \
+  ./configure && \
+  make -j && \
+  opam switch bench
 
 RUN . ~/.profile && make || true
