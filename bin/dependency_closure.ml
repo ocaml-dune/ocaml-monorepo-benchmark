@@ -57,6 +57,9 @@ let () =
         |> override (OpamPackage.of_string "bisect_ppx.2.8.1+fixed")
         |> override (OpamPackage.of_string "libtorch.1.13.0+linux-x86_64")
         |> override (OpamPackage.of_string "libwasmtime.0.22.0+linux-x86_64")
+        |> override (OpamPackage.of_string "why3.1.4.0+dune")
+        |> override (OpamPackage.of_string "why3-ide.1.4.0+dune")
+        |> override (OpamPackage.of_string "why3-coq.1.4.0+dune")
         |> override (OpamPackage.of_string "ocaml.4.14.0")
         |> override (OpamPackage.of_string "ocaml-base-compiler.4.14.0")))
       packages

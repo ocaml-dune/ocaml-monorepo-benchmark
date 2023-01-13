@@ -1,7 +1,7 @@
 FROM ubuntu
 
 # Install tools and system dependencies of packages
-RUN apt-get update -y && apt-get install -y \
+RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   build-essential \
   pkg-config \
   opam \
@@ -13,6 +13,16 @@ RUN apt-get update -y && apt-get install -y \
   libcurl4-gnutls-dev \
   libsnmp-dev \
   libgmp-dev \
+  libbluetooth-dev \
+  cmake \
+  libfarmhash-dev \
+  libgl-dev \
+  libnlopt-dev \
+  libmpfr-dev \
+  r-base-core \
+  libjemalloc-dev \
+  libsnappy-dev \
+  libpapi-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -28,12 +38,12 @@ RUN opam init --disable-sandboxing --auto-setup ./opam-repository
 RUN opam switch create bench 4.14.0
 RUN opam install -y dune ocamlbuild
 
-# Create a fresh opam environment for running opam-monorepo
-RUN opam switch create opam-monorepo 4.14.0
+# Create a fresh opam environment for installing dependencies
+RUN opam switch create prepare 4.14.0
 
 RUN git clone https://github.com/tarides/opam-monorepo.git
 RUN cd opam-monorepo && git checkout 0.3.5
-RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib
+RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams
 
 ADD --chown=user:users custom-overlays ./custom-overlays
 ADD --chown=user:users data/repos/opam-overlays ./dune-duniverse
@@ -85,6 +95,21 @@ RUN mv dune.new dune
 # Prepare native sources for hacl-star
 RUN . ~/.profile && cd duniverse/hacl-star/raw && ./configure && make -j
 
+# Prepare why3
+RUN . ~/.profile && \
+  cd duniverse/why3 && \
+  ./autogen.sh && \
+  ./configure && \
+  make coq.dune pvs.dune isabelle.dune src/util/config.ml
+
+# Install camlp5 outside of opam
+RUN . ~/.profile && \
+  mkdir -p ~/.local && \
+  cd duniverse/camlp5 && \
+  ./configure --prefix /home/user/.local && \
+  make -j && \
+  make install
+
 # Change to the benchmarking switch to run the benchmark
 RUN opam switch bench
 
@@ -101,4 +126,4 @@ RUN cd duniverse/ocurl && ./configure
 
 RUN cd duniverse/elpi && make config LEGACY_PARSER=1
 
-RUN . ~/.profile && make || true
+#RUN . ~/.profile && make || true
