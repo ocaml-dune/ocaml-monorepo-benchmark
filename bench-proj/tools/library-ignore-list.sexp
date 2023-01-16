@@ -197,4 +197,24 @@
  nanoid.jsoo
  vchan-xen
  vchan-unix
+
+ ; libraries we should be able to fix
+ fswatch
+ fswatch_lwt
+ fswatch_async
+ ocaml-r.base
+ ocaml-r
+ ocaml-r.grDevices
+ ocaml-r.graphics
+ ocaml-r.interpreter
+ ocaml-r.math
+ ocaml-r.methods
+ ocaml-r.stats
+ ocaml-r.utils
+ ocaml-r.wraputils
+ unisim_archisec.arm32dba
+ unisim_archisec.aarch64dba
+ unisim_archisec.amd64dba
+ inquire
+ inquire.ansi
 )

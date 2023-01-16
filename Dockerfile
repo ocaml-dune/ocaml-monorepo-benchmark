@@ -29,6 +29,62 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   librdkafka-dev \
   google-perftools \
   libgoogle-perftools-dev \
+  libglew-dev \
+  wget \
+  guile-3.0-dev \
+  portaudio19-dev \
+  libglpk-dev \
+  libportmidi-dev \
+  libmpg123-dev \
+  libgtksourceview-3.0-dev \
+  libhidapi-dev \
+  libfftw3-dev \
+  libasound2-dev \
+  libzmq3-dev \
+  r-base-dev \
+  libgtk2.0-dev \
+  libsoundtouch-dev \
+  libmp3lame-dev \
+  libplplot-dev \
+  libogg-dev \
+  libavutil-dev \
+  libavfilter-dev \
+  libswresample-dev \
+  libavcodec-dev \
+  libfdk-aac-dev \
+  libfaad2 \
+  libsamplerate0-dev \
+  libao-dev \
+  liblmdb-dev \
+  libnl-3-dev \
+  libnl-route-3-dev \
+  sqlite3 \
+  libsqlite3-dev \
+  cargo \
+  libtool \
+  libopenimageio-dev \
+  libtidy-dev \
+  libleveldb-dev \
+  libgtkspell-dev \
+  libtag1-dev \
+  libsrt-openssl-dev \
+  liblo-dev \
+  libmad0-dev \
+  frei0r-plugins-dev \
+  libavdevice-dev \
+  libfaad-dev \
+  libglfw3-dev \
+  protobuf-compiler \
+  libuv1-dev \
+  libxen-dev \
+  libflac-dev \
+  libpq-dev \
+  libtheora-dev \
+  libonig-dev \
+  libglib2.0-dev \
+  libgoocanvas-2.0-dev \
+  libgtkspell3-3-dev \
+  libpulse-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -49,7 +105,7 @@ RUN opam switch create prepare 4.14.0
 
 RUN git clone https://github.com/tarides/opam-monorepo.git
 RUN cd opam-monorepo && git checkout 0.3.5
-RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams
+RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith
 
 ADD --chown=user:users custom-overlays ./custom-overlays
 ADD --chown=user:users data/repos/opam-overlays ./dune-duniverse
@@ -115,6 +171,9 @@ RUN . ~/.profile && \
   ./configure --prefix /home/user/.local && \
   make -j && \
   make install
+
+# Prepare coq
+RUN . ~/.profile && cd duniverse/coq && ./configure -no-ask
 
 # Change to the benchmarking switch to run the benchmark
 RUN opam switch bench
