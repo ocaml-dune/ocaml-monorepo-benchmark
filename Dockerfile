@@ -23,6 +23,12 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   libjemalloc-dev \
   libsnappy-dev \
   libpapi-dev \
+  libgles2 \
+  libgles2-mesa-dev \
+  fswatch \
+  librdkafka-dev \
+  google-perftools \
+  libgoogle-perftools-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -125,5 +131,7 @@ RUN rm -rf duniverse/magic-trace/vendor
 RUN cd duniverse/ocurl && ./configure
 
 RUN cd duniverse/elpi && make config LEGACY_PARSER=1
+
+RUN cd duniverse/cpu && autoconf && autoheader && ./configure
 
 #RUN . ~/.profile && make || true
