@@ -193,4 +193,6 @@ RUN cd duniverse/elpi && make config LEGACY_PARSER=1
 
 RUN cd duniverse/cpu && autoconf && autoheader && ./configure
 
+RUN bash -c 'TARGETS=$(cd duniverse/hacl-star/raw/lib && ls *.ml | xargs); sed -i -e "s/__TARGETS__/$TARGETS/" duniverse/hacl-star/dune'
+
 #RUN . ~/.profile && make || true
