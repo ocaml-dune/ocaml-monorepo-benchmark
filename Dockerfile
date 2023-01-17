@@ -193,6 +193,12 @@ RUN cd duniverse/elpi && make config LEGACY_PARSER=1
 
 RUN cd duniverse/cpu && autoconf && autoheader && ./configure
 
+RUN cd duniverse/setcore && autoconf && autoheader && ./configure
+
+# This is a hack to make hacl-star compile on aarch64 and x64.
+# Different raw files get built depending on the architecture,
+# and we want to depend on all available .ml files in the raw
+# library.
 RUN bash -c 'TARGETS=$(cd duniverse/hacl-star/raw/lib && ls *.ml | xargs); sed -i -e "s/__TARGETS__/$TARGETS/" duniverse/hacl-star/dune'
 
 #RUN . ~/.profile && make || true
