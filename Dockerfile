@@ -85,6 +85,16 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   libgoocanvas-2.0-dev \
   libgtkspell3-3-dev \
   libpulse-dev \
+  libdlm-dev \
+  capnproto \
+  libtorch-dev \
+  libqrencode-dev \
+  libshine-dev \
+  libopus-dev \
+  libspeex-dev \
+  libvorbis-dev \
+  libgstreamer1.0-dev \
+  libgstreamer-plugins-base1.0-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
