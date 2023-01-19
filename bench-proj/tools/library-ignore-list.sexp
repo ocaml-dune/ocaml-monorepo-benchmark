@@ -197,6 +197,11 @@
  nanoid.jsoo
  vchan-xen
  vchan-unix
+ js_of_ocaml-toplevel
+ js_of_ocaml-ocamlbuild
+ cohttp-top
+ ctypes.top
+ git-unix.top
 
  ; libraries we should be able to fix
  fswatch
@@ -277,6 +282,60 @@
  ahrocksdb.ffi
  ahrocksdb.types
  ahrocksdb
+ unix-errno
+ unix-errno.host
+ unix-errno.errno_bindings
+ unix-errno.errno_types
+ unix-errno.errno_types_detected
+ unix-errno.unix
+ zstd
+ lz4
+ lz4.bindings
+ lz4.generated
+ build_path_prefix_map
+ coq-lsp.coq
+ coq-lsp.fleche
+ coq-lsp.lsp
+ coq-serapi.extcoq
+ coq-serapi.serapi_v8_14
+ coq-serapi.serlib
+ coq-serapi.serlib.extraction
+ coq-serapi.serlib.firstorder
+ coq-serapi.serlib.funind
+ coq-serapi.serlib.ltac
+ coq-serapi.serlib.ring
+ coq-serapi.serlib.ssreflect
+ coq-serapi.serlib.ssrmatching
+ coq-serapi.sertop_v8_12
+ ojs
+ incr_dom.javascript_profiling
+ incr_dom
+ incr_dom.testing
+ incr_dom.ui_incr
+ incr_dom.vdom_file_download
+ incr_dom_interactive
+ incr_dom_partial_render
+ incr_dom_sexp_form
+ ocsigen-i18n
+ ocsigen-ppx-rpc
+ pyml
+ toplevel_backend
+ toplevel_expect_test
+ toplevel_expect_test.types
+ virtual_dom.css_gen
+ virtual_dom.input_widgets
+ virtual_dom.keyboard
+ virtual_dom.layout
+ virtual_dom
+ virtual_dom.svg
+ virtual_dom.vdom_test_helpers
+ virtual_dom.tyxml
+ virtual_dom.ui_effect
+ dokeysto
+ dokeysto_lz4
+ dokeysto_camltc
+ logs-ppx
+ py
 
 
  ; libraries that depend on a dune feature for installing c headers
