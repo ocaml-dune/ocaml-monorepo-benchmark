@@ -202,6 +202,25 @@
  cohttp-top
  ctypes.top
  git-unix.top
+ dolmen_model
+ dolmen_loop
+ dolmen_type
+ dolmen.class
+ dolmen
+ dolmen.intf
+ dolmen.ae
+ dolmen.dimacs
+ dolmen.icnf
+ dolmen.line
+ dolmen.smtlib2
+ dolmen.smtlib2.poly
+ dolmen.smtlib2.v6
+ dolmen.smtlib2.v6_response
+ dolmen.smtlib2.v6_script
+ dolmen.tptp
+ dolmen.tptp.v6_3_0
+ dolmen.zf
+ dolmen.std
 
  ; libraries we should be able to fix
  fswatch
@@ -257,6 +276,7 @@
  bitwuzla
  bitwuzla-c
  websocket
+ websocket-async
  bisect_ppx
  bisect_ppx.common
  bisect-ppx-report
@@ -307,6 +327,12 @@
  coq-serapi.serlib.ssreflect
  coq-serapi.serlib.ssrmatching
  coq-serapi.sertop_v8_12
+ coq-serapi.serlib.cc
+ coq-serapi.serlib.ltac2
+ coq-serapi.serlib.micromega
+ coq-serapi.serlib.number_string_notation
+ coq-serapi.serlib.tauto
+ coq-serapi.serlib.zify
  ojs
  incr_dom.javascript_profiling
  incr_dom
@@ -336,6 +362,21 @@
  dokeysto_camltc
  logs-ppx
  py
+ clangml
+ clangml.config
+ clangml.ppx
+ clangml.printer
+ pattern.ppx
+ pattern
+ refl.ppx
+ refl
+ pyast
+ pyast.utils
+ ctypes-zarith
+ cudf
+ dose3.algo
+ dose3.common
+ dose3.versioning
 
 
  ; libraries that depend on a dune feature for installing c headers
@@ -403,6 +444,7 @@
  async_smtp.types
  shuttle
  shuttle_ssl
+ shuttle_http
  dlm
  dlm.bindings
  dlm.bindings-structs
@@ -410,8 +452,10 @@
  portmidi.c_function_descriptions
  portmidi.c
  portmidi
+ raylib
+ raygui
 
- ; libraries that couse collisions
+ ; libraries that cause collisions
  inquire
  inquire.ansi
  srt
@@ -425,4 +469,23 @@
  spin.template
  spin.ansi
  bigstring_unix
+ bigstring-unix
+ jext.common
+ jext
+ jext.lwt
+ vue-jsoo.ppx
+ ppx_deriving_jsoo.lib
+ ppx_deriving_jsoo
+ ppx_deriving_jsoo.opt
+ binsec.armv10decoder
+ binsec.amd66decoder
+ binsec.armv9decoder
+ binsec.armv8decoder
+ binsec.amd64decoder
+ binsec.armv7decoder
+ binsec
+ binsec.smt
+ binsec.sse
+ vue-ppx.lib
+ vue-ppx
 )

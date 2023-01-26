@@ -1,4 +1,7 @@
-FROM ubuntu
+FROM debian
+
+# Enable non-free packages
+RUN sed -i '/^deb/ s/$/ non-free/' /etc/apt/sources.list
 
 # Install tools and system dependencies of packages
 RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -97,6 +100,7 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   libgstreamer-plugins-base1.0-dev \
   liblz4-dev \
   liblilv-dev \
+  libopenexr-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -115,9 +119,7 @@ RUN opam install -y dune ocamlbuild
 # Create a fresh opam environment for installing dependencies
 RUN opam switch create prepare 4.14.0
 
-RUN git clone https://github.com/tarides/opam-monorepo.git
-RUN cd opam-monorepo && git checkout 0.3.5
-RUN opam install -y ./opam-monorepo/opam-monorepo.opam ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith
+RUN opam install -y opam-monorepo ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith
 
 ADD --chown=user:users custom-overlays ./custom-overlays
 ADD --chown=user:users data/repos/opam-overlays ./dune-duniverse
@@ -187,6 +189,15 @@ RUN . ~/.profile && \
 # Prepare coq
 RUN . ~/.profile && cd duniverse/coq && ./configure -no-ask
 
+# TODO
+RUN opam install -y stdcompat refl
+RUN sudo apt-get install -y \
+  llvm \
+  libclang-dev \
+  ;
+
+RUN . ~/.profile && cd duniverse/clangml && ./configure
+
 # Change to the benchmarking switch to run the benchmark
 RUN opam switch bench
 
@@ -207,6 +218,8 @@ RUN cd duniverse/cpu && autoconf && autoheader && ./configure
 
 RUN cd duniverse/setcore && autoconf && autoheader && ./configure
 
+RUN cd duniverse/batsat-ocaml && ./build_rust.sh
+
 # This is a hack to make hacl-star compile on aarch64 and x64.
 # Different raw files get built depending on the architecture,
 # and we want to depend on all available .ml files in the raw
@@ -216,5 +229,6 @@ RUN bash -c 'TARGETS=$(cd duniverse/hacl-star/raw/lib && ls *.ml | xargs); sed -
 # async_ssl currently doesn't compile and is an optional dependency of some other packages
 # that we want to build, so we have to delete it
 RUN rm -r duniverse/async_ssl
+RUN rm -r duniverse/coq-of-ocaml
 
 RUN . ~/.profile && make || true
