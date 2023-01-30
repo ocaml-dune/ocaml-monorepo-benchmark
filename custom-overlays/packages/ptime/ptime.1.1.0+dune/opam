@@ -1,0 +1,44 @@
+opam-version: "2.0"
+name: "ptime"
+version: "1.1.0+dune"
+synopsis: "POSIX time for OCaml"
+description: """\
+Ptime has platform independent POSIX time support in pure OCaml. It
+provides a type to represent a well-defined range of POSIX timestamps
+with picosecond precision, conversion with date-time values,
+conversion with [RFC 3339 timestamps][rfc3339] and pretty printing to
+a human-readable, locale-independent representation.
+
+The additional Ptime_clock library provides access to a system POSIX
+clock and to the system's current time zone offset.
+
+Ptime is not a calendar library.
+
+Ptime has no dependency. Ptime_clock depends on your system library or
+JavaScript runtime system. Ptime and its libraries are distributed
+under the ISC license.
+
+[rfc3339]: http://tools.ietf.org/html/rfc3339
+
+Home page: <http://erratique.ch/software/ptime>"""
+maintainer: "Daniel Bünzli <daniel.buenzl i@erratique.ch>"
+authors: "The ptime programmers"
+license: "ISC"
+tags: ["time" "posix" "system" "org:erratique"]
+homepage: "https://erratique.ch/software/ptime"
+doc: "https://erratique.ch/software/ptime/doc/"
+bug-reports: "https://github.com/dbuenzli/ptime/issues"
+depends: [
+  "ocaml" {>= "4.08.0"}
+  "ocamlfind" {build}
+  "ocamlbuild" {build & != "0.9.0"}
+  "topkg" {build & >= "1.0.3"}
+  "dune"
+]
+build: ["ocaml" "pkg/pkg.ml" "build" "--dev-pkg" "%{dev}%"]
+dev-repo: "git+https://erratique.ch/repos/ptime.git"
+url {
+  src: "https://github.com/gridbugs/ptime/archive/refs/tags/1.1.0-dune-experimental.tar.gz"
+  checksum:
+    "sha512=478df4808cdfcff9c044d795d452fce7b9dcac7f4e6e5be9f816fd819ef9011419ca99f3968d8d302af3363f0a258402a89bb56420af980008336786855faa57"
+}
