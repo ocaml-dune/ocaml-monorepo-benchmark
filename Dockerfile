@@ -113,11 +113,11 @@ ADD --chown=user:users data/repos/opam-repository ./opam-repository
 RUN opam init --disable-sandboxing --auto-setup ./opam-repository
 
 # Create a fresh opam environment without all the dependencies of opam-monorepo
-RUN opam switch create bench 4.14.0
+RUN opam switch create bench 4.14.1
 RUN opam install -y dune ocamlbuild
 
 # Create a fresh opam environment for installing dependencies
-RUN opam switch create prepare 4.14.0
+RUN opam switch create prepare 4.14.1
 
 RUN opam install -y opam-monorepo ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith
 

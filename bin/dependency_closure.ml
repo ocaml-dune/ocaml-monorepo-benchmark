@@ -60,11 +60,11 @@ let () =
         |> override (OpamPackage.of_string "why3.1.4.0+dune")
         |> override (OpamPackage.of_string "why3-ide.1.4.0+dune")
         |> override (OpamPackage.of_string "why3-coq.1.4.0+dune")
-        |> override (OpamPackage.of_string "ocaml.4.14.0")
-        |> override (OpamPackage.of_string "ocaml-base-compiler.4.14.0")))
+        |> override (OpamPackage.of_string "ocaml.4.14.1")
+        |> override (OpamPackage.of_string "ocaml-base-compiler.4.14.1")))
       packages
   in
-  let required_compatible = [ "ocaml.4.14.0"; "dune.3.6.1"; "ppxlib.0.28.0" ] in
+  let required_compatible = [ "ocaml.4.14.1"; "dune.3.6.1"; "ppxlib.0.28.0" ] in
   let latest_filtered =
     Select.(
       apply repo
