@@ -109,6 +109,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER user
 WORKDIR /home/user
+COPY --chown=user:users dotfiles/tmux.conf .tmux.conf
 
 ADD --chown=user:users data/repos/opam-repository ./opam-repository
 RUN opam init --disable-sandboxing --auto-setup ./opam-repository
@@ -233,3 +234,4 @@ RUN rm -r duniverse/async_ssl
 RUN rm -r duniverse/coq-of-ocaml
 
 RUN . ~/.profile && make || true
+
