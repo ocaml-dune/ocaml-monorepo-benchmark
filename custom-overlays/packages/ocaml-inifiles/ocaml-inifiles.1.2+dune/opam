@@ -3,7 +3,7 @@ name: "ocaml-inifiles"
 version: "1.2+dune"
 synopsis: "An ini file parser"
 maintainer: "https://github.com/ocaml/opam-repository/issues"
-depends: ["ocaml" "ocamlfind" "pcre"]
+depends: ["ocaml" "ocamlfind" "pcre" "dune"]
 flags: light-uninstall
 build: [
   [make "all"]
