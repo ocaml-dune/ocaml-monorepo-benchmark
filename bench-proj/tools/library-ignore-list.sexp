@@ -160,7 +160,6 @@
  art.landmarks
  checkseum.c
  digestif.c
- digestif.c
  ez_api.js
  ez_api.debug_js
  ez_api.lwt_js
@@ -221,6 +220,28 @@
  dolmen.tptp.v6_3_0
  dolmen.zf
  dolmen.std
+ eris.crypto-wasm
+ eris.crypto-zig
+ dirsp-exchange
+ dirsp-proscript-mirage
+ dirsp-exchange-kbb2017
+ dirsp-proscript
+ eris-lwt
+ eris.crypto
+ eris.crypto-monocypher
+ eris
+ websocket-lwt-unix
+ websocket-lwt-unix.cohttp
+ paf-cohttp
+ paf
+ paf.alpn
+ paf.mirage
+ paf-le
+ paf-le.mirage
+ links.core
+ links-sqlite3
+ links-postgresql
+ links.lens
 
  ; libraries we should be able to fix
  fswatch
@@ -377,6 +398,12 @@
  dose3.algo
  dose3.common
  dose3.versioning
+ goblint.lib
+ goblint.sites
+ goblint.sites.dune
+ goblint.sites.js
+ goblint.timing
+ goblint.zarith.mlgmpidl
 
 
  ; libraries that depend on a dune feature for installing c headers

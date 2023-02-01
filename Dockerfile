@@ -101,6 +101,7 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   liblz4-dev \
   liblilv-dev \
   libopenexr-dev \
+  tmux \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
