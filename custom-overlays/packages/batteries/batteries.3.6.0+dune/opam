@@ -32,9 +32,9 @@ install: [make "install"]
 dev-repo: "git://github.com/ocaml-batteries-team/batteries-included.git"
 url {
   src:
-    "https://github.com/ocaml-batteries-team/batteries-included/archive/refs/tags/v3.6.0.tar.gz"
+    "https://github.com/gridbugs/batteries-included/archive/refs/tags/3.6.0+dune-experimental.tar.gz"
   checksum: [
-    "md5=1bcb27dfbd130eb057561196ef851649"
-    "sha512=2a56611b09a5f1cba6457539f8b6bc87a5f2a5454b36cdb39f6e0d6a5dac6db179aab1ba87c74dd49cc41df31a9a96feb349028ea41df7371ecb47f4d9dfafc4"
+    "md5=15a5363dd4a29e0de44c3246634db160"
+    "sha512=81521d3ebc6c76fb64920d3ce4744d755891f18e4370a0d0dc567ba0991354ebc090a3005743f3b28aa19985187013e82e9149acb0126647470a728365610013"
   ]
 }
