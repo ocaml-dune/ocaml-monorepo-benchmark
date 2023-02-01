@@ -2,6 +2,7 @@ opam-version: "2.0"
 name: "ocaml-inifiles"
 version: "1.2+dune"
 synopsis: "An ini file parser"
+dev-repo: "git+https://github.com/gridbugs/ocaml-inifiles"
 maintainer: "https://github.com/ocaml/opam-repository/issues"
 depends: ["ocaml" "ocamlfind" "pcre" "dune"]
 flags: light-uninstall
