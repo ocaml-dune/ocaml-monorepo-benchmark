@@ -1,0 +1,20 @@
+opam-version: "2.0"
+name: "ocaml-inifiles"
+version: "1.2+dune"
+synopsis: "An ini file parser"
+maintainer: "https://github.com/ocaml/opam-repository/issues"
+depends: ["ocaml" "ocamlfind" "pcre"]
+flags: light-uninstall
+build: [
+  [make "all"]
+  [make "opt"]
+]
+install: [make "install"]
+remove: ["ocamlfind" "remove" "inifiles"]
+patches: "ocaml-inifiles.diff"
+extra-files: ["ocaml-inifiles.diff" "md5=9438c43d4f7fa8ad947b94e362aae4b8"]
+url {
+  src:
+    "https://github.com/gridbugs/ocaml-inifiles/archive/refs/tags/1.2+dune-experimental.tar.gz"
+  checksum: "md5=948f732e2c340bc8a31c55c4e965777b"
+}
