@@ -102,6 +102,8 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   liblilv-dev \
   libopenexr-dev \
   tmux \
+  llvm \
+  libclang-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -121,7 +123,7 @@ RUN opam install -y dune ocamlbuild
 # Create a fresh opam environment for installing dependencies
 RUN opam switch create prepare 4.14.1
 
-RUN opam install -y opam-monorepo ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith
+RUN opam install -y opam-monorepo ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith stdcompat refl
 
 ADD --chown=user:users custom-overlays ./custom-overlays
 ADD --chown=user:users data/repos/opam-overlays ./dune-duniverse
@@ -191,13 +193,7 @@ RUN . ~/.profile && \
 # Prepare coq
 RUN . ~/.profile && cd duniverse/coq && ./configure -no-ask
 
-# TODO
-RUN opam install -y stdcompat refl
-RUN sudo apt-get install -y \
-  llvm \
-  libclang-dev \
-  ;
-
+# Prepare clangml
 RUN . ~/.profile && cd duniverse/clangml && ./configure
 
 # Change to the benchmarking switch to run the benchmark
