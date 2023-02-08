@@ -20,10 +20,12 @@ depends: [
   "ocamlfind" {build & >= "1.5.3"}
   "ocamlbuild" {build}
   "qtest" {with-test & >= "2.5"}
-  #"qcheck" {with-test & >= "0.9" & < "0.14"}
+  "qcheck" {with-test & >= "0.9" & < "0.14"}
   "benchmark" {with-test & >= "1.6"}
   "num"
-  "dune"
+]
+depopts: [
+  "dune" {>= "2.7"}
 ]
 conflicts: ["base-effects" "ocaml-option-no-flat-float-array"]
 build: [make "all"]

@@ -10,7 +10,7 @@ let shrink_step ~assumed_deps repo packages =
   in
   let ( with_unmet_deps_removed,
         ({ had_missing_deps; had_incompatible_version_deps } :
-          Helpers.unmep_dependencies) ) =
+          Helpers.unmet_dependencies) ) =
     Helpers.remove_unmet_dependencies
       (OpamPackage.Set.elements without_conflict)
       ~repo ~assumed_deps

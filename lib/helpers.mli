@@ -11,7 +11,7 @@ val mkenv : OpamPackage.t -> OpamFilter.env
 val find_conflict :
   OpamPackage.t list -> repo:Repository.t -> OpamPackage.t option
 
-type unmep_dependencies = {
+type unmet_dependencies = {
   had_missing_deps : (OpamPackage.t * OpamPackage.Name.t) list;
   had_incompatible_version_deps : (OpamPackage.t * OpamPackage.Name.t) list;
 }
@@ -20,7 +20,7 @@ val remove_unmet_dependencies :
   OpamPackage.t list ->
   repo:Repository.t ->
   assumed_deps:OpamPackage.Name.Set.t ->
-  OpamPackage.Set.t * unmep_dependencies
+  OpamPackage.Set.t * unmet_dependencies
 
 val pkg_set_to_opam_file : OpamPackage.Set.t -> OpamFile.OPAM.t
 val write_opam_file : OpamFile.OPAM.t -> path:string -> unit

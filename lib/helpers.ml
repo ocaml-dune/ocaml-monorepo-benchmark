@@ -14,7 +14,9 @@ let cached_repo_with_overlay () =
   cached_repo
 
 let depends_on_dune opam =
-  let deps = OpamFile.OPAM.depends opam in
+  let deps =
+    OpamFormula.ors [ OpamFile.OPAM.depends opam; OpamFile.OPAM.depopts opam ]
+  in
   let dep_name_list =
     OpamFormula.fold_left (fun xs (x, _) -> x :: xs) [] deps
   in
@@ -43,6 +45,7 @@ let mkenv package =
   |> Env.extend "version"
        (OpamVariable.S
           (OpamPackage.version package |> OpamPackage.Version.to_string))
+  |> Env.extend "with-test" (OpamVariable.bool false)
 
 let check_conflict opam ~packages_by_name =
   let package = OpamFile.OPAM.package opam in
@@ -104,7 +107,7 @@ let package_incompatible opam ~packages_by_name ~assumed_deps =
     in
     match res with Ok () -> None | Error e -> Some e
 
-type unmep_dependencies = {
+type unmet_dependencies = {
   had_missing_deps : (OpamPackage.t * OpamPackage.Name.t) list;
   had_incompatible_version_deps : (OpamPackage.t * OpamPackage.Name.t) list;
 }
