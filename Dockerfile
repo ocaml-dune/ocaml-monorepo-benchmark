@@ -104,6 +104,8 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   tmux \
   llvm \
   libclang-dev \
+  libmaxminddb-dev \
+  libsecp256k1-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -227,7 +229,7 @@ RUN bash -c 'TARGETS=$(cd duniverse/hacl-star/raw/lib && ls *.ml | xargs); sed -
 # async_ssl currently doesn't compile and is an optional dependency of some other packages
 # that we want to build, so we have to delete it
 RUN rm -r duniverse/async_ssl
+
 RUN rm -r duniverse/coq-of-ocaml
 
 RUN . ~/.profile && make || true
-

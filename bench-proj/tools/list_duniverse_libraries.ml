@@ -194,6 +194,7 @@ let () =
         |> List.filter
              (Fun.negate (fun library ->
                   String.Set.mem library libraries_to_ignore))
+        |> String.Set.of_list |> String.Set.elements
       in
       print_endline
         (Printf.sprintf "(\n  %s\n)" (String.concat "\n  " all_libraries))

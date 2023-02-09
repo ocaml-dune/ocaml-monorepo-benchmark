@@ -22,7 +22,7 @@ Upstream: [https://github.com/ocaml-batteries-team/batteries-included](https://g
 
 Forked to fix some problems with dune integration.
 
-[PR to upstream (open)](https://github.com/ocaml-batteries-team/batteries-included/pull/1104)
+[PR to upstream (merged)](https://github.com/ocaml-batteries-team/batteries-included/pull/1104)
 
 ## bigstring
 

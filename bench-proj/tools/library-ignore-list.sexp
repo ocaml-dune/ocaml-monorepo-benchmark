@@ -242,6 +242,8 @@
  links-sqlite3
  links-postgresql
  links.lens
+ odoc.ocamlary
+ wasmtime
 
  ; libraries we should be able to fix
  fswatch
@@ -404,6 +406,7 @@
  goblint.sites.js
  goblint.timing
  goblint.zarith.mlgmpidl
+ lambda
 
 
  ; libraries that depend on a dune feature for installing c headers
@@ -443,6 +446,9 @@
  posix-types.constants
  posix-types
  posix-base
+ posix-getopt
+ posix-getopt.stubs
+ posix-getopt.types
  lp-glpk.bindings.consts
  lp-glpk.consts
  lp-glpk.bindings
@@ -481,6 +487,12 @@
  portmidi
  raylib
  raygui
+ mmap
+ mmdb
+ mmdb.ffi
+ mmdb.ffi.bindings
+ mmdb.types
+ mmdb.types.bindings
 
  ; libraries that cause collisions
  inquire
@@ -515,4 +527,9 @@
  binsec.sse
  vue-ppx.lib
  vue-ppx
+ ppx_repr.lib
+ ppx_repr
+ ppx_irmin
+ ppx_irmin.internal
+ ppx_irmin.internal-lib
 )
