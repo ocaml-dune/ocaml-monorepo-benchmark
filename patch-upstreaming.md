@@ -19,17 +19,35 @@ Patch removes dependency on non-existent library `ppx_deriving`. This works when
 Patch removes dependency on non-existent library `ppx_deriving`. This works when
 `ppx_deriving` is installed with opam but not when it's vendored.
 
-[PR (closed)](https://github.com/completium/archetype-lang/pull/336)
+[PR (merged)](https://github.com/completium/archetype-lang/pull/336)
 
 ## aws-s3
 
 Patch changes the `digestif` implementation to avoid a collision. No upstreaming is needed.
 
+## bastet
+
+Remove patch number from dune-project
+
+[PR (open)](https://github.com/Risto-Stevcev/bastet/pull/38)
+
+## bastet-async
+
+Remove patch number from dune-project
+
+[PR (open)](https://github.com/Risto-Stevcev/bastet-async/pull/1)
+
+## bastet-lwt
+
+Remove patch number from dune-project
+
+[PR (open)](https://github.com/Risto-Stevcev/bastet-lwt/pull/1)
+
 ## biocaml
 
 Replace `core.caml_unix` with `core_kernel.caml_unix`.
 
-[PR (closed)](https://github.com/biocaml/biocaml/pull/182)
+[PR (merged)](https://github.com/biocaml/biocaml/pull/182)
 
 ## caisar
 
@@ -41,13 +59,13 @@ caisar-onnx doesn't build when ocaml-protoc-plugin is vendored
 
 Copy src/3rd-party into _build during build
 
-[PR (closed)](https://github.com/toolslive/camltc/pull/50)
+[PR (merged)](https://github.com/toolslive/camltc/pull/50)
 
 ## curses
 
 The patch is to replace `workspace_root` with `project_root` in dune files.
 
-[PR (closed)](https://github.com/mbacarella/curses/pull/10)
+[PR (merged)](https://github.com/mbacarella/curses/pull/10)
 
 ## elpi
 
@@ -55,14 +73,116 @@ Open Gramlib in legacy parser
 
 [PR (open)](https://github.com/LPCIC/elpi/pull/173)
 
-## ocaml-solidity
+## hacl-star
 
-The patch is to remove the `ez_hash` library from this package as `ez_hash` has
-been moved into a separate package. The problem is that `ocaml-solidity` hasn't
-been released since.
+This monorepo uses an old version of hacl-star with some hacks to make it build
+with dune. We use an old version because many tezos packages depend on it.
+Recent versions of hacl-star already build with dune, so I won't upstream any of
+my changes.
+
+## lambda-streams
+
+Remove patch number from dune-project
+
+[PR (open)](https://github.com/Risto-Stevcev/lambda-streams/pull/2)
+
+## lilac
+
+Remove patch number from dune-project
+
+[PR (open)](https://github.com/shnewto/lilac/pull/1)
+
+## ocaml-aws
+
+Patch changes the `digestif` implementation to avoid a collision. No upstreaming is needed.
+
+## ocaml-bigstring
+
+Removes `bigstring_unix` library to avoid a conflict. No upstreaming is needed.
+
+## ocaml-csv
+
+The patch is to replace `workspace_root` with `project_root` in dune files.
+
+[PR (merged)](https://github.com/Chris00/ocaml-csv/pull/39)
+
+## ocaml-gstreamer
+
+The patch fixes missing include path and library path for glib-2.0 but might be
+ubuntu-specific. Need to investigate further.
+
+PR: TODO
+
+## ocaml-junit
+
+The patch replaces the `oUnit` dependency with `oUnit2`.
+
+PR: TODO
 
 ## ocaml-jupyter
 
 The patch is to replace `workspace_root` with `project_root` in dune files.
 
 [PR (open)](https://github.com/akabe/ocaml-jupyter/pull/198)
+
+## ocaml-mindstorm
+
+Fix some problems preventing vendoring
+
+[PR (open)](https://github.com/Chris00/ocaml-mindstorm/pull/4)
+
+## ocaml-mock
+
+The patch replaces the `oUnit` dependency with `oUnit2`.
+
+PR: TODO
+
+## ocaml-mustache
+
+Increase lang dune version to 1.4
+
+PR: TODO
+
+## ocaml-opus
+
+The patch fixes some c header paths in `#include` statements so the native code
+builds on ubuntu. We could possibly generalize this correctly with pkg-config.
+
+PR: TODO
+
+## ocaml-solidity
+
+The patch is to remove the `ez_hash` library from this package as `ez_hash` has
+been moved into a separate package. The problem is that `ocaml-solidity` hasn't
+been released since.
+
+## OSCADml
+
+Hack to rename some public executables whose names collide with those of another
+package. No need to upstream.
+
+## owl_opt
+
+Increase lang dune version to 1.7 to prevent warning that version 1.1 of
+automatic filters is not support until 1.7 of the  dune language.
+
+PR: TODO
+
+## pg_query-ocaml
+
+Remove patch number from dune lang version. Independently fixed upstream.
+
+## randoml
+
+Fixes issue where cargo updates lockfile during build.
+
+[PR (merged)](https://github.com/mimoo/randoml/pull/4)
+
+## resource-pooling
+
+Fix error where field is marked mutable but never mutated. This is a workaround
+for what I suspect is a bug in dune where it treats warnings as errors according
+to the top-level dune-project only, ignoring the `lang dune` version of
+vendored packages.
+
+[Issue (open)](https://github.com/ocaml/dune/issues/7034)
