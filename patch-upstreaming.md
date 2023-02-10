@@ -106,18 +106,12 @@ The patch is to replace `workspace_root` with `project_root` in dune files.
 
 [PR (merged)](https://github.com/Chris00/ocaml-csv/pull/39)
 
-## ocaml-gstreamer
-
-The patch fixes missing include path and library path for glib-2.0 but might be
-ubuntu-specific. Need to investigate further.
-
-PR: TODO
-
 ## ocaml-junit
 
-The patch replaces the `oUnit` dependency with `oUnit2`.
+The patch replaces the `oUnit` dependency with `oUnit2` as there is no dune
+library named `oUnit`.
 
-PR: TODO
+[PR (open)](https://github.com/Khady/ocaml-junit/pull/4)
 
 ## ocaml-jupyter
 
@@ -133,22 +127,16 @@ Fix some problems preventing vendoring
 
 ## ocaml-mock
 
-The patch replaces the `oUnit` dependency with `oUnit2`.
+The patch replaces the `oUnit` dependency with `oUnit2` as there is no dune
+library named `oUnit`.
 
-PR: TODO
+[PR (open)](https://github.com/cryptosense/ocaml-mock/pull/6)
 
 ## ocaml-mustache
 
 Increase lang dune version to 1.4
 
-PR: TODO
-
-## ocaml-opus
-
-The patch fixes some c header paths in `#include` statements so the native code
-builds on ubuntu. We could possibly generalize this correctly with pkg-config.
-
-PR: TODO
+Upstream has independently been updated so no change is needed.
 
 ## ocaml-solidity
 
@@ -166,7 +154,8 @@ package. No need to upstream.
 Increase lang dune version to 1.7 to prevent warning that version 1.1 of
 automatic filters is not support until 1.7 of the  dune language.
 
-PR: TODO
+The lang dune version of the upstream package has been independently updated to
+2.0, so no change is needed.
 
 ## pg_query-ocaml
 
