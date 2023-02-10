@@ -69,9 +69,11 @@ The patch is to replace `workspace_root` with `project_root` in dune files.
 
 ## elpi
 
-Open Gramlib in legacy parser
+Open Gramlib in legacy parser. This is due to a problem with the camlp5 overlay
+I made so that camlp5 builds with dune. I think I need to add a `(wrapped
+false)` somewhere to the dune files for that overlay.
 
-[PR (open)](https://github.com/LPCIC/elpi/pull/173)
+TODO: fix the camlp5 overlay so that this patch is not necessary
 
 ## hacl-star
 
