@@ -16,6 +16,8 @@ Forked to add dune files and optional dependency on dune.
 
 [PR to upstream (open)](https://github.com/stedolan/ocaml-afl-persistent/pull/11)
 
+TODO: Add version to dune overlays repo
+
 ## batteries
 
 Upstream: [https://github.com/ocaml-batteries-team/batteries-included](https://github.com/ocaml-batteries-team/batteries-included)
@@ -24,12 +26,7 @@ Forked to fix some problems with dune integration.
 
 [PR to upstream (merged)](https://github.com/ocaml-batteries-team/batteries-included/pull/1104)
 
-## bigstring
-
-Upstream: [https://github.com/c-cube/ocaml-bigstring](https://github.com/c-cube/ocaml-bigstring)
-
-TODO
-
+TODO: Still add version to dune overlays repo to use in the meantime
 
 ## bigstring-unix
 
