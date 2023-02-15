@@ -106,6 +106,7 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   libclang-dev \
   libmaxminddb-dev \
   libsecp256k1-dev \
+  libstring-shellquote-perl \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -120,7 +121,7 @@ RUN opam init --disable-sandboxing --auto-setup ./opam-repository
 
 # Create a fresh opam environment without all the dependencies of opam-monorepo
 RUN opam switch create bench 4.14.1
-RUN opam install -y dune ocamlbuild
+RUN opam install -y dune ocamlbuild camlp5
 
 # Create a fresh opam environment for installing dependencies
 RUN opam switch create prepare 4.14.1
@@ -184,13 +185,10 @@ RUN . ~/.profile && \
   ./configure && \
   make coq.dune pvs.dune isabelle.dune src/util/config.ml
 
-# Install camlp5 outside of opam
+# Prepare camlp5
 RUN . ~/.profile && \
-  mkdir -p ~/.local && \
   cd duniverse/camlp5 && \
-  ./configure --prefix /home/user/.local && \
-  make -j && \
-  make install
+  ./configure
 
 # Prepare coq
 RUN . ~/.profile && cd duniverse/coq && ./configure -no-ask

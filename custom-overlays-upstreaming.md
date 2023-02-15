@@ -49,8 +49,10 @@ TODO
 
 Upstream: [https://github.com/camlp5/camlp5](https://github.com/camlp5/camlp5)
 
-TODO
-
+Forked to add dune files. These files aren't enough to get this package to build
+with dune but they do allow other packages to depend on libraries defined within
+camlp5 (namely `elpi`). This is a hack to increase the number of packages that
+can be built so it won't be upstreamed.
 
 ## conf-gobject-introspection
 
