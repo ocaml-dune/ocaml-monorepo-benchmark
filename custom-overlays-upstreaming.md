@@ -79,21 +79,27 @@ TODO
 
 Upstream: [https://github.com/hacl-star/hacl-star](https://github.com/hacl-star/hacl-star)
 
-TODO
-
+This monorepo uses an old version of hacl-star with some hacks to make it build
+with dune. We use an old version because many tezos packages depend on it.
+Recent versions of hacl-star already build with dune, so I won't upstream any of
+my changes.
 
 ## hacl-star-raw
 
 Upstream: [https://github.com/hacl-star/hacl-star](https://github.com/hacl-star/hacl-star)
 
-TODO
-
+This monorepo uses an old version of hacl-star with some hacks to make it build
+with dune. We use an old version because many tezos packages depend on it.
+Recent versions of hacl-star already build with dune, so I won't upstream any of
+my changes.
 
 ## ocaml-inifiles
 
 Upstream: (there is no public repo containing the source code for this package)
 
-TODO
+The change adds a dune and dune-project file so it builds with dune.
+
+TODO: upstream to the dune overlay repo
 
 
 ## ocurl
@@ -103,6 +109,7 @@ Upstream: [https://github.com/ygrek/ocurl](https://github.com/ygrek/ocurl)
 The upstream version of this package is already vendor-friendly but unreleased.
 [Here is a discussion about doing a release.](https://github.com/ygrek/ocurl/issues/66)
 
+TODO: upstream to dune overlay repo (remove it once the dune version of this package gets released)
 
 ## ptime
 
@@ -137,8 +144,13 @@ TODO
 
 Upstream: [https://gitlab.com/camlspotter/tiny_json](https://gitlab.com/camlspotter/tiny_json)
 
-TODO
+The master branch of this project builds with dune, but these changes haven't
+been released to the opam repo. I've
+[forked](https://gitlab.com/gridbugs/tiny_json) the project and released a
+version which builds with dune to the custom overlays repo, and made an issue
+upstream requesting that the maintainer release a new version to opam.
 
+TODO: upstream to the dune overlays repo
 
 ## topkg
 
