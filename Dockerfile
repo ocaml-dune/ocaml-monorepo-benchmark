@@ -178,13 +178,6 @@ RUN mv dune.new dune
 # Prepare native sources for hacl-star
 RUN . ~/.profile && cd duniverse/hacl-star/raw && ./configure && make -j
 
-# Prepare why3
-RUN . ~/.profile && \
-  cd duniverse/why3 && \
-  ./autogen.sh && \
-  ./configure && \
-  make coq.dune pvs.dune isabelle.dune src/util/config.ml
-
 # Prepare camlp5
 RUN . ~/.profile && \
   cd duniverse/camlp5 && \
