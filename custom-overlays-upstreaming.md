@@ -26,7 +26,12 @@ Forked to fix some problems with dune integration.
 
 [PR to upstream (merged)](https://github.com/ocaml-batteries-team/batteries-included/pull/1104)
 
-TODO: Still add version to dune overlays repo to use in the meantime
+Theoretically we could download batteries from opam-repository and then apply a
+patch to the same effect, but upstream has diverged enough from the latest
+release that I can't apply the same fix to it, so instead we'll wait until
+batteries gets a release and then drop this overlay.
+
+TODO: remove overlay after next batteries release
 
 ## bisect_ppx
 
