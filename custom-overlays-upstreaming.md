@@ -106,6 +106,17 @@ This already exists in opam-overlays but needs an update.
 
 TODO: update in opam-overlays repo
 
+## session-cookie-lwt
+
+This package's archive has been regenerated and its hash no longer matches.
+
+[PR to switch to archived package (open)](https://github.com/ocaml/opam-repository)
+
+Once that PR is merged and the opam-repository version pinned in this repo is
+uptaded we can remove this overlay.
+
+TODO: remove overlay once opam-repository is updated in this repo
+
 ## tiny_json
 
 Upstream: [https://gitlab.com/camlspotter/tiny_json](https://gitlab.com/camlspotter/tiny_json)
