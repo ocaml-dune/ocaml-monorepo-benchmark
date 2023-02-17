@@ -262,30 +262,6 @@
  unisim_archisec.arm32dba
  unisim_archisec.aarch64dba
  unisim_archisec.amd64dba
- why3.plugin.cfg
- why3.plugin.parser
- why3.plugin.python
- why3.plugin.tptp
- why3.plugin.hypothesis-selection
- why3.core
- why3.driver
- why3
- why3.extract
- why3.mlw
- why3.parser
- why3.printer
- why3.session
- why3.cmds.config
- why3.cmds.execute
- why3.cmds.extract
- why3.cmds.prove
- why3.cmds.realize
- why3.cmds.wc
- why3.cmds.pp
- why3.cmds.replay
- why3.cmds.shell
- why3.transform
- why3.util
  gpiod.bindings
  gpiod
  async_ssl

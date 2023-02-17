@@ -179,26 +179,3 @@ Upstream: [https://github.com/dbuenzli/uutf](https://github.com/dbuenzli/uutf)
 Author has indicated that they aren't interested in dune integration.
 
 TODO: add to opam-overlays repo
-
-
-## why3
-
-Upstream: [https://gitlab.inria.fr/why3/why3](https://gitlab.inria.fr/why3/why3)
-
-TODO
-
-
-## why3-coq
-
-Upstream: [https://gitlab.inria.fr/why3/why3](https://gitlab.inria.fr/why3/why3)
-
-TODO
-
-
-## why3-ide
-
-Upstream: [https://gitlab.inria.fr/why3/why3](https://gitlab.inria.fr/why3/why3)
-
-TODO
-
-
