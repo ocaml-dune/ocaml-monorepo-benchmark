@@ -28,19 +28,20 @@ Forked to fix some problems with dune integration.
 
 TODO: Still add version to dune overlays repo to use in the meantime
 
-## bigstring-unix
-
-Upstream: [https://github.com/c-cube/ocaml-bigstring](https://github.com/c-cube/ocaml-bigstring)
-
-TODO
-
-
 ## bisect_ppx
 
 Upstream: [https://github.com/aantron/bisect_ppx](https://github.com/aantron/bisect_ppx)
 
-TODO
+The version of this package in opam is incompatible with the latest version of `ppxlib`. There is a [PR](https://github.com/aantron/bisect_ppx/pull/400)
+to add compatibility but it hasn't been merged yet, and people have started
+forking `bisect_ppx` to add `ppxlib` support on their own. I've cherry-picked
+commits from [this fork](https://github.com/anmonteiro/bisect_ppx/tree/fork)
+onto [my own
+fork](https://github.com/gridbugs/bisect_ppx/tree/ppxlib-compatibility) and done
+a release which is the `url.src` of the overlay package.
 
+I'm not sure what the right thing is to do assuming the PR against `bisect_ppx`
+is never merged. This probably doesn't belong in the opam-overlays repo.
 
 ## camlp5
 

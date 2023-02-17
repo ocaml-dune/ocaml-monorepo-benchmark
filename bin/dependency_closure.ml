@@ -54,7 +54,6 @@ let () =
         |> override (OpamPackage.of_string "hacl-star.0.4.2+dune")
         |> override (OpamPackage.of_string "hacl-star-raw.0.4.2+dune")
         |> override (OpamPackage.of_string "ocamlfind.1.8.1+dune")
-        |> override (OpamPackage.of_string "bisect_ppx.2.8.1+fixed")
         |> override (OpamPackage.of_string "libtorch.1.13.0+linux-x86_64")
         |> override (OpamPackage.of_string "libwasmtime.0.22.0+linux-x86_64")
         |> override (OpamPackage.of_string "why3.1.4.0+dune")

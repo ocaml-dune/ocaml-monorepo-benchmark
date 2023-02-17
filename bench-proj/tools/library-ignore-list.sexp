@@ -300,8 +300,6 @@
  bitwuzla-c
  websocket
  websocket-async
- bisect_ppx
- bisect_ppx.common
  bisect-ppx-report
  magic-trace.magic_trace_core
  magic-trace.magic_trace
