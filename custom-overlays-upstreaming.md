@@ -22,19 +22,11 @@ TODO: Add version to dune overlays repo
 
 Upstream: [https://github.com/ocaml-batteries-team/batteries-included](https://github.com/ocaml-batteries-team/batteries-included)
 
-The overlay just adds a dependency on dune. This package already can be built
-with dune but opam-monorepo doesn't accept it currently as it doesn't list dune
-as a dependency. This change has already been merged upstream.
+Forked to fix some problems with dune integration.
 
 [PR to upstream (merged)](https://github.com/ocaml-batteries-team/batteries-included/pull/1104)
 
-[PR to add depopt on dune in
-opam-repository (open)](https://github.com/ocaml/opam-repository/pull/23339)
-
-This overlay will become unnecessary once the PR against opam-repository is
-merged, and the version of opam-repository pinned in this repo gets updated.
-
-TODO: Remove overlay after updating opam-repository version
+TODO: Still add version to dune overlays repo to use in the meantime
 
 ## bisect_ppx
 

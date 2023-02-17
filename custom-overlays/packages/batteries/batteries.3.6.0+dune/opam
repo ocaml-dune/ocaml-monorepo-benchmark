@@ -1,4 +1,6 @@
 opam-version: "2.0"
+name: "batteries"
+version: "3.6.0+dune"
 synopsis: "A community-maintained standard library extension"
 maintainer: [
   "Cedric Cellier <rixed@happyleptic.org>"
@@ -23,19 +25,18 @@ depends: [
   "num"
 ]
 depopts: [
-  "dune"
+  "dune" {>= "2.7"}
 ]
 conflicts: ["base-effects" "ocaml-option-no-flat-float-array"]
-build: [
-  [make "all"]
-]
+build: [make "all"]
 run-test: [make "test"]
 install: [make "install"]
 dev-repo: "git://github.com/ocaml-batteries-team/batteries-included.git"
 url {
-  src: "https://github.com/ocaml-batteries-team/batteries-included/archive/refs/tags/v3.6.0.tar.gz"
+  src:
+    "https://github.com/gridbugs/batteries-included/archive/refs/tags/3.6.0+dune-experimental2.tar.gz"
   checksum: [
-    "md5=1bcb27dfbd130eb057561196ef851649"
-    "sha512=2a56611b09a5f1cba6457539f8b6bc87a5f2a5454b36cdb39f6e0d6a5dac6db179aab1ba87c74dd49cc41df31a9a96feb349028ea41df7371ecb47f4d9dfafc4"
+    "md5=8c86423a099f17effa42c73f1893c02a"
+    "sha512=c1303473b9a794e96d68be42274626f8d90a79810435c3c011e356af4722101f1a112036831498f278b5d550718bdd61c52ca96638233f3d1aeaae435a924867"
   ]
 }
