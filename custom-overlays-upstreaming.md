@@ -52,13 +52,6 @@ with dune but they do allow other packages to depend on libraries defined within
 camlp5 (namely `elpi`). This is a hack to increase the number of packages that
 can be built so it won't be upstreamed.
 
-## cookie
-
-Upstream: [https://github.com/ulrikstrid/ocaml-cookie](https://github.com/ulrikstrid/ocaml-cookie)
-
-TODO
-
-
 ## hacl-star
 
 Upstream: [https://github.com/hacl-star/hacl-star](https://github.com/hacl-star/hacl-star)
@@ -101,28 +94,9 @@ Upstream: [https://github.com/dbuenzli/ptime](https://github.com/dbuenzli/ptime)
 
 Author has indicated that they aren't interested in dune integration.
 
-TODO: add to opam-overlays repo
+This already exists in opam-overlays but needs an update.
 
-## session-cookie
-
-Upstream: [https://github.com/ulrikstrid/ocaml-cookie](https://github.com/ulrikstrid/ocaml-cookie)
-
-TODO
-
-
-## session-cookie-async
-
-Upstream: [https://github.com/ulrikstrid/ocaml-cookie](https://github.com/ulrikstrid/ocaml-cookie)
-
-TODO
-
-
-## session-cookie-lwthttps://github.com/ocaml/opam-repository
-
-Upstream: [https://github.com/ulrikstrid/ocaml-cookie](https://github.com/ulrikstrid/ocaml-cookie)
-
-TODO
-
+TODO: update in opam-overlays repo
 
 ## tiny_json
 
@@ -160,21 +134,14 @@ Upstream: [https://github.com/dbuenzli/uucp](https://github.com/dbuenzli/uucp)
 
 Author has indicated that they aren't interested in dune integration.
 
-TODO: add to opam-overlays repo
+This already exists in the dune overlays but needs an update.
+
+TODO: update in opam-overlays repo
 
 
 ## uunf
 
 Upstream: [https://github.com/dbuenzli/uunf](https://github.com/dbuenzli/uunf)
-
-Author has indicated that they aren't interested in dune integration.
-
-TODO: add to opam-overlays repo
-
-
-## uutf
-
-Upstream: [https://github.com/dbuenzli/uutf](https://github.com/dbuenzli/uutf)
 
 Author has indicated that they aren't interested in dune integration.
 
