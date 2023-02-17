@@ -52,20 +52,6 @@ with dune but they do allow other packages to depend on libraries defined within
 camlp5 (namely `elpi`). This is a hack to increase the number of packages that
 can be built so it won't be upstreamed.
 
-## conf-gobject-introspection
-
-Upstream: [https://github.com/ocaml/opam-repository](https://github.com/ocaml/opam-repository)
-
-TODO
-
-
-## conf-netsnmp
-
-Upstream: [https://www.github.com/stevebleazard/ocaml-conf-netsnmp](https://www.github.com/stevebleazard/ocaml-conf-netsnmp)
-
-TODO
-
-
 ## cookie
 
 Upstream: [https://github.com/ulrikstrid/ocaml-cookie](https://github.com/ulrikstrid/ocaml-cookie)
