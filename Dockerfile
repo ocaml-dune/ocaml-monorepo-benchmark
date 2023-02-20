@@ -107,6 +107,10 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   libmaxminddb-dev \
   libsecp256k1-dev \
   libstring-shellquote-perl \
+  libopenblas-dev \
+  qt5-qmake \
+  libqt5quick5 \
+  qtdeclarative5-dev \
   ;
 
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
@@ -222,5 +226,7 @@ RUN bash -c 'TARGETS=$(cd duniverse/hacl-star/raw/lib && ls *.ml | xargs); sed -
 RUN rm -r duniverse/async_ssl
 
 RUN rm -r duniverse/coq-of-ocaml
+
+RUN rm -r duniverse/inquire
 
 RUN . ~/.profile && make || true

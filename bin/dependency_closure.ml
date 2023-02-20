@@ -57,10 +57,13 @@ let () =
         |> override (OpamPackage.of_string "libtorch.1.13.0+linux-x86_64")
         |> override (OpamPackage.of_string "libwasmtime.0.22.0+linux-x86_64")
         |> override (OpamPackage.of_string "ocaml.4.14.1")
+        |> override (OpamPackage.of_string "ppxlib.0.28.0")
+        |> override (OpamPackage.of_string "eigen.0.3.3")
+        |> override (OpamPackage.of_string "camlp5.8.00.04+dune")
         |> override (OpamPackage.of_string "ocaml-base-compiler.4.14.1")))
       packages
   in
-  let required_compatible = [ "ocaml.4.14.1"; "dune.3.6.1"; "ppxlib.0.28.0" ] in
+  let required_compatible = [ "ocaml.4.14.1"; "dune.3.6.2"; "ppxlib.0.28.0" ] in
   let latest_filtered =
     Select.(
       apply repo
@@ -76,13 +79,11 @@ let () =
                    OpamPackage.Name.of_string "base-domains";
                    OpamPackage.Name.of_string "base-nnp";
                    OpamPackage.Name.of_string "winsvc";
-                   OpamPackage.Name.of_string "ocamlog";
-                   OpamPackage.Name.of_string "nlfork";
-                   OpamPackage.Name.of_string "ocp-indent";
-                   OpamPackage.Name.of_string "scfg";
                    OpamPackage.Name.of_string "yojson-bench";
+                   (* collides with ocp-indent *)
+                   OpamPackage.Name.of_string "ocp-indent-nlfork";
+                   (* no build command so it looks like a conf package but isn't *)
                    OpamPackage.Name.of_string "xml-light";
-                   OpamPackage.Name.of_string "sedlex";
                  ];
                exclude_package_prefix "ocaml-option-";
                exclude_package_prefix "ocaml-options-";

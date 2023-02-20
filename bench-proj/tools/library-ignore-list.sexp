@@ -313,6 +313,8 @@
  coq-lsp.coq
  coq-lsp.fleche
  coq-lsp.lsp
+ coq-lsp.fleche.waterproof
+ coq-lsp.lang
  coq-serapi.extcoq
  coq-serapi.serapi_v8_14
  coq-serapi.serlib
@@ -506,4 +508,28 @@
  ppx_irmin
  ppx_irmin.internal
  ppx_irmin.internal-lib
+ extlib
+
+ ; these depend on easy_logging which doesn't build
+ profiling
+ profiling.ppx
+ process_limits
+ lib_parsing
+ commons
+ commons.tests
+
+ ; depends on extlib which conflicts with core
+ debian-formats
+
+ ; defines a symbol which collides with cryptokit
+ opsian
+
+ ; with this included, we get the error:
+ ; File "_none_", line 1:
+ ; Error: No implementations provided for the following modules:
+ ;          Toploop referenced from duniverse/lib-findlib/src/findlib/findlib_top.cmxa(Topfind)
+ ;          Topdirs referenced from duniverse/lib-findlib/src/findlib/findlib_top.cmxa(Topfind)
+ binsec.sse.formula
+ binsec.sse.term
+ binsec.sse_register
 )
