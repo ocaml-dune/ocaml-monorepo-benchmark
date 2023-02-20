@@ -61,12 +61,6 @@ Copy src/3rd-party into _build during build
 
 [PR (merged)](https://github.com/toolslive/camltc/pull/50)
 
-## curses
-
-The patch is to replace `workspace_root` with `project_root` in dune files.
-
-[PR (merged)](https://github.com/mbacarella/curses/pull/10)
-
 ## elpi
 
 Open Gramlib in legacy parser. This is due to a problem with the camlp5 overlay
