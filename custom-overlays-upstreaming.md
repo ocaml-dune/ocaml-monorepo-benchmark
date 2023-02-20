@@ -22,14 +22,9 @@ TODO: Add version to dune overlays repo
 
 Upstream: [https://github.com/ocaml-batteries-team/batteries-included](https://github.com/ocaml-batteries-team/batteries-included)
 
-Forked to fix some problems with dune integration.
-
-[PR to upstream (merged)](https://github.com/ocaml-batteries-team/batteries-included/pull/1104)
-
-Theoretically we could download batteries from opam-repository and then apply a
-patch to the same effect, but upstream has diverged enough from the latest
-release that I can't apply the same fix to it, so instead we'll wait until
-batteries gets a release and then drop this overlay.
+The overlay adds a dependency on dune. Batteries is already capable of being built with dune.
+I've upstreamed a patch to add dune as an optional dependency of batteries so this overlay
+will become unnecessary after the next release of batteries.
 
 TODO: remove overlay after next batteries release
 
