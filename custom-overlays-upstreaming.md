@@ -26,6 +26,8 @@ The overlay adds a dependency on dune. Batteries is already capable of being bui
 I've upstreamed a patch to add dune as an optional dependency of batteries so this overlay
 will become unnecessary after the next release of batteries.
 
+TODO: add batteries to opam-overlays
+
 TODO: remove overlay after next batteries release
 
 ## bisect_ppx
