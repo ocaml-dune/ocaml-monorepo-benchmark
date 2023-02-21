@@ -31,9 +31,6 @@
  metapp.version_info
  metaquot
  metaquot.ppx
- crlibm
- qbf
- qbf.quantor
  papi.top
  zelus-gtk
  opentelemetry
@@ -42,7 +39,6 @@
  opentelemetry-client-ocurl
  opentelemetry-cohttp-lwt
  pyre-ast
- interval_crlibm
  lwd
  tyxml-lwd
  nottui-lwt
@@ -262,16 +258,11 @@
  unisim_archisec.arm32dba
  unisim_archisec.aarch64dba
  unisim_archisec.amd64dba
- gpiod.bindings
- gpiod
  async_ssl
  async_ssl.bindings
- zstandard
- zstandard.bindings
  mysql8
  colibrilib
  pam
- zstd.stubs
  bitwuzla
  bitwuzla-c
  websocket
@@ -306,6 +297,7 @@
  unix-errno.errno_types_detected
  unix-errno.unix
  zstd
+ zstd.stubs
  lz4
  lz4.bindings
  lz4.generated
