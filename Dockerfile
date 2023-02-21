@@ -144,7 +144,8 @@ WORKDIR src
 # Add generated files to the current directory
 ADD --chown=user:users dist ./
 ADD --chown=user:users opam_monorepo_binary_search.sh ./
-RUN ./opam_monorepo_binary_search.sh < packages
+ADD --chown=user:users mkopam.sh ./
+RUN ./mkopam.sh < packages > x.opam
 
 # Generate the lockfile
 RUN opam monorepo lock
