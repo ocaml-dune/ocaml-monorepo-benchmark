@@ -144,7 +144,7 @@ Upstream has independently been updated so no change is needed.
 
 Patch fixes some issues with vendoring.
 
-[PR (open)](https://github.com/c-cube/ocaml-qbf/pull/14)
+[PR (merged)](https://github.com/c-cube/ocaml-qbf/pull/14)
 
 ## ocaml-solidity
 
