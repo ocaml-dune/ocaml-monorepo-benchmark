@@ -81,31 +81,13 @@
  ecaml.ecaml_value
  ecaml.nested_profile
  ecaml
- js_of_ocaml-tyxml
- js_of_ocaml-compiler
  js_of_ocaml-compiler.dynlink
- js_of_ocaml-compiler.findlib-support
- js_of_ocaml-compiler.runtime-files
- js_of_ocaml-compiler.runtime
- js_of_ocaml-lwt
- js_of_ocaml-lwt.logger
- js_of_ocaml-ppx.as-lib
- js_of_ocaml-ppx
- js_of_ocaml.deriving
- js_of_ocaml
- js_of_ocaml-ppx_deriving_json
  findlib.internal
  findlib
  findlib.top
  findlib.dynload
  ppx_make
- ppx_inline_test.config
- ppx_inline_test.drop
- ppx_inline_test.libname
  ppx_inline_test.runner
- ppx_inline_test.runner.lib
- ppx_inline_test.runtime-lib
- ppx_inline_test
  ocaml-monadic
  ppx_camlrack
  ppx_map
@@ -114,29 +96,10 @@
  ppx_meta_conv.sexp
  ppx_meta_conv.ppx
  ppx_meta_conv.tiny_json
- ppx_monad
- ppx_monad.lib
- ppx_monad.ppx.do
- ppx_monad.ppx
- ppx_monad.ppx.either
- ppx_monad.ppx.list
- ppx_monad.ppx.monad
- ppx_monad.ppx.option
- ppx_monad.ppx.result
- ppx_monad.ppx.seq
  ppx_string_interpolation
  ppx_yojson_conv
- ppxlib.ast
- ppxlib.astlib
- ppxlib.metaquot
- ppxlib.metaquot_lifters
- ppxlib.print_diff
  ppxlib.runner
  ppxlib.runner_as_ppx
- ppxlib
- ppxlib.stdppx
- ppxlib.traverse
- ppxlib.traverse_builtins
  caqti
  caqti.blocking
  caqti-type-calendar
@@ -198,24 +161,6 @@
  ctypes.top
  git-unix.top
  dolmen_model
- dolmen_loop
- dolmen_type
- dolmen.class
- dolmen
- dolmen.intf
- dolmen.ae
- dolmen.dimacs
- dolmen.icnf
- dolmen.line
- dolmen.smtlib2
- dolmen.smtlib2.poly
- dolmen.smtlib2.v6
- dolmen.smtlib2.v6_response
- dolmen.smtlib2.v6_script
- dolmen.tptp
- dolmen.tptp.v6_3_0
- dolmen.zf
- dolmen.std
  eris.crypto-wasm
  eris.crypto-zig
  dirsp-exchange
@@ -365,9 +310,6 @@
  pyast.utils
  ctypes-zarith
  cudf
- dose3.algo
- dose3.common
- dose3.versioning
  goblint.lib
  goblint.sites
  goblint.sites.dune
