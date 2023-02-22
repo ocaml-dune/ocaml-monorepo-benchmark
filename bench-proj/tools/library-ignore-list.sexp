@@ -100,6 +100,7 @@
  ppx_yojson_conv
  ppxlib.runner
  ppxlib.runner_as_ppx
+ ppx_seq
  caqti
  caqti.blocking
  caqti-type-calendar
