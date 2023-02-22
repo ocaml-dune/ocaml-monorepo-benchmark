@@ -92,7 +92,7 @@ Remove patch number from dune-project
 
 Remove patch number from dune-project
 
-[PR (open)](https://github.com/shnewto/lilac/pull/1)
+[PR (merged)](https://github.com/shnewto/lilac/pull/1)
 
 ## ocaml-aws
 
@@ -113,13 +113,13 @@ The patch is to replace `workspace_root` with `project_root` in dune files.
 The patch replaces the `oUnit` dependency with `oUnit2` as there is no dune
 library named `oUnit`.
 
-[PR (open)](https://github.com/Khady/ocaml-junit/pull/4)
+[PR (merged)](https://github.com/Khady/ocaml-junit/pull/4)
 
 ## ocaml-jupyter
 
 The patch is to replace `workspace_root` with `project_root` in dune files.
 
-[PR (open)](https://github.com/akabe/ocaml-jupyter/pull/198)
+[PR (merged)](https://github.com/akabe/ocaml-jupyter/pull/198)
 
 ## ocaml-mindstorm
 
@@ -139,6 +139,12 @@ library named `oUnit`.
 Increase lang dune version to 1.4
 
 Upstream has independently been updated so no change is needed.
+
+## ocaml-qbf
+
+Patch fixes some issues with vendoring.
+
+[PR (open)](https://github.com/c-cube/ocaml-qbf/pull/14)
 
 ## ocaml-solidity
 
