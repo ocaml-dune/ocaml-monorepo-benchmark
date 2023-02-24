@@ -1,6 +1,6 @@
+version: "1.1.0"
 opam-version: "2.0"
 name: "ptime"
-version: "1.1.0+dune"
 synopsis: "POSIX time for OCaml"
 description: """\
 Ptime has platform independent POSIX time support in pure OCaml. It
@@ -22,22 +22,18 @@ under the ISC license.
 
 Home page: <http://erratique.ch/software/ptime>"""
 maintainer: "Daniel Bünzli <daniel.buenzl i@erratique.ch>"
-authors: "The ptime programmers"
+authors: ["The ptime programmers"]
 license: "ISC"
 tags: ["time" "posix" "system" "org:erratique"]
-homepage: "https://erratique.ch/software/ptime"
-doc: "https://erratique.ch/software/ptime/doc/"
+homepage: "https://github.com/dune-universe/ptime"
 bug-reports: "https://github.com/dbuenzli/ptime/issues"
 depends: [
-  "ocaml" {>= "4.08.0"}
-  "ocamlfind" {build}
-  "ocamlbuild" {build & != "0.9.0"}
   "dune"
+  "ocaml" {>= "4.08.0"}
 ]
-build: ["ocaml" "pkg/pkg.ml" "build" "--dev-pkg" "%{dev}%"]
-dev-repo: "git+https://erratique.ch/repos/ptime.git"
+build: [ "dune" "build" "-p" name "-j" jobs "@install" "@runtest" {with-test} ]
 url {
-  src: "https://github.com/gridbugs/ptime/archive/refs/tags/1.1.0-dune-experimental.tar.gz"
+  src: "https://github.com/gridbugs/ptime/archive/refs/tags/1.1.0-dune-experimental2.tar.gz"
   checksum:
-    "sha512=478df4808cdfcff9c044d795d452fce7b9dcac7f4e6e5be9f816fd819ef9011419ca99f3968d8d302af3363f0a258402a89bb56420af980008336786855faa57"
+    "sha512=0a32e98c4ef04eebebd9f5d2816da353dd065e7ca5fa75dcedda94ac62a9e98dcdc03990a29d8a3b35eb1f51484ed32e4f1785273da5e05ca431479f1273cd52"
 }

@@ -1,6 +1,6 @@
+version: "15.0.0"
 opam-version: "2.0"
 name: "uunf"
-version: "15.0.0"
 synopsis: "Unicode text normalization for OCaml"
 description: """\
 Uunf is an OCaml library for normalizing Unicode text. It supports all
@@ -20,38 +20,20 @@ maintainer: "Daniel Bünzli <daniel.buenzl i@erratique.ch>"
 authors: "The uunf programmers"
 license: "ISC"
 tags: ["unicode" "text" "normalization" "org:erratique"]
-homepage: "https://erratique.ch/software/uunf"
-doc: "https://erratique.ch/software/uunf/doc/Uunf"
+homepage: "git://github.com/dune-universe/uunf"
 bug-reports: "https://github.com/dbuenzli/uunf/issues"
 depends: [
   "ocaml" {>= "4.03.0"}
-  "ocamlfind" {build}
-  "ocamlbuild" {build}
-  "uucd" {dev & >= "15.0.0" & < "16.0.0"}
-  "dune"
 ]
-depopts: ["uutf" "cmdliner"]
+depopts: ["uutf"]
 conflicts: [
   "uutf" {< "1.0.0"}
   "cmdliner" {< "1.1.0"}
 ]
-build: [
-  "ocaml"
-  "pkg/pkg.ml"
-  "build"
-  "--dev-pkg"
-  "%{dev}%"
-  "--with-uutf"
-  "%{uutf:installed}%"
-  "--with-cmdliner"
-  "%{cmdliner:installed}%"
-]
-post-messages:
-  "If the build fails with \"ocamlopt.opt got signal and exited\", issue 'ulimit -s unlimited' and retry."
-    {failure & (arch = "ppc64" | arch = "arm64")}
-dev-repo: "git+https://erratique.ch/repos/uunf.git"
+build: [ "dune" "build" "-p" name "-j" jobs ]
+dev-repo: "git+https://github.com/dune-universe/uunf.git"
 url {
-  src: "https://github.com/gridbugs/uunf/archive/refs/tags/15.0.0+dune-experimental3.tar.gz"
+  src: "https://github.com/gridbugs/uunf/archive/refs/tags/15.0.0+dune-experimental4.tar.gz"
   checksum:
-    "sha512=30dd8ba299150a90b5a7eb6458286ddfa5825dbb0e301ef5c5d0ace5f93459b32e96da4c556e123de861ff783982e00385a5ceff13225128cc847cfd3d386c02"
+    "sha512=0c86b56187f98ab5b28a3881b0fd9c53ddd4ef4859320c6f53d44b710bf10eac91464c2d197b62e1d24651f33bd136358fde9eb38571c38e8be4b15dee836f49"
 }

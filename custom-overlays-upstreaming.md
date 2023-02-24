@@ -98,6 +98,8 @@ Author has indicated that they aren't interested in dune integration.
 
 This already exists in opam-overlays but needs an update.
 
+[PR to update dune port (open)](https://github.com/dune-universe/ptime/pull/2)
+
 TODO: update in opam-overlays repo
 
 ## tiny_json
@@ -121,6 +123,8 @@ Author has indicated that they aren't interested in dune integration.
 
 This already exists in the dune overlays but needs an update.
 
+[PR to update dune port (open)](https://github.com/dune-universe/uucp/pull/1)
+
 TODO: update in opam-overlays repo
 
 
@@ -129,5 +133,7 @@ TODO: update in opam-overlays repo
 Upstream: [https://github.com/dbuenzli/uunf](https://github.com/dbuenzli/uunf)
 
 Author has indicated that they aren't interested in dune integration.
+
+[PR to add dune port (open)](https://github.com/dune-universe/uunf/pull/1)
 
 TODO: add to opam-overlays repo
