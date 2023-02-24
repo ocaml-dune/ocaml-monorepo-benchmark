@@ -23,6 +23,7 @@ tags: ["unicode" "text" "normalization" "org:erratique"]
 homepage: "git://github.com/dune-universe/uunf"
 bug-reports: "https://github.com/dbuenzli/uunf/issues"
 depends: [
+  "dune"
   "ocaml" {>= "4.03.0"}
 ]
 depopts: ["uutf"]
