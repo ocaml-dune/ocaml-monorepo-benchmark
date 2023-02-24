@@ -112,14 +112,6 @@ upstream requesting that the maintainer release a new version to opam.
 
 TODO: upstream to the dune overlays repo
 
-## uucd
-
-Upstream: [https://github.com/dbuenzli/uucd](https://github.com/dbuenzli/uucd)
-
-Author has indicated that they aren't interested in dune integration.
-
-TODO: add to opam-overlays repo
-
 
 ## uucp
 
