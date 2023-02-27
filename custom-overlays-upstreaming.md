@@ -57,6 +57,15 @@ with dune. We use an old version because many tezos packages depend on it.
 Recent versions of hacl-star already build with dune, so I won't upstream any of
 my changes.
 
+## ocaml-inifiles
+
+Upstream: (there is no public repo containing the source code for this package)
+
+The change adds a dune and dune-project file so it builds with dune.
+
+TODO: upstream to the dune overlay repo
+
+
 ## ptime
 
 Upstream: [https://github.com/dbuenzli/ptime](https://github.com/dbuenzli/ptime)
