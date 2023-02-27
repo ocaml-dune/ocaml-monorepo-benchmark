@@ -32,6 +32,7 @@ depends: [
   "ocaml" {>= "4.08.0"}
 ]
 build: [ "dune" "build" "-p" name "-j" jobs "@install" "@runtest" {with-test} ]
+dev-repo: "git+https://github.com/dune-universe/ptime.git"
 url {
   src: "https://github.com/gridbugs/ptime/archive/refs/tags/1.1.0-dune-experimental2.tar.gz"
   checksum:

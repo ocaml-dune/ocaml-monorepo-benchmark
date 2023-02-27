@@ -208,8 +208,6 @@ RUN cd duniverse/zelus && ./configure
 
 RUN rm -rf duniverse/magic-trace/vendor
 
-RUN cd duniverse/ocurl && ./configure
-
 RUN cd duniverse/elpi && make config LEGACY_PARSER=1
 
 RUN cd duniverse/cpu && autoconf && autoheader && ./configure

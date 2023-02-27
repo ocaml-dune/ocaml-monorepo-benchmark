@@ -10,13 +10,10 @@ either be ustreamed to their original packages, or added to the
 
 Upstream: [https://github.com/ocaml-batteries-team/batteries-included](https://github.com/ocaml-batteries-team/batteries-included)
 
-The overlay adds a dependency on dune. Batteries is already capable of being built with dune.
-I've upstreamed a patch to add dune as an optional dependency of batteries so this overlay
-will become unnecessary after the next release of batteries.
+The overlay adds a dependency on dune. Batteries is already capable of being built with dune
+but requires some fixes to its dune file.
 
-TODO: add batteries to opam-overlays
-
-TODO: remove overlay after next batteries release
+[PR to add dune port (open)](https://github.com/dune-universe/batteries-included/pull/1)
 
 ## bisect_ppx
 

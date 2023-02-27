@@ -43,12 +43,6 @@ Remove patch number from dune-project
 
 [PR (open)](https://github.com/Risto-Stevcev/bastet-lwt/pull/1)
 
-## batteries-included
-
-Various fixes to dune file
-
-[PR (merged)](https://github.com/ocaml-batteries-team/batteries-included/pull/1104)
-
 ## biocaml
 
 Replace `core.caml_unix` with `core_kernel.caml_unix`.

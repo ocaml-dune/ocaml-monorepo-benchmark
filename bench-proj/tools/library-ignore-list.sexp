@@ -153,6 +153,10 @@
  ez_api.sha2
  ez_api.sha3
  ez_api.ws_js
+ ez_api.curl_multi
+ ez_api.curl_lwt
+ ez_api.curl_common
+ ez_api.curl
  nanoid.jsoo
  vchan-xen
  vchan-unix

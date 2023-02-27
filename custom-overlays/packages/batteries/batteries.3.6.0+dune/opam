@@ -1,6 +1,4 @@
 opam-version: "2.0"
-name: "batteries"
-version: "3.6.0+dune"
 synopsis: "A community-maintained standard library extension"
 maintainer: [
   "Cedric Cellier <rixed@happyleptic.org>"
@@ -9,35 +7,30 @@ maintainer: [
   "Thibault Suzanne <thi.suzanne@gmail.com>"
 ]
 authors: "OCaml batteries-included team"
-license: "LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception"
-homepage: "https://github.com/ocaml-batteries-team/batteries-included"
-doc: "http://ocaml-batteries-team.github.io/batteries-included/hdoc2/"
-bug-reports:
-  "https://github.com/ocaml-batteries-team/batteries-included/issues"
+homepage: "https://github.com/dune-universe/batteries-included"
+bug-reports: "https://github.com/ocaml-batteries-team/batteries-included/issues"
+dev-repo: "https://github.com/dune-universe/batteries-included.git"
+license: "LGPL-2.1-or-later with OCaml-LGPL-linking-exception"
+build: [ "dune" "build" "-p" name "-j" jobs ]
 depends: [
   "ocaml" {>= "4.02.3"}
   "camlp-streams"
-  "ocamlfind" {build & >= "1.5.3"}
-  "ocamlbuild" {build}
   "qtest" {with-test & >= "2.5"}
   "qcheck" {with-test & >= "0.9" & < "0.14"}
   "benchmark" {with-test & >= "1.6"}
   "num"
-]
-depopts: [
   "dune" {>= "2.7"}
 ]
-conflicts: ["base-effects" "ocaml-option-no-flat-float-array"]
-build: [make "all"]
-run-test: [make "test"]
-install: [make "install"]
-dev-repo: "git://github.com/ocaml-batteries-team/batteries-included.git"
+conflicts: [
+  "base-effects"
+  "ocaml-option-no-flat-float-array"
+]
 url {
   src:
-    "https://github.com/ocaml-batteries-team/batteries-included/archive/refs/tags/v3.6.0.tar.gz"
+    "https://github.com/gridbugs/batteries-included/archive/refs/tags/3.6.0+dune-experimental3.tar.gz"
   checksum: [
-    "md5=1bcb27dfbd130eb057561196ef851649"
-    "sha512=2a56611b09a5f1cba6457539f8b6bc87a5f2a5454b36cdb39f6e0d6a5dac6db179aab1ba87c74dd49cc41df31a9a96feb349028ea41df7371ecb47f4d9dfafc4"
+    "md5=cc25fe623c585ebd3eda04e3378bae89"
+    "sha512=36073ca48b44b68c594813eee4dc32a5ba92336518e2da2035559698fb9a611898a0cf27a38ac07a93de414548662538abe221fdad37929ccad0a7d54d0745e6"
   ]
 }
 
