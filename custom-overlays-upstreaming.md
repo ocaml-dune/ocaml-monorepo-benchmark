@@ -93,19 +93,6 @@ This already exists in opam-overlays but needs an update.
 
 TODO: update in opam-overlays repo
 
-## tiny_json
-
-Upstream: [https://gitlab.com/camlspotter/tiny_json](https://gitlab.com/camlspotter/tiny_json)
-
-The master branch of this project builds with dune, but these changes haven't
-been released to the opam repo. I've
-[forked](https://gitlab.com/gridbugs/tiny_json) the project and released a
-version which builds with dune to the custom overlays repo, and made an issue
-upstream requesting that the maintainer release a new version to opam.
-
-TODO: upstream to the dune overlays repo
-
-
 ## uucp
 
 Upstream: [https://github.com/dbuenzli/uucp](https://github.com/dbuenzli/uucp)
