@@ -6,18 +6,6 @@ benchmark working quickly, but the changes introduced in these overlays should
 either be ustreamed to their original packages, or added to the
 [opam-overlays](https://github.com/dune-universe/opam-overlays.git) repo.
 
-## afl-persistent
-
-Upstream: [https://github.com/stedolan/ocaml-afl-persistent](https://github.com/stedolan/ocaml-afl-persistent)
-
-Fork: [https://github.com/gridbugs/ocaml-afl-persistent/tree/dune](https://github.com/gridbugs/ocaml-afl-persistent/tree/dune)
-
-Forked to add dune files and optional dependency on dune.
-
-[PR to upstream (open)](https://github.com/stedolan/ocaml-afl-persistent/pull/11)
-
-TODO: Add version to dune overlays repo
-
 ## batteries
 
 Upstream: [https://github.com/ocaml-batteries-team/batteries-included](https://github.com/ocaml-batteries-team/batteries-included)
