@@ -5,7 +5,7 @@ dev-repo: "git+https://github.com/dune-universe/ocaml-inifiles"
 depends: [
     "ocaml"
     "pcre"
-    "dune" {= "1.1"}
+    "dune" {>= "1.1"}
 ]
 conflicts: ["ocaml-option-bytecode-only"]
 build: [ "dune" "build" "-p" name "-j" jobs ]
