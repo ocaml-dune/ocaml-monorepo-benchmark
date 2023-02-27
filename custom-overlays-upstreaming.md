@@ -72,15 +72,6 @@ with dune. We use an old version because many tezos packages depend on it.
 Recent versions of hacl-star already build with dune, so I won't upstream any of
 my changes.
 
-## ocurl
-
-Upstream: [https://github.com/ygrek/ocurl](https://github.com/ygrek/ocurl)
-
-The upstream version of this package is already vendor-friendly but unreleased.
-[Here is a discussion about doing a release.](https://github.com/ygrek/ocurl/issues/66)
-
-TODO: upstream to dune overlay repo (remove it once the dune version of this package gets released)
-
 ## ptime
 
 Upstream: [https://github.com/dbuenzli/ptime](https://github.com/dbuenzli/ptime)
