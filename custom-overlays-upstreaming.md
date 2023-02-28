@@ -39,32 +39,15 @@ with dune but they do allow other packages to depend on libraries defined within
 camlp5 (namely `elpi`). This is a hack to increase the number of packages that
 can be built so it won't be upstreamed.
 
-## hacl-star
-
-Upstream: [https://github.com/hacl-star/hacl-star](https://github.com/hacl-star/hacl-star)
-
-This monorepo uses an old version of hacl-star with some hacks to make it build
-with dune. We use an old version because many tezos packages depend on it.
-Recent versions of hacl-star already build with dune, so I won't upstream any of
-my changes.
-
-## hacl-star-raw
-
-Upstream: [https://github.com/hacl-star/hacl-star](https://github.com/hacl-star/hacl-star)
-
-This monorepo uses an old version of hacl-star with some hacks to make it build
-with dune. We use an old version because many tezos packages depend on it.
-Recent versions of hacl-star already build with dune, so I won't upstream any of
-my changes.
-
 ## ocaml-inifiles
 
 Upstream: (there is no public repo containing the source code for this package)
 
 The change adds a dune and dune-project file so it builds with dune.
 
-TODO: upstream to the dune overlay repo
+[PR to add dune port (open)](https://github.com/dune-universe/ocaml-inifiles/pull/1)
 
+TODO: upstream to the dune overlay repo
 
 ## ptime
 
