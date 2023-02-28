@@ -115,13 +115,14 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   libzstd-dev \
   ;
 
+# Set up a user to do the build
 RUN useradd --create-home --shell /bin/bash --gid users --groups sudo user
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
 USER user
 WORKDIR /home/user
 COPY --chown=user:users dotfiles/tmux.conf .tmux.conf
 
+# Add a pinned version of the opam repository
 ADD --chown=user:users data/repos/opam-repository ./opam-repository
 RUN opam init --disable-sandboxing --auto-setup ./opam-repository
 
@@ -131,9 +132,9 @@ RUN opam install -y dune ocamlbuild
 
 # Create a fresh opam environment for installing dependencies
 RUN opam switch create prepare 4.14.1
-
 RUN opam install -y opam-monorepo ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith stdcompat refl
 
+# Add some package overlays
 ADD --chown=user:users custom-overlays ./custom-overlays
 ADD --chown=user:users data/repos/opam-overlays ./dune-duniverse
 RUN rm -rf ./dune-duniverse/.git
@@ -145,8 +146,12 @@ WORKDIR src
 
 # Add generated files to the current directory
 ADD --chown=user:users dist ./
+
+# Add some scripts for generating opam files
 ADD --chown=user:users opam_monorepo_binary_search.sh ./
 ADD --chown=user:users mkopam.sh ./
+
+# Generate the opam file
 RUN ./mkopam.sh < packages > x.opam
 
 # Generate the lockfile
@@ -196,15 +201,11 @@ RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); echo Applying $p; 
 # Prepare some packages that require initial setup before building with dune
 RUN cd duniverse/zelus && ./configure
 RUN rm -rf duniverse/magic-trace/vendor
-RUN cd duniverse/elpi && make config LEGACY_PARSER=1
 RUN cd duniverse/cpu && autoconf && autoheader && ./configure
 RUN cd duniverse/setcore && autoconf && autoheader && ./configure
 RUN cd duniverse/batsat-ocaml && ./build_rust.sh
 
-# async_ssl currently doesn't compile and is an optional dependency of some other packages
-# that we want to build, so we have to delete it
-RUN rm -r duniverse/async_ssl
+# Some packages define conflicting definitions of libraries so they must be removed for the build to succeed
 RUN rm -r duniverse/coq-of-ocaml
-RUN rm -r duniverse/inquire
 
 RUN . ~/.profile && make || true

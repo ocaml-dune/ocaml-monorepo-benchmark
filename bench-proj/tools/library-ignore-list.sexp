@@ -190,6 +190,20 @@
  links.lens
  odoc.ocamlary
  wasmtime
+ hacl-star
+ elpi
+ elpi.legacy_parser
+ elpi.lexer_config
+ elpi.parser
+ elpi.trace.ppx
+ elpi.trace.runtime
+ elpi.util
+ lablgtk3
+ lablgtk3-extras
+ lablgtk3-extras.configwin
+ lablgtk3-goocanvas2
+ lablgtk3-gtkspell3
+ lablgtk3-sourceview3
 
  ; libraries we should be able to fix
  fswatch
