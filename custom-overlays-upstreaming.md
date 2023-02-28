@@ -30,15 +30,6 @@ a release which is the `url.src` of the overlay package.
 I'm not sure what the right thing is to do assuming the PR against `bisect_ppx`
 is never merged. This probably doesn't belong in the opam-overlays repo.
 
-## camlp5
-
-Upstream: [https://github.com/camlp5/camlp5](https://github.com/camlp5/camlp5)
-
-Forked to add dune files. These files aren't enough to get this package to build
-with dune but they do allow other packages to depend on libraries defined within
-camlp5 (namely `elpi`). This is a hack to increase the number of packages that
-can be built so it won't be upstreamed.
-
 ## ocaml-inifiles
 
 Upstream: (there is no public repo containing the source code for this package)
