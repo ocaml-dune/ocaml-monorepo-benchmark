@@ -11,10 +11,10 @@ git submodule update
 opam install --deps-only .
 eval $(opam env)
 
-# generate an opam file with as many dependencies as possible
+# generate a file dist/packages listing the packages that will go into the monorepo
 make
 
-# Build a docker image with a ubuntu environment with system deps installed
+# Build a docker image with a debian environment with system deps installed
 # and a dune project which depends on libraries from as many packages as possible,
 # then run the image in a container.
 docker build . --tag opam-generate-big-monorepo && docker run --rm -it opam-generate-big-monorepo
@@ -26,16 +26,3 @@ make
 
 The docker image will contain an opam monorepo with all its dependencies
 downloaded into the "duniverse" directory.
-
-To do manual experiments, run:
-```
-make dist/packages.sexp
-```
-...which will generate dist/packages.sexp containing a list of packages. Modify
-this file so it contains the packages you want present in the eventual .opam
-file, then run:
-```
-make dist/hello.opam
-docker build . --tag opam-generate-big-monorepo && docker run --rm -it opam-generate-big-monorepo bash --login
-```
-...to rebuild the docker image with the desired packages.
