@@ -1,7 +1,7 @@
 (executable
  (name list_duniverse_libraries)
  (modules List_duniverse_libraries)
- (libraries sexplib re)
+ (libraries sexplib re unix)
  (preprocess (pps ppx_sexp_conv)))
 
 (executable

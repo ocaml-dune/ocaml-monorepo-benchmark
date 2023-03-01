@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Script to invoke dune on a tuareg file (ocaml programs files that generate
+# dune files). The resulting dune file will be print to this script's stdout.
+
 PACKAGE_DIR=$1
 DUNE_FILE=$2
 

@@ -1,9 +1,11 @@
+(* Prints out info about the number of packages compatible with the versions of
+   ocabml, dune, and ppxlib, and which list dune as a dependency. This is the
+   upper bound on the number of packages that can go into the monorepo. *)
+
 open Switch_builder
+module Supported_versions = Helpers.Supported_versions
 
 let () =
-  let ocaml_name = "ocaml.4.14.0" in
-  let dune_name = "dune.3.6.1" in
-  let ppxlib_name = "ppxlib.0.28.0" in
   let repo = Helpers.cached_repo_with_overlay () in
   let packages = Repository.packages repo in
   let latest =
@@ -18,19 +20,19 @@ let () =
   let compatible_with_latest_ocaml =
     Select.(
       apply repo
-        [ is_compatible_with (OpamPackage.of_string ocaml_name) ]
+        [ is_compatible_with (OpamPackage.of_string Supported_versions.ocaml) ]
         latest)
   in
   let compatible_with_latest_dune =
     Select.(
       apply repo
-        [ is_compatible_with (OpamPackage.of_string dune_name) ]
+        [ is_compatible_with (OpamPackage.of_string Supported_versions.dune) ]
         compatible_with_latest_ocaml)
   in
   let compatible_with_latest_ppxlib =
     Select.(
       apply repo
-        [ is_compatible_with (OpamPackage.of_string ppxlib_name) ]
+        [ is_compatible_with (OpamPackage.of_string Supported_versions.ppxlib) ]
         compatible_with_latest_dune)
   in
   let builds_with_dune =
@@ -44,15 +46,15 @@ let () =
   print_endline
     (Printf.sprintf "Of them, %d of them are compatible with %s."
        (OpamPackage.Set.cardinal compatible_with_latest_ocaml)
-       ocaml_name);
+       Supported_versions.ocaml);
   print_endline
     (Printf.sprintf "Of them, %d are compatible with %s."
        (OpamPackage.Set.cardinal compatible_with_latest_dune)
-       dune_name);
+       Supported_versions.dune);
   print_endline
     (Printf.sprintf "Of them, %d are compatible with %s."
        (OpamPackage.Set.cardinal compatible_with_latest_ppxlib)
-       ppxlib_name);
+       Supported_versions.ppxlib);
   print_endline
     (Printf.sprintf "Of them, %d depend on dune."
        (OpamPackage.Set.cardinal builds_with_dune))

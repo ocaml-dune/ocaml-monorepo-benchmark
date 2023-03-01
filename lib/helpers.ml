@@ -201,3 +201,9 @@ module Packages = struct
 
   let of_string s = Sexp.of_string s |> t_of_sexp
 end
+
+module Supported_versions = struct
+  let ocaml = "ocaml.4.14.1"
+  let dune = "dune.3.6.2"
+  let ppxlib = "ppxlib.0.28.0"
+end

@@ -1,3 +1,15 @@
+(* Parses dune files inside the duniverse directory and generates a list of
+   public libraries defined within, prining a sexp list to stdout enumerating
+   all the public libraries defined within duniverse.
+
+   Usage:
+   ./list_duniverse_libraries.exe \
+      <duniverse_dir> \            # path to duniverse dir
+      <packages> \                 # file listing opam packages, one per line
+      <library-ignore-list.sexp> \ # file containing sexp list of libraries to ignore
+      run_dune_ml.sh               # script for evaluating tuareg files
+*)
+
 open Sexplib.Std
 module Sexp = Sexplib.Sexp
 

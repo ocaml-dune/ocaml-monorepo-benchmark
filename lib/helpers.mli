@@ -33,3 +33,9 @@ module Packages : sig
   val of_string : string -> t
   val to_string_pretty : t -> string
 end
+
+module Supported_versions : sig
+  val ocaml : string
+  val dune : string
+  val ppxlib : string
+end

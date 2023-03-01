@@ -1,3 +1,6 @@
+(* Prints out a list of package names (including version numbers) which is
+   closed under dependency, co-installable, and where each package can be built
+   with dune. *)
 open Switch_builder
 
 let shrink_step ~assumed_deps repo packages =
@@ -61,7 +64,10 @@ let () =
         |> override (OpamPackage.of_string "eigen.0.3.3")))
       packages
   in
-  let required_compatible = [ "ocaml.4.14.1"; "dune.3.6.2"; "ppxlib.0.28.0" ] in
+  let required_compatible =
+    let open Helpers.Supported_versions in
+    [ ocaml; dune; ppxlib ]
+  in
   let latest_filtered =
     Select.(
       apply repo
