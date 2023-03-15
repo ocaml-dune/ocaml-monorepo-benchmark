@@ -4717,7 +4717,7 @@ pin-depends: [
   ["batsat.0.7" "https://github.com/c-cube/batsat-ocaml/archive/v0.7.tar.gz"]
   [
     "batteries.3.6.0+dune"
-    "https://github.com/gridbugs/batteries-included/archive/refs/tags/3.6.0+dune-experimental3.tar.gz"
+    "https://github.com/dune-universe/batteries-included/releases/download/v3.6.0%2Bdune/batteries-3.6.0.dune.tbz"
   ]
   [
     "bech32.0.1"
@@ -13433,6 +13433,14 @@ x-opam-monorepo-duniverse-dirs: [
     ]
   ]
   [
+    "https://github.com/dune-universe/batteries-included/releases/download/v3.6.0%2Bdune/batteries-3.6.0.dune.tbz"
+    "batteries-included"
+    [
+      "sha256=eb1c1657fb90317d74057a26847195fdb441041911563de58d4d62390ce7097a"
+      "sha512=adc7ef23ffddd2946a25207f4953163113c5340793335d6cef437138ce7ae1ee001ee5fa1afd950bd0d3d2c5e08e37d34a26298e45b3a8732b0ccdbe46b878f0"
+    ]
+  ]
+  [
     "https://github.com/dune-universe/bos/releases/download/v0.2.1%2Bdune/bos-0.2.1.dune.tbz"
     "bos"
     [
@@ -13933,14 +13941,6 @@ x-opam-monorepo-duniverse-dirs: [
     [
       "md5=6a0615247c0bf1b28b856a7b6fddaa5c"
       "sha512=dc09a6f9cb74ca15ed35d8b16afcbc9f5b61e8d50bed49ccedd81bebca4161320c20d3664a4151fade55d77ac45c7225e37d3c56453d4cb38b862fd3b69ccf1b"
-    ]
-  ]
-  [
-    "https://github.com/gridbugs/batteries-included/archive/refs/tags/3.6.0+dune-experimental3.tar.gz"
-    "batteries-included"
-    [
-      "md5=cc25fe623c585ebd3eda04e3378bae89"
-      "sha512=36073ca48b44b68c594813eee4dc32a5ba92336518e2da2035559698fb9a611898a0cf27a38ac07a93de414548662538abe221fdad37929ccad0a7d54d0745e6"
     ]
   ]
   [
