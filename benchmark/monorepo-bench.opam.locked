@@ -9338,7 +9338,7 @@ pin-depends: [
   ]
   [
     "ptime.1.1.0+dune"
-    "https://github.com/gridbugs/ptime/archive/refs/tags/1.1.0-dune-experimental2.tar.gz"
+    "https://github.com/dune-universe/ptime/releases/download/v1.1.0%2Bdune/ptime-1.1.0.dune.tbz"
   ]
   [
     "ptmap.2.0.5"
@@ -10548,7 +10548,7 @@ pin-depends: [
   ]
   [
     "uunf.15.0.0+dune"
-    "https://github.com/gridbugs/uunf/archive/refs/tags/15.0.0+dune-experimental4.tar.gz"
+    "https://github.com/dune-universe/uunf/releases/download/v15.0.0%2Bdune/uunf-15.0.0.dune.tbz"
   ]
   [
     "uutf.1.0.3+dune"
@@ -13573,6 +13573,14 @@ x-opam-monorepo-duniverse-dirs: [
     ]
   ]
   [
+    "https://github.com/dune-universe/ptime/releases/download/v1.1.0%2Bdune/ptime-1.1.0.dune.tbz"
+    "ptime"
+    [
+      "sha256=9aa6645808ce539eeafe4eaf781d6d0ae5639c90592cee31d15cf9363acf9234"
+      "sha512=0d037fc8f11c25b407f5501bd614dbbadb83fd6dce2fff5c0eeae27a9cd616f69f399f0cb3a04a2b0588cf1866cb16d6d1ae599791509cb995a92d3ae33ad1a0"
+    ]
+  ]
+  [
     "https://github.com/dune-universe/react/releases/download/v1.2.2%2Bdune/react-1.2.2.dune.tbz"
     "react"
     [
@@ -13602,6 +13610,14 @@ x-opam-monorepo-duniverse-dirs: [
     [
       "sha256=e949c5ae4e782f24447a590d23f89582d945011494c79266fc44a5357bd23add"
       "sha512=83692fc8120194fbdd418ec2718fab50298db61b3c69af3ae6b2c9b3e9df44090889a203d2f996e534696ef368fd04d2154f2f542048cf74bb261172dafebf36"
+    ]
+  ]
+  [
+    "https://github.com/dune-universe/uunf/releases/download/v15.0.0%2Bdune/uunf-15.0.0.dune.tbz"
+    "uunf"
+    [
+      "sha256=9ab44234cb374c70ce8318e8ddc52eaa86ac798837c36b4190b1c70ddca64316"
+      "sha512=3d49068a973bd0eb6f0bd0ba460fda72bbf238537763ac8afde123d0c250522417f44a3f2cd28b45158f8f9657a30c7cba247d85232f0a70609328fbc715089b"
     ]
   ]
   [
@@ -13949,24 +13965,10 @@ x-opam-monorepo-duniverse-dirs: [
     ["md5=e03ac294e34a626979173d95ad71e70b"]
   ]
   [
-    "https://github.com/gridbugs/ptime/archive/refs/tags/1.1.0-dune-experimental2.tar.gz"
-    "ptime"
-    [
-      "sha512=0a32e98c4ef04eebebd9f5d2816da353dd065e7ca5fa75dcedda94ac62a9e98dcdc03990a29d8a3b35eb1f51484ed32e4f1785273da5e05ca431479f1273cd52"
-    ]
-  ]
-  [
     "https://github.com/gridbugs/uucp/archive/refs/tags/15.0.0+dune-experimental2.tar.gz"
     "uucp"
     [
       "sha512=3a62bf878c6406527e2ac7a6d219a1c48216e96c76e352ab8a491240d1134080cbac37ac7ebef2af6ce017d68b77ccf1043d61ae1b9f99fdaf697b81b7d0480d"
-    ]
-  ]
-  [
-    "https://github.com/gridbugs/uunf/archive/refs/tags/15.0.0+dune-experimental4.tar.gz"
-    "uunf"
-    [
-      "sha512=0c86b56187f98ab5b28a3881b0fd9c53ddd4ef4859320c6f53d44b710bf10eac91464c2d197b62e1d24651f33bd136358fde9eb38571c38e8be4b15dee836f49"
     ]
   ]
   [
