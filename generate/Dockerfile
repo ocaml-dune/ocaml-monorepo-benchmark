@@ -135,10 +135,8 @@ RUN opam switch create prepare 4.14.1
 RUN opam install -y opam-monorepo ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith stdcompat refl
 
 # Add some package overlays
-ADD --chown=user:users custom-overlays ./custom-overlays
 ADD --chown=user:users data/repos/opam-overlays ./dune-duniverse
 RUN rm -rf ./dune-duniverse/.git
-RUN opam repository add custom-overlays ./custom-overlays
 RUN opam repository add dune-universe ./dune-duniverse
 
 RUN mkdir src
