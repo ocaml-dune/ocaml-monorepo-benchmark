@@ -150,7 +150,7 @@ ADD --chown=user:users opam_monorepo_binary_search.sh ./
 ADD --chown=user:users mkopam.sh ./
 
 # Generate the opam file
-RUN ./mkopam.sh < packages > x.opam
+RUN ./mkopam.sh < packages > monorepo-bench.opam
 
 # Generate the lockfile
 RUN opam monorepo lock
