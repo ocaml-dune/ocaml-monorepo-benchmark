@@ -936,6 +936,7 @@ depends: [
   "influxdb" {= "0.3.0" & ?vendor}
   "influxdb-async" {= "0.3.0" & ?vendor}
   "influxdb-lwt" {= "0.3.0" & ?vendor}
+  "inifiles" {= "1.2+dune" & ?vendor}
   "inotify" {= "2.4.1" & ?vendor}
   "inquire" {= "0.3.1" & ?vendor}
   "int_repr" {= "v0.15.0" & ?vendor}
@@ -1278,7 +1279,7 @@ depends: [
   "ocaml-compiler-libs" {= "v0.12.4" & ?vendor}
   "ocaml-config" {= "2"}
   "ocaml-embed-file" {= "v0.15.0" & ?vendor}
-  "ocaml-inifiles" {= "1.2+dune" & ?vendor}
+  "ocaml-inifiles" {= "1.2"}
   "ocaml-lua" {= "1.8" & ?vendor}
   "ocaml-makefile" {= "6.39.2"}
   "ocaml-markdown" {= "transition"}
@@ -6845,6 +6846,10 @@ pin-depends: [
     "https://github.com/ryanslade/influxdb-ocaml/archive/0.3.0.tar.gz"
   ]
   [
+    "inifiles.1.2+dune"
+    "https://github.com/dune-universe/ocaml-inifiles/releases/download/v1.2%2Bdune/inifiles-1.2.dune.tbz"
+  ]
+  [
     "inotify.2.4.1"
     "https://github.com/whitequark/ocaml-inotify/archive/v2.4.1.tar.gz"
   ]
@@ -8065,10 +8070,6 @@ pin-depends: [
   [
     "ocaml-embed-file.v0.15.0"
     "https://ocaml.janestreet.com/ocaml-core/v0.15/files/ocaml-embed-file-v0.15.0.tar.gz"
-  ]
-  [
-    "ocaml-inifiles.1.2+dune"
-    "https://github.com/gridbugs/ocaml-inifiles/archive/refs/tags/1.2+dune-experimental2.tar.gz"
   ]
   [
     "ocaml-lua.1.8"
@@ -13549,6 +13550,14 @@ x-opam-monorepo-duniverse-dirs: [
     ]
   ]
   [
+    "https://github.com/dune-universe/ocaml-inifiles/releases/download/v1.2%2Bdune/inifiles-1.2.dune.tbz"
+    "ocaml-inifiles"
+    [
+      "sha256=c7d98938a9eb0c51d4e49758dbaa2bd3a351d63fc23234c9aa4d6cdbd397ed6b"
+      "sha512=b921e18c90b958b7a2e29b3b0f4c867b4f04e43d0382f36600a23dcf3c5b1b47541d6b4b651677d7d18f2bdaf33311b73a29fd702fd92ced233b30ea49d79d2e"
+    ]
+  ]
+  [
     "https://github.com/dune-universe/ocp-ocamlres/releases/download/v0.4%2Bdune2/ocp-ocamlres-0.4.dune2.tbz"
     "ocp-ocamlres"
     [
@@ -13958,11 +13967,6 @@ x-opam-monorepo-duniverse-dirs: [
       "md5=6a0615247c0bf1b28b856a7b6fddaa5c"
       "sha512=dc09a6f9cb74ca15ed35d8b16afcbc9f5b61e8d50bed49ccedd81bebca4161320c20d3664a4151fade55d77ac45c7225e37d3c56453d4cb38b862fd3b69ccf1b"
     ]
-  ]
-  [
-    "https://github.com/gridbugs/ocaml-inifiles/archive/refs/tags/1.2+dune-experimental2.tar.gz"
-    "ocaml-inifiles"
-    ["md5=e03ac294e34a626979173d95ad71e70b"]
   ]
   [
     "https://github.com/gridbugs/uucp/archive/refs/tags/15.0.0+dune-experimental2.tar.gz"

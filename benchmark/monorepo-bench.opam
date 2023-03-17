@@ -933,6 +933,7 @@ depends: [
   "influxdb" {= "0.3.0"}
   "influxdb-async" {= "0.3.0"}
   "influxdb-lwt" {= "0.3.0"}
+  "inifiles" {= "1.2+dune"}
   "inotify" {= "2.4.1"}
   "inquire" {= "0.3.1"}
   "int_repr" {= "v0.15.0"}
@@ -1274,7 +1275,7 @@ depends: [
   "ocaml-compiler-libs" {= "v0.12.4"}
   "ocaml-config" {= "2"}
   "ocaml-embed-file" {= "v0.15.0"}
-  "ocaml-inifiles" {= "1.2+dune"}
+  "ocaml-inifiles" {= "1.2"}
   "ocaml-lua" {= "1.8"}
   "ocaml-makefile" {= "6.39.2"}
   "ocaml-markdown" {= "transition"}
