@@ -6,4 +6,4 @@
 (executable
  (name dependency_closure)
  (modules Dependency_closure)
- (libraries helpers switch-builder))
+ (libraries helpers switch-builder logs logs.fmt))

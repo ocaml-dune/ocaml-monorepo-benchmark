@@ -8,7 +8,8 @@ let shrink_step ~assumed_deps repo packages =
     Helpers.find_conflict (OpamPackage.Set.elements packages) ~repo |> function
     | None -> packages
     | Some p ->
-        Printf.eprintf "Removed due to conflict: %s\n" (OpamPackage.to_string p);
+        Logs.info (fun m ->
+            m "Removed due to conflict: %s" (OpamPackage.to_string p));
         OpamPackage.Set.remove p packages
   in
   let ( with_unmet_deps_removed,
@@ -18,22 +19,23 @@ let shrink_step ~assumed_deps repo packages =
       (OpamPackage.Set.elements without_conflict)
       ~repo ~assumed_deps
   in
-  Printf.eprintf
-    "After removing packages with unmet deps there are %d packages\n"
-    (OpamPackage.Set.cardinal with_unmet_deps_removed);
+  Logs.info (fun m ->
+      m "After removing packages with unmet deps there are %d packages"
+        (OpamPackage.Set.cardinal with_unmet_deps_removed));
   List.iter
     (fun (package, dep_name) ->
-      Printf.eprintf "Removed %s (lacks dependency %s)\n"
-        (OpamPackage.to_string package)
-        (OpamPackage.Name.to_string dep_name))
+      Logs.info (fun m ->
+          m "Removed %s (lacks dependency %s)"
+            (OpamPackage.to_string package)
+            (OpamPackage.Name.to_string dep_name)))
     had_missing_deps;
   List.iter
     (fun (package, dep_name) ->
-      Printf.eprintf "Removed %s (no compatible version of dependency %s)\n"
-        (OpamPackage.to_string package)
-        (OpamPackage.Name.to_string dep_name))
+      Logs.info (fun m ->
+          m "Removed %s (no compatible version of dependency %s)"
+            (OpamPackage.to_string package)
+            (OpamPackage.Name.to_string dep_name)))
     had_incompatible_version_deps;
-
   with_unmet_deps_removed
 
 let shrink_fixpoint ~assumed_deps repo =
@@ -41,6 +43,8 @@ let shrink_fixpoint ~assumed_deps repo =
     ~f:(shrink_step ~assumed_deps repo)
 
 let () =
+  Logs.set_reporter (Logs_fmt.reporter ());
+  Logs.set_level (Some Logs.Info);
   let arch =
     if Array.length Sys.argv < 2 then failwith "missing arch"
     else Array.get Sys.argv 1
@@ -107,19 +111,18 @@ let () =
            let available = Helpers.is_available opam ~arch in
            let _no_depexts = not (Helpers.has_depexts opam) in
            if not (builds_with_dune || is_conf) then
-             Printf.eprintf
-               "Removed %s (doesn't build with dune and is not conf)\n"
-               (OpamPackage.to_string package);
+             Logs.info (fun m ->
+                 m "Removed %s (doesn't build with dune and is not conf)"
+                   (OpamPackage.to_string package));
            if not available then
-             Printf.eprintf "Removed %s (not available on this system)\n"
-               (OpamPackage.to_string package);
-           (*if not no_depexts then
-             Printf.eprintf "Removed %s (has depexts)\n"
-               (OpamPackage.to_string package); *)
+             Logs.info (fun m ->
+                 m "Removed %s (not available on this system)"
+                   (OpamPackage.to_string package));
            (builds_with_dune || is_conf) && available)
   in
-  Printf.eprintf "Starting with set of %d packages...\n"
-    (OpamPackage.Set.cardinal latest_filtered);
+  Logs.info (fun m ->
+      m "Starting with set of %d packages..."
+        (OpamPackage.Set.cardinal latest_filtered));
   let assumed_deps =
     OpamPackage.Name.Set.of_list
       (List.map OpamPackage.Name.of_string
