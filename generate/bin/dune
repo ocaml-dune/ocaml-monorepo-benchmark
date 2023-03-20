@@ -7,3 +7,9 @@
  (name dependency_closure)
  (modules Dependency_closure)
  (libraries helpers switch-builder logs logs.fmt))
+
+(executable
+ (name dependency_graph)
+ (modules Dependency_graph)
+ (flags -w -32)
+ (libraries helpers switch-builder logs logs.fmt))

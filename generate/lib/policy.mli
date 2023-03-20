@@ -5,7 +5,7 @@ val assumed_deps : OpamPackage.Name.Set.t
 val select_packages : arch:string -> Repository.t -> OpamPackage.Set.t
 val mkenv : OpamPackage.t -> OpamFilter.env
 val depends_on_dune : OpamFile.OPAM.t -> bool
-val large_closed_package_set : arch:string -> OpamPackage.Set.t
+val large_closed_package_set : arch:string -> Repository.t -> OpamPackage.Set.t
 
 val find_conflict :
   OpamPackage.t list -> repo:Repository.t -> OpamPackage.t option
@@ -26,3 +26,6 @@ val remove_unmet_dependencies :
   repo:Repository.t ->
   assumed_deps:OpamPackage.Name.Set.t ->
   OpamPackage.Set.t * unmet_dependencies
+
+val dependency_names :
+  repo:Repository.t -> OpamPackage.t -> OpamPackage.Name.t list

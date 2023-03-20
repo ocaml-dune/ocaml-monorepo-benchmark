@@ -268,10 +268,16 @@ let shrink_to_dependency_closure ~assumed_deps repo =
   Import.fixpoint ~equal:OpamPackage.Set.equal
     ~f:(shrink_step ~assumed_deps repo)
 
-let large_closed_package_set ~arch =
-  let repo = cached_repo_with_overlay () in
+let large_closed_package_set ~arch repo =
   let latest_filtered = select_packages ~arch repo in
   Logs.info (fun m ->
       m "Starting with set of %d packages..."
         (OpamPackage.Set.cardinal latest_filtered));
   shrink_to_dependency_closure ~assumed_deps repo latest_filtered
+
+let dependency_names ~repo package =
+  let opam = Repository.read_opam repo package in
+  let env = mkenv package in
+  OpamFile.OPAM.depends opam
+  |> OpamFilter.filter_formula env
+  |> OpamFormula.fold_left (fun xs (x, _) -> x :: xs) []

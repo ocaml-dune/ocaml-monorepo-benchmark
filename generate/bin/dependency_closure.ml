@@ -9,6 +9,7 @@ let () =
     if Array.length Sys.argv < 2 then failwith "missing arch"
     else Array.get Sys.argv 1
   in
-  let set = Helpers.Policy.large_closed_package_set ~arch in
+  let repo = Helpers.Policy.cached_repo_with_overlay () in
+  let set = Helpers.Policy.large_closed_package_set ~arch repo in
   print_endline
     (OpamPackage.Set.elements set |> Helpers.Packages.to_string_pretty)
