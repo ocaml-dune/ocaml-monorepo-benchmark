@@ -1,26 +1,5 @@
-open Switch_builder
-
-val cached_repo_with_overlay : unit -> Repository.t
-val depends_on_dune : OpamFile.OPAM.t -> bool
-val has_no_build_commands : OpamFile.OPAM.t -> bool
-val has_no_source : OpamFile.OPAM.t -> bool
-val has_depexts : OpamFile.OPAM.t -> bool
-val is_available : OpamFile.OPAM.t -> arch:string -> bool
-val mkenv : OpamPackage.t -> OpamFilter.env
-
-val find_conflict :
-  OpamPackage.t list -> repo:Repository.t -> OpamPackage.t option
-
-type unmet_dependencies = {
-  had_missing_deps : (OpamPackage.t * OpamPackage.Name.t) list;
-  had_incompatible_version_deps : (OpamPackage.t * OpamPackage.Name.t) list;
-}
-
-val remove_unmet_dependencies :
-  OpamPackage.t list ->
-  repo:Repository.t ->
-  assumed_deps:OpamPackage.Name.Set.t ->
-  OpamPackage.Set.t * unmet_dependencies
+module Policy = Policy
+module Supported_versions = Supported_versions
 
 val pkg_set_to_opam_file : OpamPackage.Set.t -> OpamFile.OPAM.t
 val write_opam_file : OpamFile.OPAM.t -> path:string -> unit
@@ -32,10 +11,4 @@ module Packages : sig
 
   val of_string : string -> t
   val to_string_pretty : t -> string
-end
-
-module Supported_versions : sig
-  val ocaml : string
-  val dune : string
-  val ppxlib : string
 end

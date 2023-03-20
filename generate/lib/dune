@@ -1,4 +1,4 @@
 (library
   (name helpers)
-  (libraries switch-builder sexplib)
+  (libraries switch-builder sexplib logs)
   (preprocess (pps ppx_sexp_conv)))

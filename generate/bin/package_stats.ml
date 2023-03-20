@@ -37,7 +37,7 @@ let () =
   in
   let builds_with_dune =
     OpamPackage.Set.filter
-      (fun p -> Repository.read_opam repo p |> Helpers.depends_on_dune)
+      (fun p -> Repository.read_opam repo p |> Helpers.Policy.depends_on_dune)
       compatible_with_latest_ppxlib
   in
   print_endline
