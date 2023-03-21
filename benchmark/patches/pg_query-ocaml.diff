@@ -1,3 +1,5 @@
+Remove patch number from dune lang version. Independently fixed upstream.
+
 diff --git a/dune-project b/dune-project
 index 719e496..697f373 100644
 --- a/dune-project

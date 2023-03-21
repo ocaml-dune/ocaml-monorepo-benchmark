@@ -1,3 +1,5 @@
+Patch changes the `digestif` implementation to avoid a collision. No upstreaming is needed.
+
 diff --git a/aws-s3/dune b/aws-s3/dune
 index 35a61ce..0f6b9c1 100644
 --- a/aws-s3/dune

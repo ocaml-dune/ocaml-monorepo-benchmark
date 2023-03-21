@@ -1,3 +1,7 @@
+The patch is to remove the `ez_hash` library from this package as `ez_hash` has
+been moved into a separate package. The problem is that `ocaml-solidity` hasn't
+been released since.
+
 diff --git a/dune-project b/dune-project
 index 1a9acf5..88fd4c9 100644
 --- a/dune-project

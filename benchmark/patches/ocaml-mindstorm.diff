@@ -1,3 +1,7 @@
+Fix some problems preventing vendoring
+
+PR (open): https://github.com/Chris00/ocaml-mindstorm/pull/4
+
 diff --git a/config/discover.ml b/config/discover.ml
 index 4460aea..409a7bf 100644
 --- a/config/discover.ml

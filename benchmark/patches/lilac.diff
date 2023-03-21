@@ -1,3 +1,7 @@
+Remove patch number from dune-project
+
+PR (merged): https://github.com/shnewto/lilac/pull/1
+
 diff --git a/dune-project b/dune-project
 index fc2a35e..e9098d5 100644
 --- a/dune-project

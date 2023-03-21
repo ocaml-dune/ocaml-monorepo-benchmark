@@ -1,3 +1,5 @@
+Patch changes the `digestif` implementation to avoid a collision. No upstreaming is needed.
+
 diff --git a/lib/dune b/lib/dune
 index 6c50ec9..5d026b2 100644
 --- a/lib/dune

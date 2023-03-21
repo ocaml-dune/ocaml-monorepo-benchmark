@@ -1,3 +1,7 @@
+Patch fixes some issues with vendoring.
+
+PR (merged): https://github.com/c-cube/ocaml-qbf/pull/14
+
 diff --git a/src/quantor/dune b/src/quantor/dune
 index fe606fd..006cd9a 100644
 --- a/src/quantor/dune

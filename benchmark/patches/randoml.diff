@@ -1,3 +1,7 @@
+Fixes issue where cargo updates lockfile during build.
+
+PR (merged): https://github.com/mimoo/randoml/pull/4
+
 diff --git a/lib/rand/dune b/lib/rand/dune
 index f5915db..639c859 100644
 --- a/lib/rand/dune

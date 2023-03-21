@@ -1,3 +1,7 @@
+Replace `core.caml_unix` with `core_kernel.caml_unix`.
+
+PR (merged): https://github.com/biocaml/biocaml/pull/182
+
 diff --git a/lib/lwt/dune b/lib/lwt/dune
 index db51da0..5d8e8cd 100644
 --- a/lib/lwt/dune

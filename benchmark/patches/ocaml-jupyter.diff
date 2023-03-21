@@ -1,3 +1,7 @@
+The patch is to replace `workspace_root` with `project_root` in dune files.
+
+PR (merged): https://github.com/akabe/ocaml-jupyter/pull/198
+
 diff --git a/src/comm/dune b/src/comm/dune
 index 093e28e..15f169b 100644
 --- a/src/comm/dune
