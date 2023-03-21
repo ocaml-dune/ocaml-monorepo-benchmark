@@ -93,6 +93,10 @@ module Package_graph_by_name = struct
     closure t package_name_set
 
   let to_dot t = Package_graph.to_dot t.package_graph
+
+  let has_name_string t string =
+    let name = OpamPackage.Name.of_string string in
+    OpamPackage.Name.Map.mem name t.name_to_package
 end
 
 let make_dependency_graph ~arch () =
@@ -127,21 +131,46 @@ let make_dependency_graph ~arch () =
          (package, deps))
   |> OpamPackage.Map.of_seq
 
+module Args = struct
+  type t = { arch : string; reverse : bool; roots : string list }
+
+  let parse () =
+    let arch = ref "x86_64" in
+    let reverse = ref false in
+    let roots = ref [] in
+    let specs =
+      [
+        ("--arch", Arg.Set_string arch, "architecture to target");
+        ( "--reverse",
+          Arg.Set reverse,
+          "expand reverse dependencies instead of dependencies" );
+      ]
+    in
+    Arg.parse specs
+      (fun anon_arg -> roots := anon_arg :: !roots)
+      "Generate graphviz file showing dependency hierarchy from a given set of \
+       starting points";
+    { arch = !arch; reverse = !reverse; roots = !roots }
+end
+
 let () =
+  let { Args.arch; reverse; roots } = Args.parse () in
   Logs.set_reporter (Logs_fmt.reporter ());
   Logs.set_level (Some Logs.Info);
-  let arch =
-    if Array.length Sys.argv < 2 then failwith "missing arch"
-    else Array.get Sys.argv 1
-  in
   let dependency_graph =
     make_dependency_graph ~arch () |> Package_graph_by_name.of_package_graph
   in
-  let reverse_dependency_graph =
-    Package_graph_by_name.reverse dependency_graph
+  List.iter
+    (fun root ->
+      if not (Package_graph_by_name.has_name_string dependency_graph root) then
+        failwith (Printf.sprintf "Couldn't find package: %s" root))
+    roots;
+  let dependency_graph_for_query =
+    if reverse then Package_graph_by_name.reverse dependency_graph
+    else dependency_graph
   in
   let closure =
-    Package_graph_by_name.closure' reverse_dependency_graph [ "base" ]
+    Package_graph_by_name.closure' dependency_graph_for_query roots
   in
   let dotfile_string = Package_graph_by_name.to_dot closure in
   print_endline dotfile_string
