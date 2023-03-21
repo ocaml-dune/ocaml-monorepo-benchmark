@@ -1,0 +1,13 @@
+Introduce an error into core to exercise an incremental change which introduces
+a compile error into a library with no dependant libraries.
+
+diff --git a/http/src/server.ml b/http/src/server.ml
+index 850d7b6..9b3c86a 100644
+--- a/http/src/server.ml
++++ b/http/src/server.ml
+@@ -1,4 +1,4 @@
+-open! Core
++open! Core_XXX
+ open! Async
+ open! Shuttle
+ open Io_util
