@@ -1,3 +1,9 @@
+Increase lang dune version to 1.7 to prevent warning that version 1.1 of
+automatic filters is not support until 1.7 of the  dune language.
+
+The lang dune version of the upstream package has been independently updated to 2.0,
+so no change is needed.
+
 diff --git a/dune-project b/dune-project
 index 28c486c..57bb1ac 100644
 --- a/dune-project

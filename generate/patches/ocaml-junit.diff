@@ -1,3 +1,8 @@
+The patch replaces the `oUnit` dependency with `oUnit2` as there is no dune
+library named `oUnit`.
+
+PR (merged): https://github.com/Khady/ocaml-junit/pull/4
+
 diff --git a/ounit/dune b/ounit/dune
 index f15e5b2..e69adf1 100644
 --- a/ounit/dune

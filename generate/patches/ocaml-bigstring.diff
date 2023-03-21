@@ -1,3 +1,5 @@
+Removes `bigstring_unix` library to avoid a conflict. No upstreaming is needed.
+
 diff --git a/src/dune b/src/dune
 index 1440beb..3305a9c 100644
 --- a/src/dune

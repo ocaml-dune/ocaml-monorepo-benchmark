@@ -1,3 +1,7 @@
+Remove patch number from dune-project
+
+PR (open): https://github.com/Risto-Stevcev/lambda-streams/pull/2
+
 diff --git a/dune-project b/dune-project
 index b8e9b95..d521e1e 100644
 --- a/dune-project

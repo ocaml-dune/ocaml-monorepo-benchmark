@@ -1,3 +1,7 @@
+Remove patch number from dune-project
+
+PR (open): https://github.com/Risto-Stevcev/bastet/pull/38
+
 diff --git a/dune-project b/dune-project
 index 8298d1ac..96b067c3 100644
 --- a/dune-project

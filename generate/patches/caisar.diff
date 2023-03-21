@@ -1,3 +1,10 @@
+caisar-onnx doesn't build when ocaml-protoc-plugin is vendored
+
+Issue (closed): https://git.frama-c.com/pub/caisar/-/issues/1
+
+Upstream doesn't allow public PRs so I raised an issue instead.
+The issue has been fixed by the package maintainers.
+
 diff --git a/lib/onnx/dune b/lib/onnx/dune
 index 1008baf..ea5bb18 100644
 --- a/lib/onnx/dune

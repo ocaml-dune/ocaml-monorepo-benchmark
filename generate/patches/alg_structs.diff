@@ -1,3 +1,8 @@
+Patch removes dependency on non-existent library `ppx_deriving`. This works when
+`ppx_deriving` is installed with opam but not when it's vendored.
+
+PR (open): https://github.com/shonfeder/alg_structs/pull/8
+
 diff --git a/lib/dune b/lib/dune
 index 327087a..cfab69f 100644
 --- a/lib/dune

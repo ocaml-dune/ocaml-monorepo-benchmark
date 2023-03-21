@@ -1,3 +1,8 @@
+Patch removes dependency on non-existent library `ppx_deriving`. This works when
+`ppx_deriving` is installed with opam but not when it's vendored.
+
+PR (merged): https://github.com/completium/archetype-lang/pull/336
+
 diff --git a/src/dune b/src/dune
 index 90a95e5..fbd21f4 100644
 --- a/src/dune

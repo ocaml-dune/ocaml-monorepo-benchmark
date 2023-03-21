@@ -1,3 +1,6 @@
+Hack to rename some public executables whose names collide with those of another
+package. No need to upstream.
+
 diff --git a/test/dune b/test/dune
 index 490849c..f2624f0 100644
 --- a/test/dune

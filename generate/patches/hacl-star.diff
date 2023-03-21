@@ -1,3 +1,8 @@
+This monorepo uses an old version of hacl-star with some hacks to make it build
+with dune. We use an old version because many tezos packages depend on it.
+Recent versions of hacl-star already build with dune, so I won't upstream any of
+my changes.
+
 diff --git a/dune b/dune
 index 0040c07..45dd4cd 100644
 --- a/dune

@@ -1,3 +1,10 @@
+Fix error where field is marked mutable but never mutated. This is a workaround
+for what I suspect is a bug in dune where it treats warnings as errors according
+to the top-level dune-project only, ignoring the `lang dune` version of
+vendored packages.
+
+Issue (open): https://github.com/ocaml/dune/issues/7034
+
 diff --git a/resource_pool.ml b/resource_pool.ml
 index ad31349..95ec4f8 100644
 --- a/resource_pool.ml

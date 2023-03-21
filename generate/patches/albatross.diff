@@ -1,3 +1,5 @@
+Patch changes the `checksum` implementation to avoid a collision. No upstreaming is needed.
+
 diff --git a/command-line/dune b/command-line/dune
 index a1df8d4..d7650d7 100644
 --- a/command-line/dune

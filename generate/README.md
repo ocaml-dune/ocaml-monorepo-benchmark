@@ -26,3 +26,12 @@ make
 
 The docker image will contain an opam monorepo with all its dependencies
 downloaded into the "duniverse" directory.
+
+## Patches
+
+The `patches` directory contains a number of patches to projects that allows
+them to be built as part of a monorepo. Each patch file begins with a comment
+describing what the patch does and its upstreaming status with a link to the
+relavent PR or issue. Note that some of the upstreaming PRs have been merged but
+the patch is still necessary until the package gets a new release and the
+revision of opam-repository used to build the monorepo is updated.

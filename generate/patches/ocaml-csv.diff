@@ -1,3 +1,7 @@
+The patch is to replace `workspace_root` with `project_root` in dune files.
+
+PR (merged): https://github.com/Chris00/ocaml-csv/pull/39
+
 diff --git a/lwt/dune b/lwt/dune
 index 16c6aa3..edd30c4 100644
 --- a/lwt/dune

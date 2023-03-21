@@ -1,3 +1,8 @@
+The patch replaces the `oUnit` dependency with `oUnit2` as there is no dune
+library named `oUnit`.
+
+PR (open): https://github.com/cryptosense/ocaml-mock/pull/6
+
 diff --git a/src_ounit/dune b/src_ounit/dune
 index 33c093c..eafc127 100644
 --- a/src_ounit/dune

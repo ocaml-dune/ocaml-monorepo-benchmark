@@ -1,3 +1,7 @@
+Copy src/3rd-party into _build during build
+
+PR (merged): https://github.com/toolslive/camltc/pull/50
+
 diff --git a/src/dune b/src/dune
 index be85e03..961a1e9 100644
 --- a/src/dune
