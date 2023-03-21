@@ -6,7 +6,7 @@ open Switch_builder
 module Supported_versions = Helpers.Supported_versions
 
 let () =
-  let repo = Helpers.cached_repo_with_overlay () in
+  let repo = Helpers.Policy.cached_repo_with_overlay () in
   let packages = Repository.packages repo in
   let latest =
     Version_policy.(
