@@ -32,6 +32,14 @@ downloaded into the "duniverse" directory.
 The `patches` directory contains a number of patches to projects that allows
 them to be built as part of a monorepo. Each patch file begins with a comment
 describing what the patch does and its upstreaming status with a link to the
-relavent PR or issue. Note that some of the upstreaming PRs have been merged but
+relevant PR or issue. Note that some of the upstreaming PRs have been merged but
 the patch is still necessary until the package gets a new release and the
 revision of opam-repository used to build the monorepo is updated.
+
+## Benchmarking Patches
+
+The `bench-patches` directory contains patches to apply when benchmarking with
+the monorepo to exercise various scenarios such as rebuilding after changing a
+file. The patches are organized into subdirectories whose names match the
+directory within duniverse where the patch should be applied from. Each patch
+file begins with a short description of what the patch is  for.
