@@ -8,8 +8,8 @@
   (allow_empty true)
   (maintainers "Stephen Sherratt")
   (authors "Stephen Sherratt")
-  (homepage "https://github.com/gridbugs/opam-generate-big-monorepo")
-  (bug_reports "https://github.com/gridbugs/opam-generate-big-monorepo/issues")
+  (homepage "https://github.com/ocaml-dune/ocaml-monorepo-benchmark")
+  (bug_reports "https://github.com/ocaml-dune/ocaml-monorepo-benchmark/issues")
   (synopsis "Generate a big project using opam monorepo")
   (depends
     (dune (>= 3.5.0))

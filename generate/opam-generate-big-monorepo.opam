@@ -3,8 +3,8 @@ opam-version: "2.0"
 synopsis: "Generate a big project using opam monorepo"
 maintainer: ["Stephen Sherratt"]
 authors: ["Stephen Sherratt"]
-homepage: "https://github.com/gridbugs/opam-generate-big-monorepo"
-bug-reports: "https://github.com/gridbugs/opam-generate-big-monorepo/issues"
+homepage: "https://github.com/ocaml-dune/ocaml-monorepo-benchmark"
+bug-reports: "https://github.com/ocaml-dune/ocaml-monorepo-benchmark/issues"
 depends: [
   "dune" {>= "3.5" & >= "3.5.0"}
   "ocamlgraph"
