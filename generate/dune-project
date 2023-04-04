@@ -1,10 +1,10 @@
 (lang dune 3.5)
-(name opam-generate-big-monorepo)
+(name ocaml-monorepo-benchmark-generate)
 
 (generate_opam_files true)
 
 (package
-  (name opam-generate-big-monorepo)
+  (name ocaml-monorepo-benchmark-generate)
   (allow_empty true)
   (maintainers "Stephen Sherratt")
   (authors "Stephen Sherratt")
