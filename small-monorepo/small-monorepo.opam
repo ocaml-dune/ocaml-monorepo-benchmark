@@ -1,0 +1,5 @@
+opam-version: "2.0"
+depends: [
+  "base" {= "v0.15.1"}
+  "file_path" {= "v0.15.0"}
+]

@@ -1,0 +1,3 @@
+(executable
+  (name small_monorepo)
+  (libraries file_path))
