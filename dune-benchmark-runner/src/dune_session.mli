@@ -18,4 +18,5 @@ module Watch_mode : sig
   val workspace_root : t -> string
 end
 
-val watch_mode_start : t -> Watch_mode.t
+val watch_mode_start :
+  t -> stdio_redirect:Command.Stdio_redirect.t -> Watch_mode.t

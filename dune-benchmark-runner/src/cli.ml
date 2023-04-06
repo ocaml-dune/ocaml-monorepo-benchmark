@@ -12,7 +12,12 @@ module String_arg_req = struct
     | None -> failwith (Printf.sprintf "Missing required argument %s" opt)
 end
 
-type t = { dune_exe_path : string; monorepo_path : string; skip_clean : bool }
+type t = {
+  dune_exe_path : string;
+  monorepo_path : string;
+  skip_clean : bool;
+  print_watch_mode_stdout : bool;
+}
 
 let parse () =
   let dune_exe_path =
@@ -24,6 +29,7 @@ let parse () =
       "Path to monorepo to build during benchmark"
   in
   let skip_clean = ref false in
+  let print_watch_mode_stdout = ref false in
   let specs =
     [ dune_exe_path; monorepo_path ]
     |> List.map String_arg_req.spec
@@ -32,6 +38,10 @@ let parse () =
            ( "--skip-clean",
              Arg.Set skip_clean,
              "don't run `dune clean` before starting dune" );
+           ( "--print-watch-mode-stdout",
+             Arg.Set print_watch_mode_stdout,
+             "display the stdandard output of dune when it is run in watch \
+              mode (for debugging)" );
          ]
   in
   Arg.parse specs
@@ -42,4 +52,5 @@ let parse () =
     dune_exe_path = String_arg_req.get dune_exe_path;
     monorepo_path = String_arg_req.get monorepo_path;
     skip_clean = !skip_clean;
+    print_watch_mode_stdout = !print_watch_mode_stdout;
   }

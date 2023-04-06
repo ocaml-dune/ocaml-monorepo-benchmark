@@ -103,14 +103,14 @@ module Watch_mode = struct
   let workspace_root { dune_session; _ } = dune_session.workspace_root
 end
 
-let watch_mode_start t =
+let watch_mode_start t ~stdio_redirect =
   let trace_file = Trace_file.random () in
   Logs.info (fun m -> m "will store trace in %s" trace_file.path);
   Logs.info (fun m -> m "starting dune in watch mode");
   let running =
     make_command t
       [ "build"; "-j"; "auto"; "--watch"; "--trace-file"; trace_file.path ]
-    |> Command.run_background ~stdio_redirect:`Ignore
+    |> Command.run_background ~stdio_redirect
   in
   Logs.info (fun m -> m "waiting for rpc server to start");
   wait_for_rpc_server t;
