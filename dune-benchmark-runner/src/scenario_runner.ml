@@ -9,8 +9,12 @@ module File_to_change = struct
     Text_file.write ~path ~data:original_text
 end
 
-module Watch_mode_files_to_change = struct
-  type t = { base : File_to_change.t; file_path : File_to_change.t }
+module Watch_mode_scenario = struct
+  type t = { file_to_change : File_to_change.t; description : string }
+end
+
+module Watch_mode_scenarios = struct
+  type t = { base : Watch_mode_scenario.t; file_path : Watch_mode_scenario.t }
 
   let all { base; file_path } = [ base; file_path ]
 
@@ -23,7 +27,12 @@ module Watch_mode_files_to_change = struct
           (Re.Posix.re "let to_list t = t" |> Re.compile)
           ~by:"let to_list t = print_endline \"hi\"; t" original_text
       in
-      { File_to_change.path; original_text; new_text }
+      {
+        Watch_mode_scenario.file_to_change =
+          { File_to_change.path; original_text; new_text };
+        description =
+          "watch mode: change a file in the base library and wait for rebuild";
+      }
     in
     let file_path =
       let path = Printf.sprintf "%s/file_path/src/path.ml" duniverse_dir in
@@ -34,24 +43,31 @@ module Watch_mode_files_to_change = struct
           ~by:"let root = print_endline \"hi\"; of_absolute Absolute.root"
           original_text
       in
-      { File_to_change.path; original_text; new_text }
+      {
+        Watch_mode_scenario.file_to_change =
+          { File_to_change.path; original_text; new_text };
+        description =
+          "watch mode: change a file in the file_path library and wait for \
+           rebuild";
+      }
     in
     { base; file_path }
 
   let undo_all t =
     List.iter
-      (fun file_to_change -> File_to_change.undo_change file_to_change)
+      (fun scenario ->
+        File_to_change.undo_change scenario.Watch_mode_scenario.file_to_change)
       (all t)
 end
 
-type t = { watch_mode_files_to_change : Watch_mode_files_to_change.t }
+type t = { watch_mode_scenarios : Watch_mode_scenarios.t }
 
 let create ~monorepo_path =
-  let watch_mode_files_to_change =
+  let watch_mode_scenarios =
     let duniverse_dir = Printf.sprintf "%s/duniverse" monorepo_path in
-    Watch_mode_files_to_change.init ~duniverse_dir
+    Watch_mode_scenarios.init ~duniverse_dir
   in
-  { watch_mode_files_to_change }
+  { watch_mode_scenarios }
 
 let make_change_and_wait_for_rebuild watch_mode file_to_change =
   let build_count_before = Watch_mode.build_count watch_mode in
@@ -62,9 +78,30 @@ let make_change_and_wait_for_rebuild watch_mode file_to_change =
   Logs.info (fun m -> m "rebuild complete")
 
 let run_watch_mode_scenarios t ~dune_watch_mode =
-  Watch_mode_files_to_change.all t.watch_mode_files_to_change
-  |> List.iter (make_change_and_wait_for_rebuild dune_watch_mode)
+  Watch_mode_scenarios.all t.watch_mode_scenarios
+  |> List.iter (fun scenario ->
+         make_change_and_wait_for_rebuild dune_watch_mode
+           scenario.Watch_mode_scenario.file_to_change)
 
 let undo_all_changes t =
   Logs.info (fun m -> m "undoing changes to files");
-  Watch_mode_files_to_change.undo_all t.watch_mode_files_to_change
+  Watch_mode_scenarios.undo_all t.watch_mode_scenarios
+
+let convert_durations_into_current_bench_json t durations_in_order =
+  let watch_mode_scenario_descriptions =
+    Watch_mode_scenarios.all t.watch_mode_scenarios
+    |> List.map (fun scenario -> scenario.Watch_mode_scenario.description)
+  in
+  let watch_mode_scenario_descriptions_including_initial_build =
+    "watch mode: initial build" :: watch_mode_scenario_descriptions
+  in
+  if
+    List.length watch_mode_scenario_descriptions_including_initial_build
+    <> List.length durations_in_order
+  then failwith "unexpected number of durations";
+  let name_durations_micros_assoc_list =
+    List.combine watch_mode_scenario_descriptions_including_initial_build
+      durations_in_order
+  in
+  Current_bench_json.of_name_durations_micros_assoc_list
+    name_durations_micros_assoc_list
