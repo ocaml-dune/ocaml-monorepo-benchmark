@@ -108,7 +108,8 @@ let watch_mode_start t =
   Logs.info (fun m -> m "will store trace in %s" trace_file.path);
   Logs.info (fun m -> m "starting dune in watch mode");
   let running =
-    make_command t [ "build"; "--watch"; "--trace-file"; trace_file.path ]
+    make_command t
+      [ "build"; "-j"; "auto"; "--watch"; "--trace-file"; trace_file.path ]
     |> Command.run_background ~stdio_redirect:`Ignore
   in
   Logs.info (fun m -> m "waiting for rpc server to start");
