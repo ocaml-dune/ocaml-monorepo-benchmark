@@ -1,6 +1,11 @@
 let () =
-  let { Cli.dune_exe_path; monorepo_path; skip_clean; print_watch_mode_stdout }
-      =
+  let {
+    Cli.dune_exe_path;
+    build_target;
+    monorepo_path;
+    skip_clean;
+    print_watch_mode_stdout;
+  } =
     Cli.parse ()
   in
   Logs.set_reporter (Logs_fmt.reporter ());
@@ -10,7 +15,7 @@ let () =
   in
   if not skip_clean then Dune_session.clean dune_session;
   let dune_watch_mode =
-    Dune_session.watch_mode_start dune_session
+    Dune_session.watch_mode_start dune_session ~build_target
       ~stdio_redirect:
         (if print_watch_mode_stdout then `This_process else `Ignore)
   in

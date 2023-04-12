@@ -19,4 +19,7 @@ module Watch_mode : sig
 end
 
 val watch_mode_start :
-  t -> stdio_redirect:Command.Stdio_redirect.t -> Watch_mode.t
+  t ->
+  build_target:string ->
+  stdio_redirect:Command.Stdio_redirect.t ->
+  Watch_mode.t

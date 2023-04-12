@@ -14,6 +14,7 @@ end
 
 type t = {
   dune_exe_path : string;
+  build_target : string;
   monorepo_path : string;
   skip_clean : bool;
   print_watch_mode_stdout : bool;
@@ -24,6 +25,9 @@ let parse () =
     String_arg_req.create "--dune-exe-path"
       "Path to dune executable to benchmark"
   in
+  let build_target =
+    String_arg_req.create "--build-target" "Anonymous argument to `dune build`"
+  in
   let monorepo_path =
     String_arg_req.create "--monorepo-path"
       "Path to monorepo to build during benchmark"
@@ -31,7 +35,7 @@ let parse () =
   let skip_clean = ref false in
   let print_watch_mode_stdout = ref false in
   let specs =
-    [ dune_exe_path; monorepo_path ]
+    [ dune_exe_path; build_target; monorepo_path ]
     |> List.map String_arg_req.spec
     |> List.append
          [
@@ -50,6 +54,7 @@ let parse () =
     "Perform benchmarks building the monorepo with dune";
   {
     dune_exe_path = String_arg_req.get dune_exe_path;
+    build_target = String_arg_req.get build_target;
     monorepo_path = String_arg_req.get monorepo_path;
     skip_clean = !skip_clean;
     print_watch_mode_stdout = !print_watch_mode_stdout;
