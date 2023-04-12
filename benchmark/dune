@@ -1,7 +1,5 @@
-(library
- (public_name monorepo-bench)
- (name monorepo)
- (modules monorepo)
+(executable
+ (name monorepo_bench)
  (libraries
   0install-solver
   ANSITerminal
