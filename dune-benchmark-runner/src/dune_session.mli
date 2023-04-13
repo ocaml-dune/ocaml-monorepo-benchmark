@@ -3,6 +3,9 @@ type t
 val create : dune_exe_path:string -> workspace_root:string -> t
 val clean : t -> unit
 
+val build :
+  t -> build_target:string -> stdio_redirect:Command.Stdio_redirect.t -> unit
+
 module Trace_file : sig
   type t
 

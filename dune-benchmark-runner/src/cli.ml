@@ -17,7 +17,7 @@ type t = {
   build_target : string;
   monorepo_path : string;
   skip_clean : bool;
-  print_watch_mode_stdout : bool;
+  print_dune_stdout : bool;
 }
 
 let parse () =
@@ -33,7 +33,7 @@ let parse () =
       "Path to monorepo to build during benchmark"
   in
   let skip_clean = ref false in
-  let print_watch_mode_stdout = ref false in
+  let print_dune_stdout = ref false in
   let specs =
     [ dune_exe_path; build_target; monorepo_path ]
     |> List.map String_arg_req.spec
@@ -42,8 +42,8 @@ let parse () =
            ( "--skip-clean",
              Arg.Set skip_clean,
              "don't run `dune clean` before starting dune" );
-           ( "--print-watch-mode-stdout",
-             Arg.Set print_watch_mode_stdout,
+           ( "--print-dune-stdout",
+             Arg.Set print_dune_stdout,
              "display the stdandard output of dune when it is run in watch \
               mode (for debugging)" );
          ]
@@ -57,5 +57,5 @@ let parse () =
     build_target = String_arg_req.get build_target;
     monorepo_path = String_arg_req.get monorepo_path;
     skip_clean = !skip_clean;
-    print_watch_mode_stdout = !print_watch_mode_stdout;
+    print_dune_stdout = !print_dune_stdout;
   }

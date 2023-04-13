@@ -6,9 +6,9 @@ let make_command t args =
   let all_args = List.append args [ "--root"; t.workspace_root ] in
   Command.create t.dune_exe_path all_args
 
-let run_command_exn t args =
+let run_command_exn t args ~stdio_redirect =
   let command = make_command t args in
-  match Command.run_blocking_exn ~stdio_redirect:`Ignore command with
+  match Command.run_blocking_exn ~stdio_redirect command with
   | 0 -> ()
   | other ->
       failwith
@@ -16,7 +16,10 @@ let run_command_exn t args =
            (Command.to_string command)
            other)
 
-let clean t = run_command_exn t [ "clean" ]
+let clean t = run_command_exn t [ "clean" ] ~stdio_redirect:`Ignore
+
+let build t ~build_target ~stdio_redirect =
+  run_command_exn t [ "build"; build_target ] ~stdio_redirect
 
 let internal_build_count t =
   let command = make_command t [ "internal"; "build-count" ] in
