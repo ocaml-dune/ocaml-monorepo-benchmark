@@ -108,8 +108,8 @@ end
 
 let watch_mode_start t ~build_target ~stdio_redirect =
   let trace_file = Trace_file.random () in
-  Logs.info (fun m -> m "will store trace in %s" trace_file.path);
   Logs.info (fun m -> m "starting dune in watch mode");
+  Logs.info (fun m -> m "will store trace in %s" trace_file.path);
   let running =
     make_command t
       [

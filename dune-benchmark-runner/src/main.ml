@@ -14,7 +14,9 @@ let () =
   let dune_session =
     Dune_session.create ~dune_exe_path ~workspace_root:monorepo_path
   in
-  if not skip_clean then Dune_session.clean dune_session;
+  if not skip_clean then (
+    Logs.info (fun m -> m "Cleaning");
+    Dune_session.clean dune_session);
   let measure_one_shot_build name =
     let duration_secs =
       Timing.measure_secs (fun () ->
