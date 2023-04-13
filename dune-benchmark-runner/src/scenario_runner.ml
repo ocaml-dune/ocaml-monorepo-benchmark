@@ -87,7 +87,7 @@ let undo_all_changes t =
   Logs.info (fun m -> m "undoing changes to files");
   Watch_mode_scenarios.undo_all t.watch_mode_scenarios
 
-let convert_durations_into_current_bench_json t durations_in_order =
+let convert_durations_into_benchmark_results t durations_in_order =
   let watch_mode_scenario_descriptions =
     Watch_mode_scenarios.all t.watch_mode_scenarios
     |> List.map (fun scenario -> scenario.Watch_mode_scenario.description)
@@ -99,9 +99,10 @@ let convert_durations_into_current_bench_json t durations_in_order =
     List.length watch_mode_scenario_descriptions_including_initial_build
     <> List.length durations_in_order
   then failwith "unexpected number of durations";
-  let name_durations_micros_assoc_list =
-    List.combine watch_mode_scenario_descriptions_including_initial_build
-      durations_in_order
-  in
-  Current_bench_json.of_name_durations_micros_assoc_list
-    name_durations_micros_assoc_list
+  List.combine watch_mode_scenario_descriptions_including_initial_build
+    durations_in_order
+  |> List.map (fun (name, duration_micros) ->
+         {
+           Benchmark_result.name;
+           duration_secs = float_of_int duration_micros /. 1_000_000.0;
+         })
