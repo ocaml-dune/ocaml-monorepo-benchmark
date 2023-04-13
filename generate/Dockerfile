@@ -191,7 +191,7 @@ RUN . ~/.profile && cd duniverse/clangml && ./configure
 # Change to the benchmarking switch to run the benchmark
 RUN opam switch bench
 
-# Apply some custom packages to some packages
+# Apply some custom patches to some packages to fix build errors
 RUN mkdir -p patches
 COPY --chown=user:users patches/* ./patches/
 RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); echo Applying $p; patch -p1 -d duniverse/$p < $f; done'
@@ -205,13 +205,3 @@ RUN cd duniverse/batsat-ocaml && ./build_rust.sh
 
 # Some packages define conflicting definitions of libraries so they must be removed for the build to succeed
 RUN rm -r duniverse/coq-of-ocaml
-
-# Test that the benchmarking patches can be applied
-# The benchmarking patches won't be used in this build but we want to make sure they can still be applied
-# after updating the libraries that they are patching.
-# This loop applies each patch, then applies the same patch in reverse so the end result is as if the
-# patch was never applied.
-ADD --chown=user:users bench-patches ./bench-patches
-RUN bash -c 'for d in bench-patches/*; do p=$(basename $d); for f in $d/*; do patch -p1 -d duniverse/$p < $f; patch --reverse -p1 -d duniverse/$p < $f ; done; done'
-
-#RUN . ~/.profile && make || true
