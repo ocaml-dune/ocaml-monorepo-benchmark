@@ -56,7 +56,7 @@ let is_available opam ~arch =
   let env = mkenv package |> Env.extend "arch" (OpamVariable.S arch) in
   OpamFilter.eval_to_bool env available
 
-let select_packages ~arch repo =
+let select_packages ~arch ~allow_depexts repo =
   let packages = Repository.packages repo in
   let latest =
     Version_policy.(
@@ -114,7 +114,7 @@ let select_packages ~arch repo =
              (OpamPackage.name_to_string package)
          in
          let available = is_available opam ~arch in
-         let _no_depexts = not (has_depexts opam) in
+         let no_depexts = not (has_depexts opam) in
          if not (builds_with_dune || is_conf) then
            Logs.info (fun m ->
                m "Removed %s (doesn't build with dune and is not conf)"
@@ -123,7 +123,12 @@ let select_packages ~arch repo =
            Logs.info (fun m ->
                m "Removed %s (not available on this system)"
                  (OpamPackage.to_string package));
-         (builds_with_dune || is_conf) && available)
+         if (not allow_depexts) && not no_depexts then
+           Logs.info (fun m ->
+               m "Removed %s (has depexts)" (OpamPackage.to_string package));
+         (builds_with_dune || is_conf)
+         && available
+         && (allow_depexts || no_depexts))
 
 let cached_repo_with_overlay () =
   let opam_repo = Repository.path "./data/repos/opam-repository" in
@@ -268,8 +273,8 @@ let shrink_to_dependency_closure ~assumed_deps repo =
   Import.fixpoint ~equal:OpamPackage.Set.equal
     ~f:(shrink_step ~assumed_deps repo)
 
-let large_closed_package_set ~arch repo =
-  let latest_filtered = select_packages ~arch repo in
+let large_closed_package_set ~arch ~allow_depexts repo =
+  let latest_filtered = select_packages ~arch ~allow_depexts repo in
   Logs.info (fun m ->
       m "Starting with set of %d packages..."
         (OpamPackage.Set.cardinal latest_filtered));

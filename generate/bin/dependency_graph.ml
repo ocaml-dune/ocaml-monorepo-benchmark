@@ -101,7 +101,9 @@ end
 
 let make_dependency_graph ~arch () =
   let repo = Helpers.Policy.cached_repo_with_overlay () in
-  let set = Helpers.Policy.large_closed_package_set ~arch repo in
+  let set =
+    Helpers.Policy.large_closed_package_set ~arch ~allow_depexts:true repo
+  in
   let name_to_package =
     OpamPackage.Set.to_seq set
     |> Seq.map (fun package ->

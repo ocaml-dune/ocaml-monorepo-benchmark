@@ -10,6 +10,8 @@ let () =
     else Array.get Sys.argv 1
   in
   let repo = Helpers.Policy.cached_repo_with_overlay () in
-  let set = Helpers.Policy.large_closed_package_set ~arch repo in
+  let set =
+    Helpers.Policy.large_closed_package_set ~arch ~allow_depexts:true repo
+  in
   print_endline
     (OpamPackage.Set.elements set |> Helpers.Packages.to_string_pretty)

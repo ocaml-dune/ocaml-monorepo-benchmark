@@ -2,10 +2,15 @@ open Switch_builder
 
 val cached_repo_with_overlay : unit -> Repository.t
 val assumed_deps : OpamPackage.Name.Set.t
-val select_packages : arch:string -> Repository.t -> OpamPackage.Set.t
+
+val select_packages :
+  arch:string -> allow_depexts:bool -> Repository.t -> OpamPackage.Set.t
+
 val mkenv : OpamPackage.t -> OpamFilter.env
 val depends_on_dune : OpamFile.OPAM.t -> bool
-val large_closed_package_set : arch:string -> Repository.t -> OpamPackage.Set.t
+
+val large_closed_package_set :
+  arch:string -> allow_depexts:bool -> Repository.t -> OpamPackage.Set.t
 
 val find_conflict :
   OpamPackage.t list -> repo:Repository.t -> OpamPackage.t option
