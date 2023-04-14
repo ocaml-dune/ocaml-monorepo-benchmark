@@ -3,7 +3,7 @@ type t = {
   build_target : string;
   monorepo_path : string;
   skip_clean : bool;
-  print_dune_stdout : bool;
+  print_dune_output : bool;
 }
 
 val parse : unit -> t

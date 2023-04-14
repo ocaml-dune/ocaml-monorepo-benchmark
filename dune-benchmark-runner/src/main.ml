@@ -4,13 +4,13 @@ let () =
     build_target;
     monorepo_path;
     skip_clean;
-    print_dune_stdout;
+    print_dune_output;
   } =
     Cli.parse ()
   in
   Logs.set_reporter (Logs_fmt.reporter ());
   Logs.set_level (Some Logs.Info);
-  let stdio_redirect = if print_dune_stdout then `This_process else `Ignore in
+  let stdio_redirect = if print_dune_output then `This_process else `Ignore in
   let dune_session =
     Dune_session.create ~dune_exe_path ~workspace_root:monorepo_path
   in
