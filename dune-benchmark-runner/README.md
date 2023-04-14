@@ -16,5 +16,6 @@ this benchmark runner on the small monorepo, you can run:
 ```
 dune exec src/main.exe -- \
   --dune-exe-path=/path/to/dune.exe \
-  --monorepo-path=../small-monorepo
+  --monorepo-path=../small-monorepo \
+  --build-target=./small_monorepo.exe
 ```
