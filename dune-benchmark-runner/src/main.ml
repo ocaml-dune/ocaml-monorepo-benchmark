@@ -4,6 +4,7 @@ let () =
     build_target;
     monorepo_path;
     skip_clean;
+    skip_one_shot;
     print_dune_output;
   } =
     Cli.parse ()
@@ -24,12 +25,17 @@ let () =
     in
     { Benchmark_result.name; duration_secs }
   in
-  Logs.info (fun m -> m "Building from scratch");
-  let build_from_scratch_benchmark_result =
-    measure_one_shot_build "build from scratch"
+  let one_shot_benchmark_results =
+    if skip_one_shot then []
+    else (
+      Logs.info (fun m -> m "Building from scratch");
+      let build_from_scratch_benchmark_result =
+        measure_one_shot_build "build from scratch"
+      in
+      Logs.info (fun m -> m "Rebuilding after making no changes");
+      let null_build_benchmark_result = measure_one_shot_build "null build" in
+      [ build_from_scratch_benchmark_result; null_build_benchmark_result ])
   in
-  Logs.info (fun m -> m "Rebuilding after making no changes");
-  let null_build_benchmark_result = measure_one_shot_build "null build" in
   let dune_watch_mode =
     Dune_session.watch_mode_start dune_session ~build_target ~stdio_redirect
   in
@@ -42,8 +48,7 @@ let () =
     |> Scenario_runner.convert_durations_into_benchmark_results scenario_runner
   in
   let benchmark_results =
-    build_from_scratch_benchmark_result :: null_build_benchmark_result
-    :: watch_mode_benchmark_results
+    one_shot_benchmark_results @ watch_mode_benchmark_results
   in
   print_endline
     (Yojson.pretty_to_string

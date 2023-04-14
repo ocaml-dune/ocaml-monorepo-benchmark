@@ -3,6 +3,7 @@ type t = {
   build_target : string;
   monorepo_path : string;
   skip_clean : bool;
+  skip_one_shot : bool;
   print_dune_output : bool;
 }
 
