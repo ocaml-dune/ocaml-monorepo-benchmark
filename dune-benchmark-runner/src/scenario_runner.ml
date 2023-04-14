@@ -67,13 +67,13 @@ module Watch_mode_files = struct
       let error_text =
         Re.replace_string
           (Re.Posix.re "let root = of_absolute Absolute.root" |> Re.compile)
-          ~by:"let root = print_endline1 \"hello; of_absolute Absolute.root"
+          ~by:"let root = print_endline \"hello; of_absolute Absolute.root"
           original_text
       in
       let fix_error_text =
         Re.replace_string
           (Re.Posix.re "let root = of_absolute Absolute.root" |> Re.compile)
-          ~by:"let root = print_endline1 \"hello\"; of_absolute Absolute.root"
+          ~by:"let root = print_endline \"hello\"; of_absolute Absolute.root"
           original_text
       in
       {
