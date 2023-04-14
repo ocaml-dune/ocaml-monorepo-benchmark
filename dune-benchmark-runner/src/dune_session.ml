@@ -67,13 +67,18 @@ module Trace_file = struct
   let parse { path } = Yojson.Safe.from_file path
 
   let yojson_to_durations_micros_in_order yojson =
+    let eager_watch_mode_build_complete_event_name =
+      "eager_watch_mode_build_complete"
+    in
     match yojson with
     | `List entries ->
         List.filter_map
           (function
             | `Assoc assoc ->
                 Option.bind (List.assoc_opt "name" assoc) (function
-                  | `String "build" ->
+                  | `String event_name
+                    when String.equal event_name
+                           eager_watch_mode_build_complete_event_name ->
                       Option.bind (List.assoc_opt "dur" assoc) (function
                         | `Int dur -> Some dur
                         | _ -> None)
