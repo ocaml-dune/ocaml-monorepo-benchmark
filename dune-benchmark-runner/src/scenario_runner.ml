@@ -1,5 +1,3 @@
-module Watch_mode = Dune_session.Watch_mode
-
 module File_to_change = struct
   type t = {
     path : string;
@@ -130,9 +128,10 @@ let create ~monorepo_path =
   in
   { watch_mode_scenarios }
 
-let make_change_and_wait_for_rebuild watch_mode
+let make_change_and_wait_for_rebuild rpc_client
     (file_to_change : File_to_change.t) change_type =
-  let build_count_before = Watch_mode.build_count watch_mode in
+  let open Lwt.Syntax in
+  let* build_count_before = Dune_rpc_client.build_count rpc_client in
   let verb = Watch_mode_scenarios.change_verb change_type in
   let text =
     match change_type with
@@ -143,13 +142,15 @@ let make_change_and_wait_for_rebuild watch_mode
   Logs.info (fun m -> m "%s %s" verb file_to_change.path);
   File_to_change.write_text file_to_change text;
   Logs.info (fun m -> m "waiting for rebuild");
-  Watch_mode.wait_for_nth_build watch_mode (build_count_before + 1);
+  let+ () =
+    Dune_rpc_client.wait_for_nth_build rpc_client (build_count_before + 1)
+  in
   Logs.info (fun m -> m "rebuild complete")
 
-let run_watch_mode_scenarios t ~dune_watch_mode =
+let run_watch_mode_scenarios t ~rpc_client =
   t.watch_mode_scenarios.schedule
-  |> List.iter (fun (watch_mode_file, change_type) ->
-         make_change_and_wait_for_rebuild dune_watch_mode
+  |> Lwt_list.iter_s (fun (watch_mode_file, change_type) ->
+         make_change_and_wait_for_rebuild rpc_client
            watch_mode_file.Watch_mode_file.file_to_change change_type)
 
 let undo_all_changes t =

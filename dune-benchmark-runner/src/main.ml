@@ -36,13 +36,19 @@ let () =
       let null_build_benchmark_result = measure_one_shot_build "null build" in
       [ build_from_scratch_benchmark_result; null_build_benchmark_result ])
   in
-  let dune_watch_mode =
-    Dune_session.watch_mode_start dune_session ~build_target ~stdio_redirect
-  in
   let scenario_runner = Scenario_runner.create ~monorepo_path in
-  Scenario_runner.run_watch_mode_scenarios ~dune_watch_mode scenario_runner;
-  let trace_file = Dune_session.Watch_mode.stop dune_watch_mode in
-  Scenario_runner.undo_all_changes scenario_runner;
+  let trace_file =
+    Lwt_main.run
+      (Lwt.finalize
+         (fun () ->
+           Dune_session.with_rpc_client_in_watch_mode dune_session ~build_target
+             ~stdio_redirect ~f:(fun rpc_client ->
+               Scenario_runner.run_watch_mode_scenarios scenario_runner
+                 ~rpc_client))
+         (fun () ->
+           Scenario_runner.undo_all_changes scenario_runner;
+           Lwt.return_unit))
+  in
   let watch_mode_benchmark_results =
     Dune_session.Trace_file.durations_micros_in_order trace_file
     |> Scenario_runner.convert_durations_into_benchmark_results scenario_runner
