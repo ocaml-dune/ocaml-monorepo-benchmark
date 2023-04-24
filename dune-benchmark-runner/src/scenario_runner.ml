@@ -128,29 +128,31 @@ let create ~monorepo_path =
   in
   { watch_mode_scenarios }
 
-let make_change_and_wait_for_rebuild rpc_client
+let make_change_and_wait_for_rebuild build_complete_stream
     (file_to_change : File_to_change.t) change_type =
   let open Lwt.Syntax in
-  let* build_count_before = Dune_rpc_client.build_count rpc_client in
   let verb = Watch_mode_scenarios.change_verb change_type in
-  let text =
+  let text, expected_status =
     match change_type with
-    | `Benign_change -> file_to_change.new_text
-    | `Introduce_error -> file_to_change.error_text
-    | `Fix_error -> file_to_change.fix_error_text
+    | `Benign_change ->
+        (file_to_change.new_text, Build_complete_stream.Status.Success)
+    | `Introduce_error -> (file_to_change.error_text, Failed)
+    | `Fix_error -> (file_to_change.fix_error_text, Success)
   in
   Logs.info (fun m -> m "%s %s" verb file_to_change.path);
   File_to_change.write_text file_to_change text;
   Logs.info (fun m -> m "waiting for rebuild");
-  let+ () =
-    Dune_rpc_client.wait_for_nth_build rpc_client (build_count_before + 1)
+  let+ status =
+    Build_complete_stream.wait_for_next_build_complete build_complete_stream
   in
+  Build_complete_stream.Status.assert_equal ~expected:expected_status
+    ~actual:status;
   Logs.info (fun m -> m "rebuild complete")
 
-let run_watch_mode_scenarios t ~rpc_client =
+let run_watch_mode_scenarios t ~build_complete_stream =
   t.watch_mode_scenarios.schedule
   |> Lwt_list.iter_s (fun (watch_mode_file, change_type) ->
-         make_change_and_wait_for_rebuild rpc_client
+         make_change_and_wait_for_rebuild build_complete_stream
            watch_mode_file.Watch_mode_file.file_to_change change_type)
 
 let undo_all_changes t =

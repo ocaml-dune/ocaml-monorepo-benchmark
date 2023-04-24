@@ -41,10 +41,10 @@ let () =
     Lwt_main.run
       (Lwt.finalize
          (fun () ->
-           Dune_session.with_rpc_client_in_watch_mode dune_session ~build_target
-             ~stdio_redirect ~f:(fun rpc_client ->
+           Dune_session.with_build_complete_stream_in_watch_mode dune_session
+             ~build_target ~stdio_redirect ~f:(fun build_complete_stream ->
                Scenario_runner.run_watch_mode_scenarios scenario_runner
-                 ~rpc_client))
+                 ~build_complete_stream))
          (fun () ->
            Scenario_runner.undo_all_changes scenario_runner;
            Lwt.return_unit))

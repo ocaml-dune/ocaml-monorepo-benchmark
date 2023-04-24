@@ -57,7 +57,8 @@ module Trace_file = struct
     parse t |> yojson_to_durations_micros_in_order
 end
 
-let with_rpc_client_in_watch_mode t ~build_target ~stdio_redirect ~f =
+let with_build_complete_stream_in_watch_mode t ~build_target ~stdio_redirect ~f
+    =
   let open Lwt.Syntax in
   let trace_file = Trace_file.random () in
   Logs.info (fun m -> m "starting dune in watch mode");
@@ -78,11 +79,16 @@ let with_rpc_client_in_watch_mode t ~build_target ~stdio_redirect ~f =
   let+ () =
     Lwt.finalize
       (fun () ->
-        Dune_rpc_client.with_client ~workspace_root:t.workspace_root
-          ~f:(fun client ->
+        Build_complete_stream.with_stream ~workspace_root:t.workspace_root
+          ~f:(fun build_complete_stream ->
             Logs.info (fun m -> m "waiting for initial build");
-            let* () = Dune_rpc_client.wait_for_nth_build client 1 in
-            f client))
+            let* status =
+              Build_complete_stream.wait_for_next_build_complete
+                build_complete_stream
+            in
+            Build_complete_stream.Status.assert_equal ~expected:Success
+              ~actual:status;
+            f build_complete_stream))
       (fun () ->
         Logs.info (fun m -> m "stopping watch mode");
         Command.Running.term running;
