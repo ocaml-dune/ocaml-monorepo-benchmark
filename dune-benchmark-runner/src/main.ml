@@ -20,7 +20,7 @@ let () =
     Dune_session.clean dune_session);
   let measure_one_shot_build name =
     let duration_secs =
-      Timing.measure_secs (fun () ->
+      Timer.measure_secs (fun () ->
           Dune_session.build dune_session ~build_target ~stdio_redirect)
     in
     { Benchmark_result.name; duration_secs }
@@ -37,7 +37,9 @@ let () =
       [ build_from_scratch_benchmark_result; null_build_benchmark_result ])
   in
   let scenario_runner = Scenario_runner.create ~monorepo_path in
-  let trace_file =
+  let ( watch_mode_benchmark_results,
+        `Initial_build_benchmark_result
+          watch_mode_initial_build_benchmark_result ) =
     Lwt_main.run
       (Lwt.finalize
          (fun () ->
@@ -49,12 +51,9 @@ let () =
            Scenario_runner.undo_all_changes scenario_runner;
            Lwt.return_unit))
   in
-  let watch_mode_benchmark_results =
-    Dune_session.Trace_file.durations_micros_in_order trace_file
-    |> Scenario_runner.convert_durations_into_benchmark_results scenario_runner
-  in
   let benchmark_results =
-    one_shot_benchmark_results @ watch_mode_benchmark_results
+    one_shot_benchmark_results
+    @ (watch_mode_initial_build_benchmark_result :: watch_mode_benchmark_results)
   in
   print_endline
     (Yojson.pretty_to_string

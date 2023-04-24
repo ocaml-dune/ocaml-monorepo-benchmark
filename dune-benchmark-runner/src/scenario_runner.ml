@@ -129,8 +129,9 @@ let create ~monorepo_path =
   { watch_mode_scenarios }
 
 let make_change_and_wait_for_rebuild build_complete_stream
-    (file_to_change : File_to_change.t) change_type =
+    (watch_mode_file : Watch_mode_file.t) change_type =
   let open Lwt.Syntax in
+  let file_to_change = watch_mode_file.file_to_change in
   let verb = Watch_mode_scenarios.change_verb change_type in
   let text, expected_status =
     match change_type with
@@ -139,21 +140,28 @@ let make_change_and_wait_for_rebuild build_complete_stream
     | `Introduce_error -> (file_to_change.error_text, Failed)
     | `Fix_error -> (file_to_change.fix_error_text, Success)
   in
+  let name =
+    Printf.sprintf "watch mode: %s file in %s" verb watch_mode_file.name
+  in
+  Logs.info (fun m -> m "starting scenario: \"%s\"" name);
   Logs.info (fun m -> m "%s %s" verb file_to_change.path);
   File_to_change.write_text file_to_change text;
+  let timer = Timer.start () in
   Logs.info (fun m -> m "waiting for rebuild");
   let+ status =
     Build_complete_stream.wait_for_next_build_complete build_complete_stream
   in
   Build_complete_stream.Status.assert_equal ~expected:expected_status
     ~actual:status;
-  Logs.info (fun m -> m "rebuild complete")
+  let duration_secs = Timer.time_since_start_secs timer in
+  Logs.info (fun m -> m "rebuild complete in %f secs" duration_secs);
+  { Benchmark_result.name; duration_secs }
 
 let run_watch_mode_scenarios t ~build_complete_stream =
   t.watch_mode_scenarios.schedule
-  |> Lwt_list.iter_s (fun (watch_mode_file, change_type) ->
-         make_change_and_wait_for_rebuild build_complete_stream
-           watch_mode_file.Watch_mode_file.file_to_change change_type)
+  |> Lwt_list.map_s (fun (watch_mode_file, change_type) ->
+         make_change_and_wait_for_rebuild build_complete_stream watch_mode_file
+           change_type)
 
 let undo_all_changes t =
   Logs.info (fun m -> m "undoing changes to files");
