@@ -98,6 +98,8 @@ let select_packages ~arch ~allow_depexts repo =
                  OpamPackage.Name.of_string "ocp-indent-nlfork";
                  (* no build command so it looks like a conf package but isn't *)
                  OpamPackage.Name.of_string "xml-light";
+                 (* This ends up colliding with the "opencc1" package due to how opam-monorepo handles directory names *)
+                 OpamPackage.Name.of_string "opencc1_1";
                ];
              exclude_package_prefix "ocaml-option-";
              exclude_package_prefix "ocaml-options-";

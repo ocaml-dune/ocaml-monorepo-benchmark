@@ -1365,7 +1365,6 @@ depends: [
   "opencc" {= "transition"}
   "opencc0" {= "1.0.2" & ?vendor}
   "opencc1" {= "1.0.1" & ?vendor}
-  "opencc1_1" {= "0.1.0" & ?vendor}
   "openQASM" {= "0.4.0" & ?vendor}
   "opentelemetry" {= "0.3" & ?vendor}
   "opentelemetry-lwt" {= "0.3" & ?vendor}
@@ -8346,10 +8345,6 @@ pin-depends: [
     "https://github.com/kandu/ocaml-opencc1/archive/refs/tags/1.0.1.tar.gz"
   ]
   [
-    "opencc1_1.0.1.0"
-    "https://github.com/kandu/ocaml-opencc1_1/archive/refs/tags/0.1.0.tar.gz"
-  ]
-  [
     "openQASM.0.4.0"
     "https://github.com/inQWIRE/openqasm-parser/releases/download/v0.4.0/openQASM-0.4.0.tbz"
   ]
@@ -14787,11 +14782,6 @@ x-opam-monorepo-duniverse-dirs: [
     "https://github.com/kandu/ocaml-opencc1/archive/refs/tags/1.0.1.tar.gz"
     "ocaml-opencc1"
     ["md5=c9a779eeff406073732abda54e3bcf76"]
-  ]
-  [
-    "https://github.com/kandu/ocaml-opencc1_1/archive/refs/tags/0.1.0.tar.gz"
-    "ocaml-opencc1"
-    ["md5=32b842d41cc65e462136620d6bc3bd95"]
   ]
   [
     "https://github.com/kandu/ocaml-tidy/archive/5.6-0.1.tar.gz"

@@ -1359,7 +1359,6 @@ depends: [
   "opencc" {= "transition"}
   "opencc0" {= "1.0.2"}
   "opencc1" {= "1.0.1"}
-  "opencc1_1" {= "0.1.0"}
   "openQASM" {= "0.4.0"}
   "opentelemetry" {= "0.3"}
   "opentelemetry-lwt" {= "0.3"}

@@ -1,6 +1,6 @@
 (executable
  (name monorepo_bench)
- (libraries
+ (libraries 
   0install-solver
   ANSITerminal
   FrontC
@@ -910,6 +910,7 @@
   influxdb
   influxdb-async
   influxdb-lwt
+  inifiles
   inotify
   inotify.lwt
   int_repr
@@ -1337,7 +1338,7 @@
   openapi
   openapi_router
   opencc0
-  opencc1_1
+  opencc1
   opium
   opium-graphql
   opium-testing
@@ -2000,7 +2001,10 @@
   uritemplate
   user-agent-parser
   username_kernel
+  uucp
   uuidm
+  uunf
+  uunf.string
   uutf
   uuuu
   validator
@@ -2102,4 +2106,5 @@
   zmq.deferred
   zstandard
   zstandard.bindings
-  zxcvbn))
+  zxcvbn
+))
