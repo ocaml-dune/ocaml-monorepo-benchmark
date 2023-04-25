@@ -64,7 +64,7 @@ module Status = struct
     | Failed, Success -> failwith "expected build to fail but it succeeded"
 end
 
-let with_stream = Rpc_client.with_progress_stream
+let with_ = Rpc_client.with_progress_stream
 
 let dune_progress_to_status progress =
   match (progress : Dune_rpc.V1.Progress.t) with

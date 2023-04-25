@@ -41,15 +41,10 @@ let () =
         `Initial_build_benchmark_result
           watch_mode_initial_build_benchmark_result ) =
     Lwt_main.run
-      (Lwt.finalize
-         (fun () ->
-           Dune_session.with_build_complete_stream_in_watch_mode dune_session
-             ~build_target ~stdio_redirect ~f:(fun build_complete_stream ->
-               Scenario_runner.run_watch_mode_scenarios scenario_runner
-                 ~build_complete_stream))
-         (fun () ->
-           Scenario_runner.undo_all_changes scenario_runner;
-           Lwt.return_unit))
+      (Dune_session.with_build_complete_stream_in_watch_mode dune_session
+         ~build_target ~stdio_redirect ~f:(fun build_complete_stream ->
+           Scenario_runner.run_watch_mode_scenarios scenario_runner
+             ~build_complete_stream))
   in
   let benchmark_results =
     one_shot_benchmark_results

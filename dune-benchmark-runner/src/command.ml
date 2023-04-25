@@ -40,7 +40,3 @@ let run_background t ~stdio_redirect =
 
 let run_blocking_exn t ~stdio_redirect =
   run_background t ~stdio_redirect |> Running.wait_exn
-
-let run_blocking_stdout_string t =
-  let in_channel = Unix.open_process_args_in t.program (args_arr t) in
-  In_channel.input_all in_channel

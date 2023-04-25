@@ -31,7 +31,7 @@ let with_build_complete_stream_in_watch_mode t ~build_target ~stdio_redirect ~f
   in
   Lwt.finalize
     (fun () ->
-      Build_complete_stream.with_stream ~workspace_root:t.workspace_root
+      Build_complete_stream.with_ ~workspace_root:t.workspace_root
         ~f:(fun build_complete_stream ->
           Logs.info (fun m -> m "waiting for initial watch mode build");
           let timer = Timer.start () in

@@ -157,34 +157,18 @@ let make_change_and_wait_for_rebuild build_complete_stream
   Logs.info (fun m -> m "rebuild complete in %f secs" duration_secs);
   { Benchmark_result.name; duration_secs }
 
-let run_watch_mode_scenarios t ~build_complete_stream =
-  t.watch_mode_scenarios.schedule
-  |> Lwt_list.map_s (fun (watch_mode_file, change_type) ->
-         make_change_and_wait_for_rebuild build_complete_stream watch_mode_file
-           change_type)
-
 let undo_all_changes t =
   Logs.info (fun m -> m "undoing changes to files");
   Watch_mode_files.undo_all t.watch_mode_scenarios.files
 
-let convert_durations_into_benchmark_results t durations_in_order =
-  let watch_mode_scenario_descriptions =
-    t.watch_mode_scenarios.schedule
-    |> List.map (fun ((watch_mode_file : Watch_mode_file.t), change_type) ->
-           let verb = Watch_mode_scenarios.change_verb change_type in
-           Printf.sprintf "watch mode: %s file in %s" verb watch_mode_file.name)
-  in
-  let watch_mode_scenario_descriptions_including_initial_build =
-    "watch mode: initial build" :: watch_mode_scenario_descriptions
-  in
-  if
-    List.length watch_mode_scenario_descriptions_including_initial_build
-    <> List.length durations_in_order
-  then failwith "unexpected number of durations";
-  List.combine watch_mode_scenario_descriptions_including_initial_build
-    durations_in_order
-  |> List.map (fun (name, duration_micros) ->
-         {
-           Benchmark_result.name;
-           duration_secs = float_of_int duration_micros /. 1_000_000.0;
-         })
+let run_watch_mode_scenarios t ~build_complete_stream =
+  Lwt.finalize
+    (fun () ->
+      Lwt_list.map_s
+        (fun (watch_mode_file, change_type) ->
+          make_change_and_wait_for_rebuild build_complete_stream watch_mode_file
+            change_type)
+        t.watch_mode_scenarios.schedule)
+    (fun () ->
+      undo_all_changes t;
+      Lwt.return_unit)
