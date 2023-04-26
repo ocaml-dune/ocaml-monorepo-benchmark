@@ -5,7 +5,7 @@ package_stats:
 
 dist/packages: bin/dependency_closure.ml
 	mkdir -p dist
-	dune exec --display=quiet bin/dependency_closure.exe $(shell uname -m) > $@
+	dune exec --display=quiet bin/dependency_closure.exe -- --arch=$(shell uname -m) --allow-depexts > $@
 
 clean:
 	dune clean
