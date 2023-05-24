@@ -19,6 +19,7 @@ type t = {
   skip_clean : bool;
   skip_one_shot : bool;
   print_dune_output : bool;
+  num_short_job_repeats : int;
 }
 
 let parse () =
@@ -36,6 +37,7 @@ let parse () =
   let skip_clean = ref false in
   let skip_one_shot = ref false in
   let print_dune_output = ref false in
+  let num_short_job_repeats = ref 1 in
   let specs =
     [ dune_exe_path; build_target; monorepo_path ]
     |> List.map String_arg_req.spec
@@ -52,6 +54,10 @@ let parse () =
              Arg.Set print_dune_output,
              "display the stdandard output of dune when it is run in watch \
               mode (for debugging)" );
+           ( "--num-short-job-repeats",
+             Arg.Set_int num_short_job_repeats,
+             "number of times to repeat short benchmarking jobs (all jobs \
+              other than the initial build)" );
          ]
   in
   Arg.parse specs
@@ -65,4 +71,5 @@ let parse () =
     skip_clean = !skip_clean;
     skip_one_shot = !skip_one_shot;
     print_dune_output = !print_dune_output;
+    num_short_job_repeats = !num_short_job_repeats;
   }

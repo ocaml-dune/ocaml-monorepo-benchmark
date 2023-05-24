@@ -6,6 +6,7 @@ let () =
     skip_clean;
     skip_one_shot;
     print_dune_output;
+    num_short_job_repeats;
   } =
     Cli.parse ()
   in
@@ -33,22 +34,28 @@ let () =
         measure_one_shot_build "build from scratch"
       in
       Logs.info (fun m -> m "Rebuilding after making no changes");
-      let null_build_benchmark_result = measure_one_shot_build "null build" in
-      [ build_from_scratch_benchmark_result; null_build_benchmark_result ])
+      let null_build_benchmark_result =
+        List.init num_short_job_repeats (fun _ ->
+            measure_one_shot_build "null build")
+      in
+      build_from_scratch_benchmark_result :: null_build_benchmark_result)
   in
   let scenario_runner = Scenario_runner.create ~monorepo_path in
-  let ( watch_mode_benchmark_results,
-        `Initial_build_benchmark_result
-          watch_mode_initial_build_benchmark_result ) =
+  let watch_mode_benchmark_results =
     Lwt_main.run
-      (Dune_session.with_build_complete_stream_in_watch_mode dune_session
-         ~build_target ~stdio_redirect ~f:(fun build_complete_stream ->
-           Scenario_runner.run_watch_mode_scenarios scenario_runner
-             ~build_complete_stream))
+      (let open Lwt.Syntax in
+      let+ ( watch_mode_benchmark_results,
+             `Initial_build_benchmark_result
+               watch_mode_initial_build_benchmark_result ) =
+        Dune_session.with_build_complete_stream_in_watch_mode dune_session
+          ~build_target ~stdio_redirect ~f:(fun build_complete_stream ->
+            Scenario_runner.run_watch_mode_scenarios scenario_runner
+              ~build_complete_stream ~num_repeats:num_short_job_repeats)
+      in
+      watch_mode_initial_build_benchmark_result :: watch_mode_benchmark_results)
   in
   let benchmark_results =
-    one_shot_benchmark_results
-    @ (watch_mode_initial_build_benchmark_result :: watch_mode_benchmark_results)
+    one_shot_benchmark_results @ watch_mode_benchmark_results
   in
   print_endline
     (Yojson.pretty_to_string

@@ -12,6 +12,7 @@ val create : monorepo_path:string -> t
 val run_watch_mode_scenarios :
   t ->
   build_complete_stream:Build_complete_stream.t ->
+  num_repeats:int ->
   Benchmark_result.t list Lwt.t
 (** Run all the benchmarking scenarios. Scenarios will make modifications to
     some of the files under the workspace root used to construct [t] in order

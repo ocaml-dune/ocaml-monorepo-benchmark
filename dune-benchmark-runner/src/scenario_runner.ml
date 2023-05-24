@@ -161,14 +161,18 @@ let undo_all_changes t =
   Logs.info (fun m -> m "undoing changes to files");
   Watch_mode_files.undo_all t.watch_mode_scenarios.files
 
-let run_watch_mode_scenarios t ~build_complete_stream =
-  Lwt.finalize
-    (fun () ->
-      Lwt_list.map_s
-        (fun (watch_mode_file, change_type) ->
-          make_change_and_wait_for_rebuild build_complete_stream watch_mode_file
-            change_type)
-        t.watch_mode_scenarios.schedule)
-    (fun () ->
-      undo_all_changes t;
-      Lwt.return_unit)
+let run_watch_mode_scenarios t ~build_complete_stream ~num_repeats =
+  let open Lwt.Infix in
+  List.init num_repeats Fun.id
+  |> Lwt_list.map_s (fun _ ->
+         Lwt.finalize
+           (fun () ->
+             Lwt_list.map_s
+               (fun (watch_mode_file, change_type) ->
+                 make_change_and_wait_for_rebuild build_complete_stream
+                   watch_mode_file change_type)
+               t.watch_mode_scenarios.schedule)
+           (fun () ->
+             undo_all_changes t;
+             Lwt.return_unit))
+  >|= List.concat
