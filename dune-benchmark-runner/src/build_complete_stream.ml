@@ -14,6 +14,7 @@ module Rpc_client = struct
 
     let rec connect_retrying where =
       let open Lwt.Syntax in
+      let* () = Lwt_unix.sleep 0.5 in
       let* result = try_connect where in
       match result with
       | Ok chan ->
@@ -26,7 +27,6 @@ module Rpc_client = struct
               m "failed to connect to RPC server (%s): %s (retrying)"
                 (Dune_rpc_private.Where.to_string where)
                 (Printexc.to_string e));
-          let* () = Lwt_unix.sleep 0.5 in
           connect_retrying where
   end
 
