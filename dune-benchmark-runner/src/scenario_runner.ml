@@ -129,7 +129,7 @@ let create ~monorepo_path =
   { watch_mode_scenarios }
 
 let make_change_and_wait_for_rebuild build_complete_stream
-    (watch_mode_file : Watch_mode_file.t) change_type =
+    (watch_mode_file : Watch_mode_file.t) change_type iteration_count =
   let open Lwt.Syntax in
   let file_to_change = watch_mode_file.file_to_change in
   let verb = Watch_mode_scenarios.change_verb change_type in
@@ -143,7 +143,8 @@ let make_change_and_wait_for_rebuild build_complete_stream
   let name =
     Printf.sprintf "watch mode: %s file in %s" verb watch_mode_file.name
   in
-  Logs.info (fun m -> m "starting scenario: \"%s\"" name);
+  Logs.info (fun m ->
+      m "starting scenario: \"%s\" (iteration %d)" name iteration_count);
   Logs.info (fun m -> m "%s %s" verb file_to_change.path);
   File_to_change.write_text file_to_change text;
   let timer = Timer.start () in
@@ -164,13 +165,13 @@ let undo_all_changes t =
 let run_watch_mode_scenarios t ~build_complete_stream ~num_repeats =
   let open Lwt.Infix in
   List.init num_repeats Fun.id
-  |> Lwt_list.map_s (fun _ ->
+  |> Lwt_list.map_s (fun i ->
          Lwt.finalize
            (fun () ->
              Lwt_list.map_s
                (fun (watch_mode_file, change_type) ->
                  make_change_and_wait_for_rebuild build_complete_stream
-                   watch_mode_file change_type)
+                   watch_mode_file change_type i)
                t.watch_mode_scenarios.schedule)
            (fun () ->
              undo_all_changes t;

@@ -20,6 +20,7 @@ type t = {
   skip_one_shot : bool;
   print_dune_output : bool;
   num_short_job_repeats : int;
+  remove_outliers : int;
   include_watch_mode_initial_build : bool;
 }
 
@@ -39,6 +40,7 @@ let parse () =
   let skip_one_shot = ref false in
   let print_dune_output = ref false in
   let num_short_job_repeats = ref 1 in
+  let remove_outliers = ref 0 in
   let include_watch_mode_initial_build = ref false in
   let specs =
     [ dune_exe_path; build_target; monorepo_path ]
@@ -60,6 +62,14 @@ let parse () =
              Arg.Set_int num_short_job_repeats,
              "number of times to repeat short benchmarking jobs (all jobs \
               other than the initial build)" );
+           ( "--remove-outliers",
+             Arg.Set_int remove_outliers,
+             "number of benchmark result outliers to remove from both ends of \
+              the range of results for each benchmark with multiple results \
+              (e.g. if this is 1, the max and min results will be removed from \
+              each benchmark). This is to prevent outliers from skewing the \
+              mean result computed by current-bench. Benchmark results with \
+              only a single result are not affected by this flag." );
            ( "--include-watch-mode-initial-build",
              Arg.Set include_watch_mode_initial_build,
              "include the benchmark for the initial watch-mode build (excluded \
@@ -79,5 +89,6 @@ let parse () =
     skip_one_shot = !skip_one_shot;
     print_dune_output = !print_dune_output;
     num_short_job_repeats = !num_short_job_repeats;
+    remove_outliers = !remove_outliers;
     include_watch_mode_initial_build = !include_watch_mode_initial_build;
   }

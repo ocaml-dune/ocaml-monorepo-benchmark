@@ -7,6 +7,7 @@ let () =
     skip_one_shot;
     print_dune_output;
     num_short_job_repeats;
+    remove_outliers;
     include_watch_mode_initial_build;
   } =
     Cli.parse ()
@@ -34,12 +35,21 @@ let () =
       let build_from_scratch_benchmark_result =
         measure_one_shot_build "build from scratch"
       in
-      Logs.info (fun m -> m "Rebuilding after making no changes");
-      let null_build_benchmark_result =
-        List.init num_short_job_repeats (fun _ ->
-            measure_one_shot_build "null build")
+      Logs.info (fun m ->
+          m "complete after %fs"
+            build_from_scratch_benchmark_result.duration_secs);
+      let null_build_benchmark_results =
+        List.init num_short_job_repeats (fun i ->
+            Logs.info (fun m ->
+                m "Rebuilding after making no changes (iteration %d)" i);
+            let null_build_benchmark_result =
+              measure_one_shot_build "null build"
+            in
+            Logs.info (fun m ->
+                m "complete after %fs" null_build_benchmark_result.duration_secs);
+            null_build_benchmark_result)
       in
-      build_from_scratch_benchmark_result :: null_build_benchmark_result)
+      build_from_scratch_benchmark_result :: null_build_benchmark_results)
   in
   let scenario_runner = Scenario_runner.create ~monorepo_path in
   let watch_mode_benchmark_results =
@@ -61,6 +71,13 @@ let () =
   let benchmark_results =
     one_shot_benchmark_results @ watch_mode_benchmark_results
   in
+  let benchmark_result_groups =
+    Benchmark_result.Group.list_of_benchmark_results benchmark_results
+    |> List.map
+         (Benchmark_result.Group.remove_outliers
+            ~num_outliers_to_remove:remove_outliers)
+  in
   print_endline
     (Yojson.pretty_to_string
-       (Benchmark_result.list_to_current_bench_json benchmark_results))
+       (Benchmark_result.Group.list_to_current_bench_json
+          benchmark_result_groups))
