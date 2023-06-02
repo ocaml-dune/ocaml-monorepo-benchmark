@@ -7,6 +7,7 @@ let () =
     skip_one_shot;
     print_dune_output;
     num_short_job_repeats;
+    include_watch_mode_initial_build;
   } =
     Cli.parse ()
   in
@@ -52,7 +53,10 @@ let () =
             Scenario_runner.run_watch_mode_scenarios scenario_runner
               ~build_complete_stream ~num_repeats:num_short_job_repeats)
       in
-      watch_mode_initial_build_benchmark_result :: watch_mode_benchmark_results)
+      (if include_watch_mode_initial_build then
+       [ watch_mode_initial_build_benchmark_result ]
+      else [])
+      @ watch_mode_benchmark_results)
   in
   let benchmark_results =
     one_shot_benchmark_results @ watch_mode_benchmark_results

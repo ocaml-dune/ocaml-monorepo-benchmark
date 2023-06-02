@@ -6,6 +6,7 @@ type t = {
   skip_one_shot : bool;
   print_dune_output : bool;
   num_short_job_repeats : int;
+  include_watch_mode_initial_build : bool;
 }
 
 val parse : unit -> t

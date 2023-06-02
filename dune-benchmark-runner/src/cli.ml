@@ -20,6 +20,7 @@ type t = {
   skip_one_shot : bool;
   print_dune_output : bool;
   num_short_job_repeats : int;
+  include_watch_mode_initial_build : bool;
 }
 
 let parse () =
@@ -38,6 +39,7 @@ let parse () =
   let skip_one_shot = ref false in
   let print_dune_output = ref false in
   let num_short_job_repeats = ref 1 in
+  let include_watch_mode_initial_build = ref false in
   let specs =
     [ dune_exe_path; build_target; monorepo_path ]
     |> List.map String_arg_req.spec
@@ -58,6 +60,11 @@ let parse () =
              Arg.Set_int num_short_job_repeats,
              "number of times to repeat short benchmarking jobs (all jobs \
               other than the initial build)" );
+           ( "--include-watch-mode-initial-build",
+             Arg.Set include_watch_mode_initial_build,
+             "include the benchmark for the initial watch-mode build (excluded \
+              by default as it's similar to the null build benchmark but can't \
+              be run multiple times to reduce noise)" );
          ]
   in
   Arg.parse specs
@@ -72,4 +79,5 @@ let parse () =
     skip_one_shot = !skip_one_shot;
     print_dune_output = !print_dune_output;
     num_short_job_repeats = !num_short_job_repeats;
+    include_watch_mode_initial_build = !include_watch_mode_initial_build;
   }
