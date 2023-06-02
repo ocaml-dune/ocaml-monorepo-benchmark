@@ -77,4 +77,6 @@ let wait_for_next_build_complete_opt progress_stream =
 
 let wait_for_next_build_complete p =
   let open Lwt.Infix in
-  wait_for_next_build_complete_opt p >|= Option.get
+  wait_for_next_build_complete_opt p >|= function
+  | Some complete -> complete
+  | None -> failwith "dune progress stream closed unexpectedly"
