@@ -30,6 +30,11 @@ This is necessary for two reasons:
 
 ## Repo Revisions
 
+The contents of this directory was generated using the tools in ../generate in a
+partially manual process. For the sake of reproducability, the revision of this
+repo and its submodules that were used to generate the current version of the
+benchmark in this directory are listed here.
+
 - this repo 5092b85bcde75807bf81f7e76a577c2d93b35ea2
 - opam-overlays d4092e1baab603ae787bca8ba677035568852d64
 - opam-repository 0fd96b90e04599bcce3b6ae8ba54febdafeddb11
