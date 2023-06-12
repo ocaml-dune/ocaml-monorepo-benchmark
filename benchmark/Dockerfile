@@ -1,17 +1,17 @@
 # Creates a monorepo out of packages in opam and builds it with dune
 
-FROM debian
+FROM debian:stable-20230522
 
 # Enable non-free packages
 RUN sed -i '/^deb/ s/$/ non-free/' /etc/apt/sources.list
 
 # Install tools and system dependencies of packages
-RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN apt-get update -y && apt-get upgrade -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   build-essential \
+  sudo \
   pkg-config \
   opam \
-  neovim \
-  sudo \
+  wget \
   autoconf \
   zlib1g-dev \
   libcairo2-dev \
@@ -35,7 +35,6 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   google-perftools \
   libgoogle-perftools-dev \
   libglew-dev \
-  wget \
   guile-3.0-dev \
   portaudio19-dev \
   libglpk-dev \
@@ -103,7 +102,6 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   liblz4-dev \
   liblilv-dev \
   libopenexr-dev \
-  tmux \
   llvm \
   libclang-dev \
   libmaxminddb-dev \
@@ -115,6 +113,8 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y \
   qtdeclarative5-dev \
   libgpiod-dev \
   libzstd-dev \
+  neovim \
+  tmux \
   ;
 
 # create a non-root user
@@ -133,7 +133,7 @@ RUN opam install -y dune ocamlbuild
 
 # make an opam switch for preparing the files for the benchmark
 RUN opam switch create prepare 4.14.1
-RUN opam install -y opam-monorepo ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith stdcompat refl
+RUN opam install -y opam-monorepo ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith stdcompat refl yojson logs fmt
 
 # Copy the files needed to sync the duniverse repos. This is done as a separate
 # step to coping the rest of the files needed for the monorepo so that those
