@@ -1,2 +1,18 @@
 (lang dune 3.5)
-(name ocaml-monorepo-benchmark-runner)
+(generate_opam_files true)
+(name dune-monorepo-benchmark-runner)
+
+(authors "Stephen Sherratt")
+(maintainers "https://github.com/ocaml-dune/ocaml-monorepo-benchmark/issues")
+(bug_reports "https://github.com/ocaml-dune/ocaml-monorepo-benchmark/issues")
+(homepage "https://github.com/ocaml-dune/ocaml-monorepo-benchmark/dune-monorepo-benchmark-runner")
+
+(package
+ (name dune-monorepo-benchmark-runner)
+ (synopsis "Tool for running dune monorepo benchmarks")
+ (depends
+  (dune-rpc-lwt (>= "3.8"))
+  (fmt (>= "0.9"))
+  (logs (>= "0.7"))
+  (re (>= "1.10"))
+  (yojson (>= "2.1"))))

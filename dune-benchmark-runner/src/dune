@@ -1,3 +1,4 @@
 (executable
   (name main)
+  (public_name dune-monorepo-benchmark-runner)
   (libraries unix logs logs.fmt re yojson dune-rpc dune-rpc-lwt))
