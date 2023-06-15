@@ -46,7 +46,7 @@ jobs:
         working-directory: /tmp/x
         run: bash --login -c "dune exec ./hello.exe"
 
-  dune-benchmark-runner-test:
+  dune-monorepo-benchmark-runner-test:
     name: Dune Benchmark Runner Test
     runs-on: ubuntu-latest
     steps:
@@ -60,11 +60,11 @@ jobs:
       - name: Pin dune-rpc-lwt to fix bug in latest released version
         run: opam pin add -y dune-rpc-lwt git+https://github.com/ocaml/dune
       - name: Build benchmark runner
-        working-directory: dune-benchmark-runner
+        working-directory: dune-monorepo-benchmark-runner
         run: bash --login -c "dune build"
       - name: Set up small monorepo
         working-directory: small-monorepo
         run: opam monorepo pull || opam monorepo pull || opam monorepo pull
       - name: Run benchmark
-        working-directory: dune-benchmark-runner
+        working-directory: dune-monorepo-benchmark-runner
         run: bash --login -c "_build/default/src/main.exe --dune-exe-path=\$(which dune) --monorepo-path=\$(realpath ../small-monorepo) --build-target=./small_monorepo.exe"
