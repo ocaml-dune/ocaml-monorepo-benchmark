@@ -8,12 +8,13 @@ homepage:
 bug-reports: "https://github.com/ocaml-dune/ocaml-monorepo-benchmark/issues"
 depends: [
   "dune" {>= "3.5"}
-  "ocaml" {>= "4.14"}
-  "dune-rpc-lwt" {>= "3.8" & < "3.9"}
-  "fmt" {>= "0.9" & < "0.10"}
-  "logs" {>= "0.7" & < "0.8"}
-  "re" {>= "1.10" & < "1.11"}
-  "yojson" {>= "2.1" & < "2.2"}
+  "ocaml" {= "4.14.1"}
+  "dune-rpc-lwt"
+  "lwt" {= "5.6.1"}
+  "fmt" {= "0.9.0"}
+  "logs" {= "0.7.0"}
+  "re" {= "1.10.4"}
+  "yojson" {= "2.1.0"}
   "odoc" {with-doc}
 ]
 build: [
