@@ -15,4 +15,4 @@ jobs:
       - name: Setup opam
         run: opam init --disable-sandboxing --auto-setup && opam switch create 4.14.1
       - name: Build the benchmark runner
-        run: opam install ./dune-monorepo-benchmark-runner
+        run: opam install ./dune-monorepo-benchmark-runner -y
