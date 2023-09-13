@@ -1,0 +1,14 @@
+diff --git a/dune-project b/dune-project
+index 7f41a3d..e13acc5 100644
+--- a/dune-project
++++ b/dune-project
+@@ -1,7 +1,7 @@
+-(lang dune 3.2)
++(lang dune 3.7)
+ 
+ (generate_opam_files true)
+-(using ctypes 0.1)
++(using ctypes 0.3)
+ 
+ (maintainers "François Bobot")
+ (authors "François Bobot")

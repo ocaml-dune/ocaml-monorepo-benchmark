@@ -1,0 +1,15 @@
+diff --git a/dune-project b/dune-project
+index e22406b..d566734 100644
+--- a/dune-project
++++ b/dune-project
+@@ -1,8 +1,8 @@
+-(lang dune 3.0)
++(lang dune 3.7)
+ 
+ (cram enable)
+ (generate_opam_files true)
+-(using ctypes 0.1)
++(using ctypes 0.3)
+ ;(strict_package_deps true)
+ 
+ (source (uri "git+https://git.frama-c.com/pub/colibrics.git"))

@@ -1,0 +1,14 @@
+diff --git a/dune-project b/dune-project
+index e01443e..be1f465 100644
+--- a/dune-project
++++ b/dune-project
+@@ -1,7 +1,7 @@
+-(lang dune 3.0)
++(lang dune 3.7)
+ (formatting (enabled_for ocaml))
+ (cram enable)
+-(using ctypes 0.1)
++(using ctypes 0.3)
+ (package (name internal-devtools))
+ (package (name octez-accuser-PtKathma))
+ (package (name octez-accuser-PtLimaPt))

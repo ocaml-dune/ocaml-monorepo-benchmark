@@ -1,0 +1,17 @@
+diff --git a/dune-project b/dune-project
+index c4920c1..2e0a624 100644
+--- a/dune-project
++++ b/dune-project
+@@ -1,10 +1,10 @@
+-(lang dune 3.2)
++(lang dune 3.7)
+ 
+ ; SPDX-FileCopyrightText: 2022 pukkamustard <pukkamustard@posteo.net>
+ ;
+ ; SPDX-License-Identifier: CC0-1.0
+ 
+-(using ctypes 0.1)
++(using ctypes 0.3)
+ 
+ (name eris)
+ 
