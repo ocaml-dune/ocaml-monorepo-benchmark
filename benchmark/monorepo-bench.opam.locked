@@ -7326,7 +7326,7 @@ pin-depends: [
     "lua_parser.1.0.2"
     "https://github.com/drjdn/ocaml_lua_parser/archive/1.0.2.tar.gz"
   ]
-  ["lucid.0.1.5" "https://github.com/gridbugs/opam-source-archives/raw/missing-packages-2023-09-13/lucid-0.1.5.tar.gz"]
+  ["lucid.0.1.5" "https://raw.githubusercontent.com/ocaml/opam-source-archives/HEAD/lucid-0.1.5.tar.gz"]
   [
     "lustre-v6.6.107.1"
     "https://github.com/ocaml/opam-source-archives/raw/main/lustre-v6.v6.107.1.tgz"
@@ -9638,7 +9638,7 @@ pin-depends: [
     "rope.0.6.2"
     "https://github.com/Chris00/ocaml-rope/releases/download/0.6.2/rope-0.6.2.tbz"
   ]
-  ["rosa.0.2.0" "https://github.com/gridbugs/opam-source-archives/raw/missing-packages-2023-09-13/rosa-0.2.0.tar.gz"]
+  ["rosa.0.2.0" "https://raw.githubusercontent.com/ocaml/opam-source-archives/HEAD/rosa-0.2.0.tar.gz"]
   [
     "rosetta.0.3.0"
     "https://github.com/mirage/rosetta/releases/download/v0.3.0/rosetta-v0.3.0.tbz"
@@ -9919,7 +9919,7 @@ pin-depends: [
     "https://github.com/anuragsoni/shuttle/releases/download/0.9.1/shuttle-0.9.1.tbz"
   ]
   ["sifun.3.0.0" "https://github.com/kkd26/SiFun/archive/3.0.0.tar.gz"]
-  ["simlog.0.0.3" "https://github.com/gridbugs/opam-source-archives/raw/missing-packages-2023-09-13/simlog-0.0.3.tar.gz"]
+  ["simlog.0.0.3" "https://raw.githubusercontent.com/ocaml/opam-source-archives/HEAD/simlog-0.0.3.tar.gz"]
   [
     "simple63.1"
     "https://github.com/barko/simple63/releases/download/v1/simple63-v1.tbz"
@@ -14891,7 +14891,7 @@ x-opam-monorepo-duniverse-dirs: [
     ]
   ]
   [
-    "https://github.com/gridbugs/opam-source-archives/raw/missing-packages-2023-09-13/lucid-0.1.5.tar.gz"
+    "https://raw.githubusercontent.com/ocaml/opam-source-archives/HEAD/lucid-0.1.5.tar.gz"
     "Lucid"
     [
       "md5=a9ea439ccba707b5a206cf2a316caeda"
@@ -14899,7 +14899,7 @@ x-opam-monorepo-duniverse-dirs: [
     ]
   ]
   [
-    "https://github.com/gridbugs/opam-source-archives/raw/missing-packages-2023-09-13/rosa-0.2.0.tar.gz"
+    "https://raw.githubusercontent.com/ocaml/opam-source-archives/HEAD/rosa-0.2.0.tar.gz"
     "Rosa"
     [
       "md5=bcda7e412ae9de54994243b252f25a9e"
@@ -16312,7 +16312,7 @@ x-opam-monorepo-duniverse-dirs: [
     ]
   ]
   [
-    "https://github.com/gridbugs/opam-source-archives/raw/missing-packages-2023-09-13/simlog-0.0.3.tar.gz"
+    "https://raw.githubusercontent.com/ocaml/opam-source-archives/HEAD/simlog-0.0.3.tar.gz"
     "simlog"
     [
       "md5=ad5996746f01fd105b6c315e1293ecc3"
