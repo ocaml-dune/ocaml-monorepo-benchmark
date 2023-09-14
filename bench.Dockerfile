@@ -1,5 +1,3 @@
-# Creates a monorepo out of packages in opam and builds it with dune
-
 FROM debian:stable-20230522
 
 # Enable non-free packages
@@ -127,46 +125,14 @@ WORKDIR $HOME
 # set up opam
 RUN opam init --disable-sandboxing --auto-setup
 
-# make an opam switch for running benchmarks
-RUN opam switch create bench 4.14.1
-RUN opam install -y dune ocamlbuild
+# make a switch for running the benchmarks
+RUN opam switch create bench 4.14.1 dune ocamlbuild
 
-# make an opam switch for preparing the files for the benchmark
-RUN opam switch create prepare 4.14.1
-RUN opam install -y opam-monorepo ppx_sexp_conv ocamlfind ctypes ctypes-foreign re sexplib menhir camlp-streams zarith stdcompat refl yojson logs fmt
+# copy the directories containing the benchmark and benchmark runner
+ADD --chown=user:users benchmark benchmark
+ADD --chown=user:users dune-monorepo-benchmark-runner/src dune-monorepo-benchmark-runner/src
+ADD --chown=user:users dune-monorepo-benchmark-runner/dune-monorepo-benchmark-runner.opam dune-monorepo-benchmark-runner/dune-monorepo-benchmark-runner.opam
+ADD --chown=user:users dune-monorepo-benchmark-runner/dune-project dune-monorepo-benchmark-runner/dune-project
 
-# Copy the files needed to sync the duniverse repos. This is done as a separate
-# step to coping the rest of the files needed for the monorepo so that those
-# files can be changed without invalidating the docker cache. Syncing the
-# duniverse repos takes a long time so we want to do it as early as possible to
-# make the most of caching.
-RUN mkdir -p $HOME/monorepo-bench
-WORKDIR $HOME/monorepo-bench
-COPY --chown=user:users monorepo-bench.opam .
-COPY --chown=user:users monorepo-bench.opam.locked .
-
-# Running `opam monorepo pull` with a large package set is very likely to fail on at least
-# one package in a non-deterministic manner. Repeating it several times reduces the chance
-# that all attempts fail.
-RUN opam monorepo pull || opam monorepo pull || opam monorepo pull
-
-# Initialize some projects' source code
-RUN . ~/.profile && cd duniverse/clangml && ./configure
-RUN cd duniverse/zelus && ./configure
-RUN rm -rf duniverse/magic-trace/vendor
-RUN cd duniverse/cpu && autoconf && autoheader && ./configure
-RUN cd duniverse/setcore && autoconf && autoheader && ./configure
-RUN cd duniverse/batsat-ocaml && ./build_rust.sh
-
-# Some packages define conflicting definitions of libraries so they must be removed for the build to succeed
-RUN rm -r duniverse/coq-of-ocaml
-RUN rm -r duniverse/coq
-
-# Copy the remaininder of the files needed for the monorepo benchmark
-ADD --chown=user:users . .
-
-# Apply some custom packages to some packages
-RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); echo Applying $p; patch -p1 -d duniverse/$p < $f; done'
-
-# Change to the benchmarking switch to run the benchmark
-RUN opam switch bench
+RUN opam install -y ./dune-monorepo-benchmark-runner
+WORKDIR $HOME/benchmark

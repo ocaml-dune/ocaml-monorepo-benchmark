@@ -6,10 +6,10 @@
 
 set -eux
 
-OUTPUT_DIR=$1
-
+OUTPUT_DIR=$(realpath $1)
+rm -rf $OUTPUT_DIR/duniverse
 pushd benchmark > /dev/null
-docker build . --tag=generate-duniverse
+docker build . --tag=generate-duniverse -f assemble.Dockerfile
 popd > /dev/null
 
 docker run --rm -it --volume=$OUTPUT_DIR:/output_dir generate-duniverse sudo cp -a duniverse /output_dir
