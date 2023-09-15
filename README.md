@@ -130,7 +130,7 @@ the dune repo. This is included as a way of testing the full monorepo benchmark
 on its own. For info on how the benchmark runs on dune PRs, see the
 [documentation in the dune repo](https://github.com/ocaml/dune/tree/main/bench/monorepo).
 
-## Generating the Benchmark
+## Generating the Benchmark Monorepo
 
 The tools in the `generate` directory are for generating the monorepo. This
 involves creating the opam file listing package dependencies, opam monorepo
