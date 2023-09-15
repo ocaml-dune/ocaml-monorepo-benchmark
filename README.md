@@ -129,3 +129,27 @@ Note that this process differs slightly from the way that benchmarks are run in
 the dune repo. This is included as a way of testing the full monorepo benchmark
 on its own. For info on how the benchmark runs on dune PRs, see the
 [documentation in the dune repo](https://github.com/ocaml/dune/tree/main/bench/monorepo).
+
+## Generating the Benchmark
+
+The tools in the `generate` directory are for generating the monorepo. This
+involves creating the opam file listing package dependencies, opam monorepo
+lockfile with more specific package information and deterministic behaviour, and
+a dune file listing library dependencies. The process of regenerating the
+monorepo involves generating as large a set of co-installable package as
+possible according to opam metadata, then using `opam monorepo lock` to verify that they are in-fact
+co-installable and generate a lockfile. Finally, the libraries contained
+within each package (packages may contain multiple libraries) are enumerated and
+added to a dune file as dependencies.
+
+However, despite the metadata in opam about mutual incompatibility of packages,
+some libraries fail to build in the presence of other libraries from other
+packages. Also, some libraries can't be built from a vendored setting such as a
+monorepo. Also some libraries are mutually exclusive with other libraries from
+the same package (e.g. multiple implementations of the same interface). For this
+reason, the `generate/bench-proj/tools/library-ignore-list.sexp` file lists all
+the libraries to be excluded from the library dependencies of the dune project.
+This list was constructed manually by a process of trial and error. Whenever the
+monorepo is regenerated this list will need to be updated (by hand).
+
+There's more information about monorepo generation in `generate/README.md`.

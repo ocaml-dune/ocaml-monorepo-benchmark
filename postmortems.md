@@ -47,3 +47,18 @@ This problem coincided with several unrelated issues with the current-bench
 benchmarking service which led to frequent failures running dune's benchmarks.
 This led to alert fatigue among dune developers resulting in us rarely checking
 the reasons for benchmarks failing.
+
+### Preventing this type of outage in the future
+
+There's two changes coming that will make this type of problem less frequent:
+ - excluding packages from the monorepo if they depend on experimental plugins
+   (note added to this repo's `todo.md` file). We'll make this change next time
+   the monorepo is regenerated.
+ - improved stability of current-bench (the benchmarking tool used to run the
+   monorepo benchmark on dune PRs). If the dune developers looked into every
+   benchmark failure on PRs then this could have been caught before the PR was
+   merged, but it's not practical to expect the culture of ignoring benchmark
+   failures to change until current-bench stability improves. At the time of
+   this outage most benchmarking failures on dune PRs are due to internal errors
+   in current-bench infrastructure and not related to PR content. Work to
+   improve the stability of current-bench infrastructure is ongoing.
