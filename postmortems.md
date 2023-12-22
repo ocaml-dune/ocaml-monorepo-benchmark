@@ -1,5 +1,26 @@
 # Postmortems
 
+## 2023-12-22
+
+### Problem
+
+On 2023-12-21 [dune/9472](https://github.com/ocaml/dune/pull/9472) was merged.
+This change added some constraints on valid package names in dependencies in
+dune-project files. Two packages in the monorepo had invalid dependency names in
+their dune-project files (`baguette_sharp` and `codept`). These packages failed
+to build causing the monorepo benchmark to fail to run.
+
+### Solution
+
+Patches were added to the monorepo benchmark to fix the dependency names in the
+affected packages.
+
+### Additional complications deploying the solution
+
+Several package sources were unavailable when building the monorepo locally for
+local testing: `base32`, `cborl`, `monocypher` and `mugen`. Cached versions of
+these packages have been added to the opam source archives.
+
 ## 2023-09-12
 
 ### Problem
