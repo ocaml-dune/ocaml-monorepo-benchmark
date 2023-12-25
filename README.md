@@ -63,6 +63,10 @@ Some packages contain custom configuration scripts that must be run before they
 can be build with dune. These were found by a process of trial and error. See
 `benchmark/Dockerfile` for details.
 
+Note that patches are not applied when assembling the monorepo and must be
+applied before running benchmarks. This is so that patches can be updated and
+added without requiring the monorepo to be reassembled.
+
 ## Fixing Broken Packages
 
 It's very likely that while generating the duniverse directory the `opam
