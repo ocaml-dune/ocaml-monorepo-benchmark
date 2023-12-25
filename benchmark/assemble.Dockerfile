@@ -60,6 +60,3 @@ RUN rm -r duniverse/coq
 
 # Copy the patches into the image
 ADD --chown=user:users patches patches
-
-# Apply some custom packages to some packages
-RUN bash -c 'for f in patches/*; do p=$(basename ${f%.diff}); echo Applying $p; patch -p1 -d duniverse/$p < $f; done'
