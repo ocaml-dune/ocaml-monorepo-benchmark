@@ -1,98 +1,52 @@
 module File_to_change = struct
   type t = {
+    name : string;
     path : string;
     original_text : string;
     new_text : string;
     error_text : string;
-    fix_error_text : string;
   }
 
   let write_text { path; _ } text = Text_file.write ~path ~data:text
 
   let undo_change { path; original_text; _ } =
     Text_file.write ~path ~data:original_text
-end
 
-module Watch_mode_file = struct
-  type t = { file_to_change : File_to_change.t; name : string }
+  let of_watch_file_to_change ~duniverse_dir
+      {
+        Watch_mode_file_to_change.name;
+        path_relative_to_duniverse;
+        text_to_replace;
+        text_changed_valid;
+        text_changed_invalid;
+      } =
+    let path =
+      Printf.sprintf "%s/%s" duniverse_dir path_relative_to_duniverse
+    in
+    let original_text = Text_file.read ~path in
+    let new_text =
+      Re.replace_string
+        (Re.Posix.re text_to_replace |> Re.compile)
+        ~by:text_changed_valid original_text
+    in
+    let error_text =
+      Re.replace_string
+        (Re.Posix.re text_to_replace |> Re.compile)
+        ~by:text_changed_invalid original_text
+    in
+    { name; path; original_text; new_text; error_text }
 end
 
 module Watch_mode_files = struct
-  type t = { base : Watch_mode_file.t; file_path : Watch_mode_file.t }
-
-  let all { base; file_path } = [ base; file_path ]
+  type t = File_to_change.t list
 
   let init ~duniverse_dir =
-    let base =
-      let path = Printf.sprintf "%s/base/src/list.ml" duniverse_dir in
-      let original_text = Text_file.read ~path in
-      let new_text =
-        Re.replace_string
-          (Re.Posix.re "let to_list t = t" |> Re.compile)
-          ~by:"let to_list t = print_endline \"hi\"; t" original_text
-      in
-      let error_text =
-        Re.replace_string
-          (Re.Posix.re "let to_list t = t" |> Re.compile)
-          ~by:"let to_list t = print_endline \"hello; t" original_text
-      in
-      let fix_error_text =
-        Re.replace_string
-          (Re.Posix.re "let to_list t = t" |> Re.compile)
-          ~by:"let to_list t = print_endline \"hello\"; t" original_text
-      in
-      {
-        Watch_mode_file.file_to_change =
-          {
-            File_to_change.path;
-            original_text;
-            new_text;
-            error_text;
-            fix_error_text;
-          };
-        name = "'base' library";
-      }
-    in
-    let file_path =
-      let path = Printf.sprintf "%s/file_path/src/path.ml" duniverse_dir in
-      let original_text = Text_file.read ~path in
-      let new_text =
-        Re.replace_string
-          (Re.Posix.re "let root = of_absolute Absolute.root" |> Re.compile)
-          ~by:"let root = print_endline \"hi\"; of_absolute Absolute.root"
-          original_text
-      in
-      let error_text =
-        Re.replace_string
-          (Re.Posix.re "let root = of_absolute Absolute.root" |> Re.compile)
-          ~by:"let root = print_endline \"hello; of_absolute Absolute.root"
-          original_text
-      in
-      let fix_error_text =
-        Re.replace_string
-          (Re.Posix.re "let root = of_absolute Absolute.root" |> Re.compile)
-          ~by:"let root = print_endline \"hello\"; of_absolute Absolute.root"
-          original_text
-      in
-      {
-        Watch_mode_file.file_to_change =
-          {
-            File_to_change.path;
-            original_text;
-            new_text;
-            error_text;
-            fix_error_text;
-          };
-        name = "'file_path' library";
-      }
-    in
-    { base; file_path }
+    List.map
+      (File_to_change.of_watch_file_to_change ~duniverse_dir)
+      Watch_mode_scenarios.scenarios
 
   let undo_all t =
-    List.iter
-      (fun scenario ->
-        File_to_change.undo_change scenario.Watch_mode_file.file_to_change)
-      (all t)
+    List.iter (fun scenario -> File_to_change.undo_change scenario) t
 end
 
 module Watch_mode_scenarios = struct
@@ -105,7 +59,7 @@ module Watch_mode_scenarios = struct
 
   type t = {
     files : Watch_mode_files.t;
-    schedule : (Watch_mode_file.t * change) list;
+    schedule : (File_to_change.t * change) list;
   }
 
   let init ~duniverse_dir =
@@ -114,7 +68,7 @@ module Watch_mode_scenarios = struct
       List.concat_map
         (fun f ->
           [ (f, `Benign_change); (f, `Introduce_error); (f, `Fix_error) ])
-        (Watch_mode_files.all files)
+        files
     in
     { files; schedule }
 end
@@ -129,19 +83,18 @@ let create ~monorepo_path =
   { watch_mode_scenarios }
 
 let make_change_and_wait_for_rebuild build_complete_stream
-    (watch_mode_file : Watch_mode_file.t) change_type iteration_count =
+    (file_to_change : File_to_change.t) change_type iteration_count =
   let open Lwt.Syntax in
-  let file_to_change = watch_mode_file.file_to_change in
   let verb = Watch_mode_scenarios.change_verb change_type in
   let text, expected_status =
     match change_type with
     | `Benign_change ->
         (file_to_change.new_text, Build_complete_stream.Status.Success)
     | `Introduce_error -> (file_to_change.error_text, Failed)
-    | `Fix_error -> (file_to_change.fix_error_text, Success)
+    | `Fix_error -> (file_to_change.original_text, Success)
   in
   let name =
-    Printf.sprintf "watch mode: %s file in %s" verb watch_mode_file.name
+    Printf.sprintf "watch mode: %s file in %s" verb file_to_change.name
   in
   Logs.info (fun m ->
       m "starting scenario: \"%s\" (iteration %d)" name iteration_count);

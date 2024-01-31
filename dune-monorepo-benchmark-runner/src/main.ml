@@ -55,18 +55,18 @@ let () =
   let watch_mode_benchmark_results =
     Lwt_main.run
       (let open Lwt.Syntax in
-      let+ ( watch_mode_benchmark_results,
-             `Initial_build_benchmark_result
-               watch_mode_initial_build_benchmark_result ) =
-        Dune_session.with_build_complete_stream_in_watch_mode dune_session
-          ~build_target ~stdio_redirect ~f:(fun build_complete_stream ->
-            Scenario_runner.run_watch_mode_scenarios scenario_runner
-              ~build_complete_stream ~num_repeats:num_short_job_repeats)
-      in
-      (if include_watch_mode_initial_build then
-       [ watch_mode_initial_build_benchmark_result ]
-      else [])
-      @ watch_mode_benchmark_results)
+       let+ ( watch_mode_benchmark_results,
+              `Initial_build_benchmark_result
+                watch_mode_initial_build_benchmark_result ) =
+         Dune_session.with_build_complete_stream_in_watch_mode dune_session
+           ~build_target ~stdio_redirect ~f:(fun build_complete_stream ->
+             Scenario_runner.run_watch_mode_scenarios scenario_runner
+               ~build_complete_stream ~num_repeats:num_short_job_repeats)
+       in
+       (if include_watch_mode_initial_build then
+          [ watch_mode_initial_build_benchmark_result ]
+        else [])
+       @ watch_mode_benchmark_results)
   in
   let benchmark_results =
     one_shot_benchmark_results @ watch_mode_benchmark_results
