@@ -11,8 +11,8 @@
  (name dune-monorepo-benchmark-runner)
  (synopsis "Tool for running dune monorepo benchmarks")
  (depends
-  ; This is constrained since the monorepo was assembled with this version of ocaml
-  (ocaml (= "4.14.1"))
+  ; Left unconstrained so that it's possible to update the test version of dune
+  (ocaml (>= 4.14))
   ; No version constraint here since it will need to build with the latest
   ; version of dune anyway since in practice this will be re-built with dune
   ; pinned to the version being benchmarked.
