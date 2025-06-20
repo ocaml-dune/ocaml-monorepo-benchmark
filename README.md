@@ -1,3 +1,9 @@
+_This repo is archived as the monorepo benchmark has been
+[removed](https://github.com/ocaml/dune/pull/11930#event-18247855813) from
+dune._
+
+---
+
 # Ocaml Monorepo Benchmark
 
 [![test status](https://github.com/ocaml-dune/ocaml-monorepo-benchmark/actions/workflows/test.yml/badge.svg)](https://github.com/ocaml-dune/ocaml-monorepo-benchmark/actions/workflows/test.yml)
