@@ -1,5 +1,5 @@
 _This repo is archived as the monorepo benchmark has been
-[removed](https://github.com/ocaml/dune/pull/11930#event-18247855813) from
+[removed](https://github.com/ocaml/dune/pull/11930) from
 dune._
 
 ---
